@@ -1,23 +1,29 @@
-import 'file:///D:/Workspace/rawg/lib/client/client.request.model.dart';
-import 'package:rawg/models/page.data.model.dart';
+import 'package:rawg/client/game.client.dart';
+import 'package:rawg/models/game.model.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class HomePageState extends StatesRebuilder {
   static HomePageState homePageState = HomePageState();
 
   bool isLoading = false;
-  ClientRequest clientRequest = ClientRequest();
-  List<ListOfGames> allGamesObjects = [];
+  int pageNumber = 0;
+  List<Game> listOfGames = [];
 
-  loadPage() {
-    isLoading = false;
-    clientRequest.getPage().then((value) {
-      print(value);
-      isLoading = true;
-      allGamesObjects.addAll(value);
+  loadNextPage() {
+    print("calling $pageNumber page");
+    pageNumber++;
+    isLoading = true;
+    print("calling $pageNumber page");
+    GameClient.instance.loadGamesOnPage(pageNumber).then((value) {
+      isLoading = false;
+      List<Game> listOfGamePerPage = value;
+      listOfGames.addAll(listOfGamePerPage);
       rebuildStates();
-      // print("${value[0].gameNames}");
+    }).catchError((error) {
+      isLoading = false;
+      print(error);
     });
+
     rebuildStates();
   }
 }

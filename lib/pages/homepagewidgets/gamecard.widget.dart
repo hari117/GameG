@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:rawg/models/game.model.dart';
 import 'package:rawg/models/page.data.model.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 
 class GameCard extends StatelessWidget {
   HomePageState homeState = HomePageState.homePageState;
-  ListOfGames gameObject;
+  Game game;
 
-  GameCard(this.gameObject);
+  GameCard(this.game);
 
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +21,7 @@ class GameCard extends StatelessWidget {
             width: double.infinity,
             height: 200,
             child: Image.network(
-              "${gameObject.backgroundGameImages[0]}",
+              "${game.imageUrl}",
               fit: BoxFit.cover,
             ),
           ),
@@ -28,7 +29,7 @@ class GameCard extends StatelessWidget {
             height: 120,
             color: Colors.indigoAccent,
             child: Center(
-              child: Text("${gameObject.gameNames[0]}"),
+              child: Text("${game.name}"),
             ),
           ),
         ],

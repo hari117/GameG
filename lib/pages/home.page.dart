@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rawg/models/game.model.dart';
 import 'file:///D:/Workspace/rawg/lib/client/client.request.model.dart';
-import 'package:rawg/models/page.data.model.dart';
-
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -15,14 +14,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController scrollController = ScrollController();
-  ClientRequest clientRequest = ClientRequest();
   HomePageState homeState = HomePageState.homePageState;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeState.loadPage();
+      homeState.loadNextPage();
+    });
+    checkEndPage();
+  }
+
+  checkEndPage() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        print("page end reached");
+        homeState.loadNextPage();
+      }
     });
   }
 
@@ -44,18 +53,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  body() {
+  Widget body() {
     return StateBuilder(
         observe: () => homeState,
         builder: (context, _) {
-          if (homeState.isLoading == true)
+          if (homeState.isLoading) {
             return LoadingScreen();
-          else if (homeState.isLoading == false) {
+          } else {
             return ListView.builder(
-              itemCount: homeState.allGamesObjects.length,
+              controller: scrollController,
+              itemCount: homeState.listOfGames.length + 1,
               itemBuilder: (_, pos) {
-                ListOfGames game = homeState.allGamesObjects[pos];
-                return GameCard(game);
+                print("widget building $pos");
+                if (homeState.listOfGames.length == pos) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  Game game = homeState.listOfGames[pos];
+                  return GameCard(game);
+                }
               },
             );
           }

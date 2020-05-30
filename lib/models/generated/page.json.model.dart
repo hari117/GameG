@@ -8,7 +8,7 @@ String gameToJson(ListOfGamesPage data) => json.encode(data.toJson());
 class ListOfGamesPage {
   int count;
   String next;
-  dynamic previous;
+  String previous;
   List<Result> results;
   String seoTitle;
   String seoDescription;
