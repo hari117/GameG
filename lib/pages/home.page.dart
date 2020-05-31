@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rawg/models/game.model.dart';
-import 'file:///D:/Workspace/rawg/lib/client/client.request.model.dart';
+
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -38,18 +38,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBar(), backgroundColor: Colors.teal, body: body());
+      appBar: appBar(),
+      backgroundColor: Color.fromRGBO(0, 0, 0, 1),
+      body: Column(
+        children: [headLinesBody(), Expanded(child: body())],
+      ),
+    );
   }
 
   appBar() {
     return AppBar(
       backgroundColor: Colors.black,
-      title: Text(
-        "RawG  ",
-        style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      title: Padding(
+        padding: const EdgeInsets.only(left: 10, top: 10),
+        child: Text(
+          "RAWG ",
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              letterSpacing: 4),
+        ),
       ),
-      centerTitle: true,
+      centerTitle: false,
     );
   }
 
@@ -65,17 +76,37 @@ class _HomePageState extends State<HomePage> {
               itemCount: homeState.listOfGames.length + 1,
               itemBuilder: (_, pos) {
                 print("widget building $pos");
-                if (homeState.listOfGames.length == pos) {
+                if (pos == homeState.listOfGames.length) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else {
-                  Game game = homeState.listOfGames[pos];
-                  return GameCard(game);
                 }
+                Game game = homeState.listOfGames[pos];
+                return GameCard(game);
               },
             );
           }
         });
+  }
+
+  headLinesBody() {
+    return Container(
+      width: double.infinity,
+      height: 100,
+      //  color: Color.fromRGBO(0, 0, 0, 1),
+      color: Colors.blue,
+      child: Column(
+        children: [
+          Text(
+            "New and trending",
+            style: TextStyle(color: Colors.white),
+          ),
+          Text(
+            "Based on player counts and release data",
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+    );
   }
 }

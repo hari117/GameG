@@ -38,21 +38,21 @@ class ListOfGamesPage {
 
   factory ListOfGamesPage.fromJson(Map<String, dynamic> json) =>
       ListOfGamesPage(
-        count: json["count"],
-        next: json["next"],
-        previous: json["previous"],
+//        count: json["count"],
+//        next: json["next"],
+//        previous: json["previous"],
         results:
             List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-        seoTitle: json["seo_title"],
-        seoDescription: json["seo_description"],
-        seoKeywords: json["seo_keywords"],
-        seoH1: json["seo_h1"],
-        noindex: json["noindex"],
-        nofollow: json["nofollow"],
-        description: json["description"],
-        filters: Filters.fromJson(json["filters"]),
-        nofollowCollections:
-            List<String>.from(json["nofollow_collections"].map((x) => x)),
+//        seoTitle: json["seo_title"],
+//        seoDescription: json["seo_description"],
+//        seoKeywords: json["seo_keywords"],
+//        seoH1: json["seo_h1"],
+//        noindex: json["noindex"],
+//        nofollow: json["nofollow"],
+//        description: json["description"],
+//        filters: Filters.fromJson(json["filters"]),
+//        nofollowCollections:
+//            List<String>.from(json["nofollow_collections"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -214,39 +214,42 @@ class Result {
     this.shortScreenshots,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
-        id: json["id"],
-        slug: json["slug"],
-        name: json["name"],
-        released: DateTime.parse(json["released"]),
-        tba: json["tba"],
-        backgroundImage: json["background_image"],
-        rating: json["rating"].toDouble(),
-        ratingTop: json["rating_top"],
-        ratings:
-            List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
-        ratingsCount: json["ratings_count"],
-        reviewsTextCount: json["reviews_text_count"],
-        added: json["added"],
-        addedByStatus: AddedByStatus.fromJson(json["added_by_status"]),
-        metacritic: json["metacritic"],
-        playtime: json["playtime"],
-        suggestionsCount: json["suggestions_count"],
-        userGame: json["user_game"],
-        reviewsCount: json["reviews_count"],
-        saturatedColor: colorValues.map[json["saturated_color"]],
-        dominantColor: colorValues.map[json["dominant_color"]],
-        platforms: List<PlatformElement>.from(
-            json["platforms"].map((x) => PlatformElement.fromJson(x))),
-        parentPlatforms: List<ParentPlatform>.from(
-            json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
-        genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
-        stores: List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
-        clip: Clip.fromJson(json["clip"]),
-        tags: List<Genre>.from(json["tags"].map((x) => Genre.fromJson(x))),
-        shortScreenshots: List<ShortScreenshot>.from(
-            json["short_screenshots"].map((x) => ShortScreenshot.fromJson(x))),
-      );
+  factory Result.fromJson(Map<String, dynamic> json) {
+    print("Parsing result of ${json["id"]}");
+    return Result(
+      id: json["id"],
+//      slug: json["slug"],
+      name: json["name"],
+//      released: DateTime.parse(json["released"]),
+//      tba: json["tba"],
+      backgroundImage: json["background_image"],
+//      rating: json["rating"].toDouble(),
+//      ratingTop: json["rating_top"],
+//      ratings:
+//          List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
+//      ratingsCount: json["ratings_count"],
+//      reviewsTextCount: json["reviews_text_count"],
+//      added: json["added"],
+//      addedByStatus: AddedByStatus.fromJson(json["added_by_status"]),
+//      metacritic: json["metacritic"],
+//      playtime: json["playtime"],
+//      suggestionsCount: json["suggestions_count"],
+//      userGame: json["user_game"],
+//      reviewsCount: json["reviews_count"],
+//      saturatedColor: colorValues.map[json["saturated_color"]],
+//      dominantColor: colorValues.map[json["dominant_color"]],
+//      platforms: List<PlatformElement>.from(
+//          json["platforms"].map((x) => PlatformElement.fromJson(x))),
+//      parentPlatforms: List<ParentPlatform>.from(
+//          json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
+//      genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
+//      stores: List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
+//      clip: Clip.fromJson(json["clip"]),
+//      tags: List<Genre>.from(json["tags"].map((x) => Genre.fromJson(x))),
+//      shortScreenshots: List<ShortScreenshot>.from(
+//          json["short_screenshots"].map((x) => ShortScreenshot.fromJson(x))),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
