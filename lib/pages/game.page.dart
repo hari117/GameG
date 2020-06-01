@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+import 'package:flutter_read_more_text/flutter_read_more_text.dart';
 
 class GameCardPage extends StatelessWidget {
   String gameName;
   String imgUrl;
+  String firstHalf = "";
+  String secondHalf = "";
 
   GameCardPage(this.gameName, this.imgUrl);
 
@@ -56,9 +59,8 @@ class GameCardPage extends StatelessWidget {
                         30,
                       ),
                       if (homeState.isGamePageLoad)
-                        textBuild("${homeState.gameCardPage.gameDescription}",
-                            0, 0, 0, 0, FontWeight.w400, 20),
-                      if (!homeState.isGamePageLoad) loadingDescription(),
+                        readMore("${homeState.gameCardPage.gameDescription}"),
+                      if (!homeState.isGamePageLoad) prograssIndicator(),
                     ],
                   ),
                 ),
@@ -86,7 +88,7 @@ class GameCardPage extends StatelessWidget {
     );
   }
 
-  loadingDescription() {
+  prograssIndicator() {
     return SizedBox(
       height: 300,
       child: Center(
@@ -96,5 +98,46 @@ class GameCardPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  readMore(String content) {
+    if (content.length > 50) {
+      firstHalf = content.substring(0, 50);
+      secondHalf = content.substring(50, content.length);
+    } else {
+      firstHalf = content;
+      secondHalf = "";
+    }
+    return StateBuilder(
+        observe: () => homeState,
+        builder: (context, _) {
+          return secondHalf.isEmpty
+              ? Text(firstHalf, style: TextStyle(color: Colors.white))
+              : Column(
+                  children: [
+                    Text(
+                      homeState.flag
+                          ? (firstHalf + "...")
+                          : (firstHalf + secondHalf),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        homeState.flag = !homeState.flag;
+                        print("the flag value is ${homeState.flag}");
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          new Text(
+                            homeState.flag ? "show more" : "show less",
+                            style: new TextStyle(color: Colors.blue),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                );
+        });
   }
 }

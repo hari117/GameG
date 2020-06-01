@@ -12,7 +12,7 @@ class HomePageState extends StatesRebuilder {
   bool isGamePageLoad = false;
   List<Game> listOfGames = [];
   GamePage gameCardPage;
-
+  bool flag = true;
   loadNextPage() {
     print("calling $pageNumber.0 page");
     if (isFristTimeCheck) {
