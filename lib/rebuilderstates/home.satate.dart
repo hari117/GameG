@@ -1,14 +1,17 @@
 import 'package:rawg/client/game.client.dart';
 import 'package:rawg/models/game.model.dart';
+import 'package:rawg/models/gamecardpage.model.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class HomePageState extends StatesRebuilder {
   static HomePageState homePageState = HomePageState();
 
-  bool isLoading = false;
   int pageNumber = 1;
   bool isFristTimeCheck = true;
+  bool isLoading = false;
+  bool isGamePageLoad = false;
   List<Game> listOfGames = [];
+  GamePage gameCardPage;
 
   loadNextPage() {
     print("calling $pageNumber.0 page");
@@ -33,5 +36,14 @@ class HomePageState extends StatesRebuilder {
     isFristTimeCheck = false;
   }
 
-  void call() {}
+  loadGameCardPage(int gameId) {
+    isGamePageLoad = false;
+    GameClient.instance.loadGameCardPage(gameId).then((value) {
+      isGamePageLoad = true;
+      gameCardPage = value;
+      print("check tha gamecard page ${gameCardPage.gameDescription}");
+      rebuildStates();
+    });
+    rebuildStates();
+  }
 }

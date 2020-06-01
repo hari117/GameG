@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:rawg/models/game.model.dart';
+import 'package:rawg/models/gamecardpage.model.dart';
+import 'package:rawg/models/generated/gamecardpage.json.model.dart';
 import 'package:rawg/models/generated/page.json.model.dart';
+import 'package:rawg/pages/game.page.dart';
 
 class GameClient {
   static final GameClient instance = GameClient();
 
   final String LIST_OF_GAMES_URL = "https://api.rawg.io/api/games?page=";
+  final String GAME_CARD_PAGE_URL = "https://api.rawg.io/api/games/";
   final Dio dio = Dio();
 
   Future<List<Game>> loadGamesOnPage(int pageNumber) {
@@ -26,7 +30,21 @@ class GameClient {
     return gamesListFuture;
   }
 
-//  Future<List<Game>> loadGamesOnPageAsync(int pageNumber) async {
+  Future<GamePage> loadGameCardPage(int gameId) {
+    String url = "$GAME_CARD_PAGE_URL$gameId";
+    Future<Response> futurePage = dio.get(url);
+    Future<GamePage> futureGameCardPage = futurePage.then((value) {
+      var info = value.data;
+      GameCardPageDetails gameCardPageDetails =
+          GameCardPageDetails.fromJson(info);
+      GamePage gamePage = GamePage(gameCardPageDetails);
+      return gamePage;
+    });
+
+    return futureGameCardPage;
+  }
+
+  //  Future<List<Game>> loadGamesOnPageAsync(int pageNumber) async {
 //    String url = "$LIST_OF_GAMES_URL$pageNumber";
 //    Response response = await dio.get(url);
 //    var responseData = response.data;

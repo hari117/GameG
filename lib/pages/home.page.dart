@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rawg/models/game.model.dart';
 
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
@@ -40,9 +41,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: appBar(),
       backgroundColor: Color.fromRGBO(0, 0, 0, 1),
-      body: Column(
-        children: [headLinesBody(), Expanded(child: body())],
-      ),
+      body: buildingListOfGames(),
     );
   }
 
@@ -64,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget body() {
+  buildingListOfGames() {
     return StateBuilder(
         observe: () => homeState,
         builder: (context, _) {
@@ -78,8 +77,14 @@ class _HomePageState extends State<HomePage> {
                 print("widget building $pos");
                 if (pos == homeState.listOfGames.length) {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.black54),
+                    ),
                   );
+                }
+                if (pos == 0) {
+                  return headLinesBody();
                 }
                 Game game = homeState.listOfGames[pos];
                 return GameCard(game);
@@ -92,21 +97,31 @@ class _HomePageState extends State<HomePage> {
   headLinesBody() {
     return Container(
       width: double.infinity,
-      height: 100,
-      //  color: Color.fromRGBO(0, 0, 0, 1),
-      color: Colors.blue,
+
+      color: Color.fromRGBO(0, 0, 0, 1),
+      //  color: Colors.blue,
       child: Column(
         children: [
-          Text(
-            "New and trending",
-            style: TextStyle(color: Colors.white),
-          ),
-          Text(
-            "Based on player counts and release data",
-            style: TextStyle(color: Colors.white),
-          ),
+          heightgap(),
+          headLinesText("New and trending", 30, FontWeight.bold),
+          heightgap(),
+          headLinesText(
+              "Based on player counts and release data", 20, FontWeight.w400),
+          heightgap()
         ],
       ),
+    );
+  }
+
+  headLinesText(String headLine, double size, FontWeight fontWeight) {
+    return Text(headLine,
+        style: GoogleFonts.ubuntu(
+            color: Colors.white, fontWeight: fontWeight, fontSize: size));
+  }
+
+  heightgap() {
+    return SizedBox(
+      height: 15,
     );
   }
 }
