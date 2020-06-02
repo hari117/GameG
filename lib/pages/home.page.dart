@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rawg/models/game.model.dart';
+import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
         observe: () => homeState,
         builder: (context, _) {
           if (homeState.isLoading) {
-            return LoadingScreen();
+            return BlackProgressIndicatorWidget();
           } else {
             return ListView.builder(
               controller: scrollController,
@@ -78,12 +79,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (_, pos) {
                 print("widget building $pos");
                 if (pos == homeState.listOfGames.length) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.black54),
-                    ),
-                  );
+                  return Center(child: BlackProgressIndicatorWidget());
                 }
                 if (pos == 0) {
                   return headLinesBody();

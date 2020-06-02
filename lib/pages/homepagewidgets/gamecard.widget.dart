@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rawg/models/game.model.dart';
 import 'package:rawg/pages/game.page.dart';
+import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 
 class GameCard extends StatelessWidget {
@@ -32,13 +33,7 @@ class GameCard extends StatelessWidget {
                   imageUrl: game.imageUrl,
                   fit: BoxFit.cover,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Colors.black54),
-                        value: downloadProgress.progress),
-                  ),
+                      Center(child: BlackProgressIndicatorWidget()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
 //                child: Image.network(
