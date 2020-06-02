@@ -12,7 +12,17 @@ class HomePageState extends StatesRebuilder {
   bool isGamePageLoad = false;
   List<Game> listOfGames = [];
   GamePage gameCardPage;
-  bool flag = true;
+  String contentIndicator = "showless";
+  bool showLess = true;
+  double height = 100;
+
+  changeContainer(double h, String name) {
+    height = h;
+
+    contentIndicator = name;
+    rebuildStates();
+  }
+
   loadNextPage() {
     print("calling $pageNumber.0 page");
     if (isFristTimeCheck) {

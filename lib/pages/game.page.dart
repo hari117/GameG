@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:flutter_read_more_text/flutter_read_more_text.dart';
@@ -8,8 +9,6 @@ import 'package:flutter_read_more_text/flutter_read_more_text.dart';
 class GameCardPage extends StatelessWidget {
   String gameName;
   String imgUrl;
-  String firstHalf = "";
-  String secondHalf = "";
 
   GameCardPage(this.gameName, this.imgUrl);
 
@@ -30,7 +29,7 @@ class GameCardPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         height: 400,
@@ -59,7 +58,9 @@ class GameCardPage extends StatelessWidget {
                         30,
                       ),
                       if (homeState.isGamePageLoad)
-                        readMore("${homeState.gameCardPage.gameDescription}"),
+                        description(
+                          homeState.gameCardPage.gameDescription,
+                        ),
                       if (!homeState.isGamePageLoad) prograssIndicator(),
                     ],
                   ),
@@ -69,6 +70,57 @@ class GameCardPage extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  description(String content) {
+    return StateBuilder(
+      observe: () => homeState,
+      builder: (context, _) {
+        return Container(
+          child: Column(
+            children: [
+              Container(
+                height: homeState.height,
+                child: Text(content,
+                    style: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400)),
+              ),
+              InkWell(
+                onTap: () {
+                  if (homeState.showLess) {
+                    homeState.changeContainer(
+                      100,
+                      "ShowMore",
+                    );
+
+                    print(homeState.height);
+                  } else {
+                    homeState.changeContainer(
+                      500,
+                      "ShowLess",
+                    );
+
+                    print(homeState.height);
+                  }
+                  homeState.showLess = !homeState.showLess;
+                  print(homeState.showLess);
+                },
+                child: Text(
+                  "${homeState.contentIndicator}",
+                  style: GoogleFonts.roboto(
+                      color: Colors.blue,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 2),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -92,52 +144,8 @@ class GameCardPage extends StatelessWidget {
     return SizedBox(
       height: 300,
       child: Center(
-        child: CircularProgressIndicator(
-          backgroundColor: Colors.white,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.black54),
-        ),
+        child: BlackProgressIndicatorWidget(),
       ),
     );
-  }
-
-  readMore(String content) {
-    if (content.length > 50) {
-      firstHalf = content.substring(0, 50);
-      secondHalf = content.substring(50, content.length);
-    } else {
-      firstHalf = content;
-      secondHalf = "";
-    }
-    return StateBuilder(
-        observe: () => homeState,
-        builder: (context, _) {
-          return secondHalf.isEmpty
-              ? Text(firstHalf, style: TextStyle(color: Colors.white))
-              : Column(
-                  children: [
-                    Text(
-                      homeState.flag
-                          ? (firstHalf + "...")
-                          : (firstHalf + secondHalf),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        homeState.flag = !homeState.flag;
-                        print("the flag value is ${homeState.flag}");
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          new Text(
-                            homeState.flag ? "show more" : "show less",
-                            style: new TextStyle(color: Colors.blue),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                );
-        });
   }
 }

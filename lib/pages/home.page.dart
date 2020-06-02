@@ -28,6 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   checkEndPage() {
     scrollController.addListener(() {
+      print(
+          "page total picxel is  ${scrollController.position.maxScrollExtent}");
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         print("page end reached");
