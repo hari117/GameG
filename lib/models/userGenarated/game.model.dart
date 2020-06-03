@@ -2,11 +2,7 @@ import 'package:rawg/models/generated/page.json.model.dart';
 
 class Game {
   int gameId;
-  int exceptional;
-  int recommended;
-  int meh;
-  int skip;
-
+  int metaScore;
   String name;
   String imageUrl;
   String minSystemRequirement;
@@ -25,6 +21,7 @@ class Game {
       game.gameId = result.id;
       game.name = result.name;
       game.imageUrl = result.backgroundImage;
+      game.metaScore = result.metacritic;
 
       //adding genres to tha gameObject
       for (Genre genre in result.genres) {

@@ -47,30 +47,7 @@ class GameCardPage extends StatelessWidget {
                       SizedBox(
                         height: 15,
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(25),
-                          bottomRight: Radius.circular(15),
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
-                        ),
-                        child: Container(
-                          width: 400,
-                          height: 250,
-                          child: PageView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: game.screenShots.length,
-                              itemBuilder: (_, pos) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl: game.screenShots[pos],
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              }),
-                        ),
-                      ),
+                      imagesListView(),
                       SizedBox(
                         height: 25,
                       ),
@@ -125,16 +102,7 @@ class GameCardPage extends StatelessWidget {
                           homeState.gameCardPage.gameDescription,
                         ),
                       if (!homeState.isGamePageLoad) prograssIndicator(),
-                      TextWidget("Platform", 10, 0, 0, 0, FontWeight.w500, 25,
-                          Color.fromRGBO(63, 56, 38, 1), 1),
-                      showPlatforms(game.platform),
-                      TextWidget("Release Date", 10, 0, 0, 0, FontWeight.w500,
-                          25, Color.fromRGBO(63, 56, 38, 1), 1),
-                      TextWidget("${game.releaseData}", 10, 0, 0, 0,
-                          FontWeight.w400, 17, Colors.white, 1),
-                      TextWidget("Genres", 10, 0, 0, 0, FontWeight.w500, 25,
-                          Color.fromRGBO(63, 56, 38, 1), 1),
-                      showPlatforms(game.genres),
+                      detailsSection(),
                       TextWidget("Where to Buy", 10, 10, 0, 0, FontWeight.w500,
                           25, Color.fromRGBO(63, 56, 38, 1), 1),
                       storeBuilder(),
@@ -146,6 +114,73 @@ class GameCardPage extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  imagesListView() {
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(25),
+        bottomRight: Radius.circular(15),
+        topLeft: Radius.circular(15),
+        topRight: Radius.circular(15),
+      ),
+      child: Container(
+        width: 400,
+        height: 250,
+        child: PageView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: game.screenShots.length,
+            itemBuilder: (_, pos) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: CachedNetworkImage(
+                  imageUrl: game.screenShots[pos],
+                  fit: BoxFit.cover,
+                ),
+              );
+            }),
+      ),
+    );
+  }
+
+  detailsSection() {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            //  color: Colors.green,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextWidget("Platform", 10, 0, 0, 0, FontWeight.w500, 25,
+                    Color.fromRGBO(63, 56, 38, 1), 1),
+                showPlatforms(game.platform),
+                TextWidget("Genres", 10, 0, 0, 0, FontWeight.w500, 25,
+                    Color.fromRGBO(63, 56, 38, 1), 1),
+                showPlatforms(game.genres),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            //  color: Colors.blue,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextWidget("Release Date", 10, 0, 0, 0, FontWeight.w500, 25,
+                    Color.fromRGBO(63, 56, 38, 1), 1),
+                TextWidget("${game.releaseData}", 10, 0, 0, 0, FontWeight.w400,
+                    17, Colors.white, 1),
+                TextWidget("Metrics", 10, 2, 0, 0, FontWeight.w500, 25,
+                    Color.fromRGBO(63, 56, 38, 1), 1),
+                metricsScore(),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -305,6 +340,21 @@ class GameCardPage extends StatelessWidget {
             fontSize: 15,
             fontWeight: FontWeight.w500,
             letterSpacing: 1),
+      ),
+    );
+  }
+
+  metricsScore() {
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: Colors.green),
+      ),
+      child: Center(
+        child: TextWidget("${game.metaScore}", 10, 10, 0, 0, FontWeight.w400,
+            17, Colors.white, 1),
       ),
     );
   }

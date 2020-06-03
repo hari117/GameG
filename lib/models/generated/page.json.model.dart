@@ -231,7 +231,7 @@ class Result {
 //      reviewsTextCount: json["reviews_text_count"],
 //      added: json["added"],
 //      addedByStatus: AddedByStatus.fromJson(json["added_by_status"]),
-//      metacritic: json["metacritic"],
+      metacritic: json["metacritic"],
 //      playtime: json["playtime"],
 //      suggestionsCount: json["suggestions_count"],
 //      userGame: json["user_game"],
