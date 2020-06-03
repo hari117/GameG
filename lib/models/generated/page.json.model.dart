@@ -215,7 +215,7 @@ class Result {
   });
 
   factory Result.fromJson(Map<String, dynamic> json) {
-    print("Parsing result of ${json["id"]}");
+    //  print("Parsing result of ${json["id"]}");
     return Result(
       id: json["id"],
 //      slug: json["slug"],
@@ -225,8 +225,8 @@ class Result {
       backgroundImage: json["background_image"],
 //      rating: json["rating"].toDouble(),
 //      ratingTop: json["rating_top"],
-//      ratings:
-//          List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
+      ratings:
+          List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
 //      ratingsCount: json["ratings_count"],
 //      reviewsTextCount: json["reviews_text_count"],
 //      added: json["added"],
@@ -238,16 +238,16 @@ class Result {
 //      reviewsCount: json["reviews_count"],
 //      saturatedColor: colorValues.map[json["saturated_color"]],
 //      dominantColor: colorValues.map[json["dominant_color"]],
-//      platforms: List<PlatformElement>.from(
-//          json["platforms"].map((x) => PlatformElement.fromJson(x))),
-//      parentPlatforms: List<ParentPlatform>.from(
-//          json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
+      platforms: List<PlatformElement>.from(
+          json["platforms"].map((x) => PlatformElement.fromJson(x))),
+      parentPlatforms: List<ParentPlatform>.from(
+          json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
 //      genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
 //      stores: List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
 //      clip: Clip.fromJson(json["clip"]),
 //      tags: List<Genre>.from(json["tags"].map((x) => Genre.fromJson(x))),
-//      shortScreenshots: List<ShortScreenshot>.from(
-//          json["short_screenshots"].map((x) => ShortScreenshot.fromJson(x))),
+      shortScreenshots: List<ShortScreenshot>.from(
+          json["short_screenshots"].map((x) => ShortScreenshot.fromJson(x))),
     );
   }
 

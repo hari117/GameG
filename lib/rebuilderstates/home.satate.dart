@@ -1,6 +1,6 @@
 import 'package:rawg/client/game.client.dart';
-import 'package:rawg/models/game.model.dart';
-import 'package:rawg/models/gamecardpage.model.dart';
+import 'package:rawg/models/userGenarated/game.model.dart';
+import 'package:rawg/models/userGenarated/gamecardpage.model.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class HomePageState extends StatesRebuilder {
@@ -32,9 +32,9 @@ class HomePageState extends StatesRebuilder {
     GameClient.instance.loadGamesOnPage(pageNumber).then((value) {
       isLoading = false;
       List<Game> listOfGamePerPage = value;
-      print(("list of games length before call ${listOfGames.length}"));
+      //  print(("list of games length before call ${listOfGames.length}"));
       listOfGames.addAll(listOfGamePerPage);
-      print(("list of games length after call ${listOfGames.length}"));
+      //  print(("list of games length after call ${listOfGames.length}"));
 
       rebuildStates();
     }).catchError((error) {

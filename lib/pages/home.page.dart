@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rawg/models/game.model.dart';
+import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-
-import 'homepagewidgets/loadingscreen.widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,8 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   checkEndPage() {
     scrollController.addListener(() {
-      print(
-          "page total picxel is  ${scrollController.position.maxScrollExtent}");
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         print("page end reached");
@@ -71,13 +67,12 @@ class _HomePageState extends State<HomePage> {
         observe: () => homeState,
         builder: (context, _) {
           if (homeState.isLoading) {
-            return BlackProgressIndicatorWidget();
+            return Center(child: BlackProgressIndicatorWidget());
           } else {
             return ListView.builder(
               controller: scrollController,
               itemCount: homeState.listOfGames.length + 1,
               itemBuilder: (_, pos) {
-                print("widget building $pos");
                 if (pos == homeState.listOfGames.length) {
                   return Center(child: BlackProgressIndicatorWidget());
                 }

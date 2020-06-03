@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rawg/models/game.model.dart';
+import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/game.page.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
@@ -21,12 +21,12 @@ class GameCard extends StatelessWidget {
         child: Column(
           children: [
             ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
               child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                )),
+                decoration: BoxDecoration(),
                 width: double.infinity,
                 height: 230,
                 child: CachedNetworkImage(
@@ -36,20 +36,6 @@ class GameCard extends StatelessWidget {
                       Center(child: BlackProgressIndicatorWidget()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
-//                child: Image.network(
-//                  game.imageUrl,
-//                  fit: BoxFit.cover,
-//                  loadingBuilder: (BuildContext context, Widget child,
-//                      ImageChunkEvent loadingProgress) {
-//                    if (loadingProgress == null) {
-//                      return child;
-//                    } else {
-//                      return Center(
-//                        child: CircularProgressIndicator(),
-//                      );
-//                    }
-//                  },
-//                ),
               ),
             ),
             Container(
@@ -72,8 +58,7 @@ class GameCard extends StatelessWidget {
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
-                                builder: (context) =>
-                                    GameCardPage(game.name, game.imageUrl)));
+                                builder: (context) => GameCardPage(game)));
 
                         homeState.loadGameCardPage(game.gameId);
                       },
