@@ -216,55 +216,60 @@ class GameCardPage extends StatelessWidget {
     return StateBuilder(
       observe: () => homeState,
       builder: (context, _) {
-        return Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: homeState.height,
-                child: Text(content,
-                    style: GoogleFonts.roboto(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400)),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: homeState.height,
+                    child: Text(content,
+                        style: GoogleFonts.roboto(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400)),
+                  ),
+                ],
               ),
-              InkWell(
-                onTap: () {
-                  if (homeState.showHigh) {
-                    homeState.changeContainer(
-                      100,
-                      "ShowMore...",
-                    );
+            ),
+            InkWell(
+              onTap: () {
+                if (homeState.showHigh) {
+                  homeState.changeContainer(
+                    100,
+                    "ShowMore...",
+                  );
 
-                    print(homeState.height);
-                  } else {
-                    homeState.changeContainer(
-                      500,
-                      "ShowLess...",
-                    );
+                  print(homeState.height);
+                } else {
+                  homeState.changeContainer(
+                    null,
+                    "ShowLess...",
+                  );
 
-                    print(homeState.height);
-                  }
-                  homeState.showHigh = !homeState.showHigh;
-                  print(homeState.showHigh);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Container(
-                    color: Colors.white,
-                    child: Text(
-                      "${homeState.contentIndicator}",
-                      style: GoogleFonts.roboto(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1),
-                    ),
+                  print(homeState.height);
+                }
+                homeState.showHigh = !homeState.showHigh;
+                print(homeState.showHigh);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Container(
+                  color: Colors.white,
+                  child: Text(
+                    "${homeState.contentIndicator}",
+                    style: GoogleFonts.roboto(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
