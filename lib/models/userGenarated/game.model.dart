@@ -13,10 +13,11 @@ class Game {
   String maxSystemRequirement;
 
   DateTime releaseData;
+  List<String> genres = List();
   List<int> ratings = List();
   List<String> platform = List();
   List<String> screenShots = List();
-
+  List<Stores> stores = List();
   static List<Game> getGames(ListOfGamesPage listOfGamesPage) {
     List<Game> newGameList = [];
     for (Result result in listOfGamesPage.results) {
@@ -25,11 +26,13 @@ class Game {
       game.name = result.name;
       game.imageUrl = result.backgroundImage;
 
+      //adding genres to tha gameObject
+      for (Genre genre in result.genres) {
+        game.genres.add(genre.slug);
+      }
+
+      //adding ratings to gameObject
       for (Rating rating in result.ratings) {
-//        game.exceptional = rating.count;
-//        game.recommended = rating.count;
-//        game.meh = rating.count;
-//        game.skip = rating.count;
         game.ratings.add(rating.count);
       }
 
@@ -46,8 +49,23 @@ class Game {
         String img = screenshot.image;
         game.screenShots.add(img);
       }
+
+      //adding Gamestores links to the gameObject
+      for (Store store in result.stores) {
+        Stores s = Stores();
+        s.websiteName = store.store.slug;
+        s.url = store.urlEn;
+        game.stores.add(s);
+      }
+
       newGameList.add(game);
     }
+
     return newGameList;
   }
+}
+
+class Stores {
+  String websiteName;
+  String url;
 }

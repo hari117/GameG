@@ -12,8 +12,8 @@ class HomePageState extends StatesRebuilder {
   bool isGamePageLoad = false;
   List<Game> listOfGames = [];
   GamePage gameCardPage;
-  String contentIndicator = "showless";
-  bool showLess = true;
+  String contentIndicator = "showless..";
+  bool showHigh = false;
   double height = 100;
 
   changeContainer(double h, String name) {

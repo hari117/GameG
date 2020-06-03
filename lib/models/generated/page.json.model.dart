@@ -242,10 +242,10 @@ class Result {
           json["platforms"].map((x) => PlatformElement.fromJson(x))),
       parentPlatforms: List<ParentPlatform>.from(
           json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
-//      genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
-//      stores: List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
-//      clip: Clip.fromJson(json["clip"]),
-//      tags: List<Genre>.from(json["tags"].map((x) => Genre.fromJson(x))),
+      genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
+      stores: List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
+      clip: Clip.fromJson(json["clip"]),
+      tags: List<Genre>.from(json["tags"].map((x) => Genre.fromJson(x))),
       shortScreenshots: List<ShortScreenshot>.from(
           json["short_screenshots"].map((x) => ShortScreenshot.fromJson(x))),
     );

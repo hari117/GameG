@@ -7,6 +7,7 @@ import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart'
 import 'package:rawg/pages/homepagewidgets/text.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GameCardPage extends StatelessWidget {
   Game game;
@@ -131,6 +132,12 @@ class GameCardPage extends StatelessWidget {
                           25, Color.fromRGBO(63, 56, 38, 1), 1),
                       TextWidget("${game.releaseData}", 10, 0, 0, 0,
                           FontWeight.w400, 17, Colors.white, 1),
+                      TextWidget("Genres", 10, 0, 0, 0, FontWeight.w500, 25,
+                          Color.fromRGBO(63, 56, 38, 1), 1),
+                      showPlatforms(game.genres),
+                      TextWidget("Where to Buy", 10, 10, 0, 0, FontWeight.w500,
+                          25, Color.fromRGBO(63, 56, 38, 1), 1),
+                      storeBuilder(),
                     ],
                   ),
                 ),
@@ -142,7 +149,55 @@ class GameCardPage extends StatelessWidget {
     );
   }
 
+  storeBuilder() {
+    return Container(
+      height: 80,
+      width: double.infinity,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: game.stores.length,
+          itemBuilder: (_, pos) {
+            return urlLancherButton(pos);
+          }),
+    );
+  }
+
+  urlLancherButton(int index) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      width: 240,
+      child: RaisedButton(
+        splashColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        color: Color.fromRGBO(32, 32, 32, 1),
+        onPressed: () {
+          _launchURL(game.stores[index].url);
+          print("url lanched");
+        },
+        child: Text(
+          game.stores[index].websiteName,
+          style: GoogleFonts.roboto(
+              color: Colors.grey,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1),
+        ),
+      ),
+    );
+  }
+
+  _launchURL(String urlpage) async {
+    if (await canLaunch(urlpage)) {
+      await launch(urlpage);
+    } else {
+      throw 'Could not launch $urlpage';
+    }
+  }
+
   showPlatforms(List<String> plat) {
+    print("${game.stores[0].websiteName}");
     String fullList = "";
     for (int i = 0; i < plat.length; i++) {
       fullList = fullList + plat[i] + ",";
@@ -175,23 +230,23 @@ class GameCardPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  if (homeState.showLess) {
+                  if (homeState.showHigh) {
                     homeState.changeContainer(
                       100,
-                      "ShowMore",
+                      "ShowMore...",
                     );
 
                     print(homeState.height);
                   } else {
                     homeState.changeContainer(
                       500,
-                      "ShowLess",
+                      "ShowLess...",
                     );
 
                     print(homeState.height);
                   }
-                  homeState.showLess = !homeState.showLess;
-                  print(homeState.showLess);
+                  homeState.showHigh = !homeState.showHigh;
+                  print(homeState.showHigh);
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 5),
