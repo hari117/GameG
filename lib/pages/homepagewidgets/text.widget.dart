@@ -13,18 +13,11 @@ TextWidget(
   double letterspace,
 ) {
   return Padding(
-    padding: EdgeInsets.only(
-        top: topPadding,
-        bottom: bottomPadding,
-        left: leftPadding,
-        right: rightPadding),
+    padding: EdgeInsets.only(top: topPadding, bottom: bottomPadding, left: leftPadding, right: rightPadding),
     child: Text(
       content,
-      style: GoogleFonts.roboto(
-          color: color,
-          fontSize: size,
-          fontWeight: weight,
-          letterSpacing: letterspace),
+      style: GoogleFonts.roboto(color: color, fontSize: size, fontWeight: weight, letterSpacing: letterspace),
+      textAlign: TextAlign.center,
     ),
   );
 }

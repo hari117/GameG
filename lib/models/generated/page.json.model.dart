@@ -216,7 +216,7 @@ class Result {
         id: json["id"] == null ? null : json["id"],
         //   slug: json["slug"] == null ? null : json["slug"],
         name: json["name"] == null ? null : json["name"],
-        //  released: json["released"] == null ? null : DateTime.parse(json["released"]),
+        released: json["released"] == null ? null : DateTime.parse(json["released"]),
         //  tba: json["tba"] == null ? null : json["tba"],
         backgroundImage: json["background_image"] == null ? null : json["background_image"],
         //  rating: json["rating"] == null ? null : json["rating"].toDouble(),

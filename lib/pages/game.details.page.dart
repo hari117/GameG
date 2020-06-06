@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
@@ -41,16 +42,8 @@ class GameDetailsPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 70,
-                        //  color: Colors.blue,
-                        child: Center(
-                          child: Text(
-                            game.name,
-                            style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                      centerNameInCenter(
+                        game.name,
                       ),
                       SizedBox(
                         height: 15,
@@ -111,6 +104,7 @@ class GameDetailsPage extends StatelessWidget {
                       detailsSection(),
                       TextWidget("Where to Buy", 10, 10, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
                       storeBuilder(),
+                      centerNameInCenter("Games Like  ${game.name}"),
                       if (homeState.isGamePageLoad)
                         StateBuilder(
                             observe: () => homeState,
@@ -209,7 +203,7 @@ class GameDetailsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextWidget("Release Date", 10, 0, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
-          TextWidget("${game.releaseData}", 10, 0, 0, 0, FontWeight.w400, 17, Colors.white, 1),
+          TextWidget("${DateFormat.yMd().format(game.releaseData)}", 10, 0, 0, 0, FontWeight.w400, 17, Colors.white, 1),
         ],
       );
     }
@@ -370,6 +364,24 @@ class GameDetailsPage extends StatelessWidget {
       ),
       child: Center(
         child: TextWidget("${game.metaScore}", 10, 10, 0, 0, FontWeight.w400, 17, Colors.white, 1),
+      ),
+    );
+  }
+
+  centerNameInCenter(
+    String name,
+  ) {
+    return Container(
+      //  color: Colors.blue,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          child: Text(
+            name,
+            style: GoogleFonts.roboto(color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold, letterSpacing: 2),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }

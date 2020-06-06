@@ -1,5 +1,7 @@
 import 'package:rawg/models/generated/page.json.model.dart';
 
+import 'package:intl/intl.dart';
+
 class Game {
   int gameId;
   int metaScore;
@@ -31,6 +33,8 @@ class Game {
       game.imageUrl = result.backgroundImage;
       game.metaScore = result.metacritic == null ? 0 : result.metacritic;
 
+      game.releaseData = result.released;
+      //   print("tha game released date is ${game.releaseData}******");
       //adding genres to tha gameObject
       for (Genre genre in result.genres) {
         game.genres.add(genre.slug);
@@ -47,7 +51,9 @@ class Game {
       //adding platform detains to gameObject
       for (PlatformElement platformElement in result.platforms) {
         String plat = platformElement.platform.name;
-        game.releaseData = platformElement.releasedAt;
+        //   game.releaseData = platformElement.releasedAt;
+        // print(game.releaseData);
+        //    game.releaseData = DateFormat.yMd(platformElement.releasedAt);
         game.platform.add(plat);
       }
 
