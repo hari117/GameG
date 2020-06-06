@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:rawg/models/generated/gamecardpage.json.model.dart';
 import 'package:rawg/models/generated/page.json.model.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
-import 'package:rawg/models/userGenarated/gamecardpage.model.dart';
 
 class GameClient {
   static final GameClient instance = GameClient();

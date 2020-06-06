@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: 4),
         ),
       ),
-      centerTitle: true,
+      centerTitle: false,
     );
   }
 

@@ -27,7 +27,7 @@ class GameDetailsPage extends StatelessWidget {
           initState: (_, model) {
             //     print("calling loadGameDetailsPageAPI");
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              homeState.loadGameDetailsPageAPI(game);
+              homeState.loadGameDetailsPage(game);
             });
           },
           observe: () => homeState,
@@ -52,18 +52,6 @@ class GameDetailsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-
-//                      TextWidget(
-//                        "${game.name}",
-//                        50,
-//                        0,
-//                        70,
-//                        0,
-//                        FontWeight.bold,
-//                        25,
-//                        Colors.white,
-//                        2,
-//                      ),
                       SizedBox(
                         height: 15,
                       ),

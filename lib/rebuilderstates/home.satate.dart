@@ -46,7 +46,7 @@ class HomePageState extends StatesRebuilder {
   }
 
   //loading suggested games
-  loadGameDetailsPageAPI(Game game) {
+  loadGameDetailsPage(Game game) {
     print("calling gameID to get description and suggested games");
     isGamePageLoad = false;
     GameClient.instance.GameID(game).then((value) {
