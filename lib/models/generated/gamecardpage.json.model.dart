@@ -4,8 +4,7 @@
 
 import 'dart:convert';
 
-GameCardPageDetails gameFromJson(String str) =>
-    GameCardPageDetails.fromJson(json.decode(str));
+GameCardPageDetails gameFromJson(String str) => GameCardPageDetails.fromJson(json.decode(str));
 
 String gameToJson(GameCardPageDetails data) => json.encode(data.toJson());
 
@@ -122,17 +121,15 @@ class GameCardPageDetails {
   Clip clip;
   String descriptionRaw;
 
-  factory GameCardPageDetails.fromJson(Map<String, dynamic> json) =>
-      GameCardPageDetails(
+  factory GameCardPageDetails.fromJson(Map<String, dynamic> json) => GameCardPageDetails(
         id: json["id"],
         slug: json["slug"],
         name: json["name"],
         nameOriginal: json["name_original"],
         description: json["description"],
         metacritic: json["metacritic"],
-        metacriticPlatforms:
-            List<dynamic>.from(json["metacritic_platforms"].map((x) => x)),
-        released: DateTime.parse(json["released"]),
+        metacriticPlatforms: List<dynamic>.from(json["metacritic_platforms"].map((x) => x)),
+        //  released: DateTime.parse(json["released"]),
         tba: json["tba"],
         updated: DateTime.parse(json["updated"]),
         backgroundImage: json["background_image"],
@@ -140,14 +137,12 @@ class GameCardPageDetails {
         website: json["website"],
         rating: json["rating"].toDouble(),
         ratingTop: json["rating_top"],
-        ratings:
-            List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
-        reactions: Map.from(json["reactions"])
-            .map((k, v) => MapEntry<String, int>(k, v)),
+        ratings: List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
+        reactions: Map.from(json["reactions"]).map((k, v) => MapEntry<String, int>(k, v)),
         added: json["added"],
         addedByStatus: AddedByStatus.fromJson(json["added_by_status"]),
         playtime: json["playtime"],
-        screenshotsCount: json["screenshots_count"],
+        //   screenshotsCount: json["screenshots_count"],
         moviesCount: json["movies_count"],
         creatorsCount: json["creators_count"],
         achievementsCount: json["achievements_count"],
@@ -162,8 +157,7 @@ class GameCardPageDetails {
         reviewsTextCount: json["reviews_text_count"],
         ratingsCount: json["ratings_count"],
         suggestionsCount: json["suggestions_count"],
-        alternativeNames:
-            List<dynamic>.from(json["alternative_names"].map((x) => x)),
+        alternativeNames: List<dynamic>.from(json["alternative_names"].map((x) => x)),
         metacriticUrl: json["metacritic_url"],
         parentsCount: json["parents_count"],
         additionsCount: json["additions_count"],
@@ -172,21 +166,15 @@ class GameCardPageDetails {
         reviewsCount: json["reviews_count"],
         saturatedColor: json["saturated_color"],
         dominantColor: json["dominant_color"],
-        parentPlatforms: List<ParentPlatform>.from(
-            json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
-        platforms: List<PlatformElement>.from(
-            json["platforms"].map((x) => PlatformElement.fromJson(x))),
+        parentPlatforms: List<ParentPlatform>.from(json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
+        platforms: List<PlatformElement>.from(json["platforms"].map((x) => PlatformElement.fromJson(x))),
         stores: List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
-        developers: List<Developer>.from(
-            json["developers"].map((x) => Developer.fromJson(x))),
-        genres: List<Developer>.from(
-            json["genres"].map((x) => Developer.fromJson(x))),
-        tags: List<Developer>.from(
-            json["tags"].map((x) => Developer.fromJson(x))),
-        publishers: List<Developer>.from(
-            json["publishers"].map((x) => Developer.fromJson(x))),
-        esrbRating: EsrbRating.fromJson(json["esrb_rating"]),
-        clip: Clip.fromJson(json["clip"]),
+        developers: List<Developer>.from(json["developers"].map((x) => Developer.fromJson(x))),
+        genres: List<Developer>.from(json["genres"].map((x) => Developer.fromJson(x))),
+        tags: List<Developer>.from(json["tags"].map((x) => Developer.fromJson(x))),
+        publishers: List<Developer>.from(json["publishers"].map((x) => Developer.fromJson(x))),
+        //    esrbRating: EsrbRating.fromJson(json["esrb_rating"]),
+        // clip: Clip.fromJson(json["clip"]),
         descriptionRaw: json["description_raw"],
       );
 
@@ -197,8 +185,7 @@ class GameCardPageDetails {
         "name_original": nameOriginal,
         "description": description,
         "metacritic": metacritic,
-        "metacritic_platforms":
-            List<dynamic>.from(metacriticPlatforms.map((x) => x)),
+        "metacritic_platforms": List<dynamic>.from(metacriticPlatforms.map((x) => x)),
         "released":
             "${released.year.toString().padLeft(4, '0')}-${released.month.toString().padLeft(2, '0')}-${released.day.toString().padLeft(2, '0')}",
         "tba": tba,
@@ -209,8 +196,7 @@ class GameCardPageDetails {
         "rating": rating,
         "rating_top": ratingTop,
         "ratings": List<dynamic>.from(ratings.map((x) => x.toJson())),
-        "reactions":
-            Map.from(reactions).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "reactions": Map.from(reactions).map((k, v) => MapEntry<String, dynamic>(k, v)),
         "added": added,
         "added_by_status": addedByStatus.toJson(),
         "playtime": playtime,
@@ -238,8 +224,7 @@ class GameCardPageDetails {
         "reviews_count": reviewsCount,
         "saturated_color": saturatedColor,
         "dominant_color": dominantColor,
-        "parent_platforms":
-            List<dynamic>.from(parentPlatforms.map((x) => x.toJson())),
+        "parent_platforms": List<dynamic>.from(parentPlatforms.map((x) => x.toJson())),
         "platforms": List<dynamic>.from(platforms.map((x) => x.toJson())),
         "stores": List<dynamic>.from(stores.map((x) => x.toJson())),
         "developers": List<dynamic>.from(developers.map((x) => x.toJson())),
@@ -366,9 +351,7 @@ class Developer {
         gamesCount: json["games_count"],
         imageBackground: json["image_background"],
         domain: json["domain"] == null ? null : json["domain"],
-        language: json["language"] == null
-            ? null
-            : languageValues.map[json["language"]],
+        language: json["language"] == null ? null : languageValues.map[json["language"]],
       );
 
   Map<String, dynamic> toJson() => {
@@ -437,8 +420,7 @@ class PlatformElement {
   DateTime releasedAt;
   dynamic requirements;
 
-  factory PlatformElement.fromJson(Map<String, dynamic> json) =>
-      PlatformElement(
+  factory PlatformElement.fromJson(Map<String, dynamic> json) => PlatformElement(
         platform: PlatformPlatform.fromJson(json["platform"]),
         releasedAt: DateTime.parse(json["released_at"]),
         requirements: json["requirements"],
@@ -473,8 +455,7 @@ class PlatformPlatform {
   int gamesCount;
   String imageBackground;
 
-  factory PlatformPlatform.fromJson(Map<String, dynamic> json) =>
-      PlatformPlatform(
+  factory PlatformPlatform.fromJson(Map<String, dynamic> json) => PlatformPlatform(
         id: json["id"],
         name: json["name"],
         slug: json["slug"],

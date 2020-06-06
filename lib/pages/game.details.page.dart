@@ -4,24 +4,32 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
+import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:rawg/pages/homepagewidgets/text.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class GameCardPage extends StatelessWidget {
+class GameDetailsPage extends StatelessWidget {
   Game game;
 
-  GameCardPage(this.game); //  GameCardPage(this.gameName, this.imgUrl);
+  GameDetailsPage(this.game); //  GameCardPage(this.gameName, this.imgUrl);
 
   HomePageState homeState = HomePageState.homePageState;
 
   @override
   Widget build(BuildContext context) {
+    print("clicking ${game.name}  ${game.gameId}");
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromRGBO(0, 0, 0, 1),
         body: StateBuilder(
+          initState: (_, model) {
+            //     print("calling loadGameDetailsPageAPI");
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              homeState.loadGameDetailsPageAPI(game);
+            });
+          },
           observe: () => homeState,
           builder: (context, _) {
             return Container(
@@ -33,17 +41,29 @@ class GameCardPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextWidget(
-                        "${game.name}",
-                        50,
-                        0,
-                        70,
-                        0,
-                        FontWeight.bold,
-                        25,
-                        Colors.white,
-                        2,
+                      Container(
+                        height: 70,
+                        //  color: Colors.blue,
+                        child: Center(
+                          child: Text(
+                            game.name,
+                            style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
+
+//                      TextWidget(
+//                        "${game.name}",
+//                        50,
+//                        0,
+//                        70,
+//                        0,
+//                        FontWeight.bold,
+//                        25,
+//                        Colors.white,
+//                        2,
+//                      ),
                       SizedBox(
                         height: 15,
                       ),
@@ -59,17 +79,16 @@ class GameCardPage extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    ratingsColorContainer(
-                                        Color.fromRGBO(85, 124, 224, 1)),
-                                    ratingsText("Recommended", 1)
+                                    ratingsColorContainer(Color.fromRGBO(85, 124, 224, 1)),
+                                    //    ratingsText("Recommended", 1)
                                   ],
                                 ),
                                 Row(
                                   children: [
                                     ratingsColorContainer(Colors.green),
-                                    ratingsText("Exceptional", 0)
+                                    //  ratingsText("Exceptional", 0)
                                   ],
-                                )
+                                ),
                               ],
                             ),
                             SizedBox(
@@ -81,13 +100,13 @@ class GameCardPage extends StatelessWidget {
                                 Row(
                                   children: [
                                     ratingsColorContainer(Colors.yellow),
-                                    ratingsText("Meh", 2),
+                                    //   ratingsText("Meh", 2),
                                   ],
                                 ),
                                 Row(
                                   children: [
                                     ratingsColorContainer(Colors.red),
-                                    ratingsText("Skip", 3),
+                                    //   ratingsText("Skip", 3),
                                   ],
                                 )
                               ],
@@ -95,17 +114,33 @@ class GameCardPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      TextWidget("About", 20, 20, 0, 0, FontWeight.w700, 30,
-                          Color.fromRGBO(63, 56, 38, 1), 1),
+                      TextWidget("About", 20, 20, 0, 0, FontWeight.w700, 30, Color.fromRGBO(63, 56, 38, 1), 1),
                       if (homeState.isGamePageLoad)
                         description(
-                          homeState.gameCardPage.gameDescription,
+                          game.description,
                         ),
                       if (!homeState.isGamePageLoad) prograssIndicator(),
                       detailsSection(),
-                      TextWidget("Where to Buy", 10, 10, 0, 0, FontWeight.w500,
-                          25, Color.fromRGBO(63, 56, 38, 1), 1),
+                      TextWidget("Where to Buy", 10, 10, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
                       storeBuilder(),
+                      if (homeState.isGamePageLoad)
+                        StateBuilder(
+                            observe: () => homeState,
+                            builder: (context, _) {
+                              return Column(
+                                children: [
+                                  ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: game.relatedGames.length,
+                                      itemBuilder: (_, pos) {
+                                        return GameCard(game.relatedGames[pos]);
+                                      }),
+                                ],
+                              );
+                            }),
+                      if (!homeState.isGamePageLoad) prograssIndicator(),
                     ],
                   ),
                 ),
@@ -133,7 +168,7 @@ class GameCardPage extends StatelessWidget {
             itemCount: game.screenShots.length,
             itemBuilder: (_, pos) {
               return Padding(
-                padding: const EdgeInsets.only(left: 20.0),
+                padding: const EdgeInsets.only(left: 0.0),
                 child: CachedNetworkImage(
                   imageUrl: game.screenShots[pos],
                   fit: BoxFit.cover,
@@ -153,11 +188,9 @@ class GameCardPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextWidget("Platform", 10, 0, 0, 0, FontWeight.w500, 25,
-                    Color.fromRGBO(63, 56, 38, 1), 1),
+                TextWidget("Platform", 10, 0, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
                 showPlatforms(game.platform),
-                TextWidget("Genres", 10, 0, 0, 0, FontWeight.w500, 25,
-                    Color.fromRGBO(63, 56, 38, 1), 1),
+                TextWidget("Genres", 10, 0, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
                 showPlatforms(game.genres),
               ],
             ),
@@ -169,12 +202,8 @@ class GameCardPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextWidget("Release Date", 10, 0, 0, 0, FontWeight.w500, 25,
-                    Color.fromRGBO(63, 56, 38, 1), 1),
-                TextWidget("${game.releaseData}", 10, 0, 0, 0, FontWeight.w400,
-                    17, Colors.white, 1),
-                TextWidget("Metrics", 10, 2, 0, 0, FontWeight.w500, 25,
-                    Color.fromRGBO(63, 56, 38, 1), 1),
+                relaseData(),
+                TextWidget("Metrics", 10, 10, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
                 metricsScore(),
               ],
             ),
@@ -182,6 +211,20 @@ class GameCardPage extends StatelessWidget {
         )
       ],
     );
+  }
+
+  relaseData() {
+    if (game.releaseData == null) {
+      return SizedBox();
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextWidget("Release Date", 10, 0, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
+          TextWidget("${game.releaseData}", 10, 0, 0, 0, FontWeight.w400, 17, Colors.white, 1),
+        ],
+      );
+    }
   }
 
   storeBuilder() {
@@ -209,15 +252,11 @@ class GameCardPage extends StatelessWidget {
         color: Color.fromRGBO(32, 32, 32, 1),
         onPressed: () {
           _launchURL(game.stores[index].url);
-          print("url lanched");
+          // print("url lanched");
         },
         child: Text(
           game.stores[index].websiteName,
-          style: GoogleFonts.roboto(
-              color: Colors.grey,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 1),
+          style: GoogleFonts.roboto(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
         ),
       ),
     );
@@ -232,7 +271,7 @@ class GameCardPage extends StatelessWidget {
   }
 
   showPlatforms(List<String> plat) {
-    print("${game.stores[0].websiteName}");
+    //  print("${game.stores[0].websiteName}");
     String fullList = "";
     for (int i = 0; i < plat.length; i++) {
       fullList = fullList + plat[i] + ",";
@@ -241,8 +280,7 @@ class GameCardPage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10.0),
       child: Text(
         "$fullList",
-        style: TextStyle(
-            color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -261,10 +299,7 @@ class GameCardPage extends StatelessWidget {
                   Container(
                     height: homeState.height,
                     child: Text(content,
-                        style: GoogleFonts.roboto(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400)),
+                        style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400)),
                   ),
                 ],
               ),
@@ -296,10 +331,7 @@ class GameCardPage extends StatelessWidget {
                   child: Text(
                     "${homeState.contentIndicator}",
                     style: GoogleFonts.roboto(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1),
+                        color: Colors.black, fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: 1),
                   ),
                 ),
               ),
@@ -335,11 +367,7 @@ class GameCardPage extends StatelessWidget {
       padding: const EdgeInsets.only(left: 7.0),
       child: Text(
         "$name  ${game.ratings[3]} ",
-        style: GoogleFonts.roboto(
-            color: Colors.white,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 1),
+        style: GoogleFonts.roboto(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500, letterSpacing: 1),
       ),
     );
   }
@@ -353,8 +381,7 @@ class GameCardPage extends StatelessWidget {
         border: Border.all(color: Colors.green),
       ),
       child: Center(
-        child: TextWidget("${game.metaScore}", 10, 10, 0, 0, FontWeight.w400,
-            17, Colors.white, 1),
+        child: TextWidget("${game.metaScore}", 10, 10, 0, 0, FontWeight.w400, 17, Colors.white, 1),
       ),
     );
   }

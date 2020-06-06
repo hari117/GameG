@@ -27,8 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   checkEndPage() {
     scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
+      if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
         print("page end reached");
         homeState.loadNextPage();
       }
@@ -51,14 +50,10 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.only(left: 10, top: 10),
         child: Text(
           "RAWG ",
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-              letterSpacing: 4),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: 4),
         ),
       ),
-      centerTitle: false,
+      centerTitle: true,
     );
   }
 
@@ -98,8 +93,7 @@ class _HomePageState extends State<HomePage> {
           heightgap(),
           headLinesText("New and trending", 30, FontWeight.bold),
           heightgap(),
-          headLinesText(
-              "Based on player counts and release data", 20, FontWeight.w400),
+          headLinesText("Based on player counts and release data", 20, FontWeight.w400),
           heightgap()
         ],
       ),
@@ -107,9 +101,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   headLinesText(String headLine, double size, FontWeight fontWeight) {
-    return Text(headLine,
-        style: GoogleFonts.ubuntu(
-            color: Colors.white, fontWeight: fontWeight, fontSize: size));
+    return Text(headLine, style: GoogleFonts.ubuntu(color: Colors.white, fontWeight: fontWeight, fontSize: size));
   }
 
   heightgap() {

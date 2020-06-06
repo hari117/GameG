@@ -3,25 +3,33 @@ import 'package:rawg/models/generated/page.json.model.dart';
 class Game {
   int gameId;
   int metaScore;
+
   String name;
   String imageUrl;
+  String description = "";
   String minSystemRequirement;
   String maxSystemRequirement;
 
   DateTime releaseData;
+
   List<String> genres = List();
-  List<int> ratings = List();
   List<String> platform = List();
   List<String> screenShots = List();
+
   List<Stores> stores = List();
+  List<RatingsToGame> ratings = List();
+
+  List<Game> relatedGames = List();
+
   static List<Game> getGames(ListOfGamesPage listOfGamesPage) {
     List<Game> newGameList = [];
+
     for (Result result in listOfGamesPage.results) {
       Game game = Game();
       game.gameId = result.id;
       game.name = result.name;
       game.imageUrl = result.backgroundImage;
-      game.metaScore = result.metacritic;
+      game.metaScore = result.metacritic == null ? 0 : result.metacritic;
 
       //adding genres to tha gameObject
       for (Genre genre in result.genres) {
@@ -30,14 +38,16 @@ class Game {
 
       //adding ratings to gameObject
       for (Rating rating in result.ratings) {
-        game.ratings.add(rating.count);
+        RatingsToGame r = RatingsToGame();
+        r.title = rating.title;
+        r.Count = rating.count;
+        game.ratings.add(r);
       }
 
       //adding platform detains to gameObject
       for (PlatformElement platformElement in result.platforms) {
         String plat = platformElement.platform.name;
         game.releaseData = platformElement.releasedAt;
-
         game.platform.add(plat);
       }
 
@@ -55,6 +65,8 @@ class Game {
         game.stores.add(s);
       }
 
+      //adding ratings to the gameObject
+
       newGameList.add(game);
     }
 
@@ -65,4 +77,9 @@ class Game {
 class Stores {
   String websiteName;
   String url;
+}
+
+class RatingsToGame {
+  Title title;
+  int Count;
 }

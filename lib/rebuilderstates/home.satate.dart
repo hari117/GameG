@@ -1,6 +1,5 @@
 import 'package:rawg/client/game.client.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
-import 'package:rawg/models/userGenarated/gamecardpage.model.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class HomePageState extends StatesRebuilder {
@@ -11,7 +10,6 @@ class HomePageState extends StatesRebuilder {
   bool isLoading = false;
   bool isGamePageLoad = false;
   List<Game> listOfGames = [];
-  GamePage gameCardPage;
   String contentIndicator = "showless..";
   bool showHigh = false;
   double height = 100;
@@ -29,6 +27,7 @@ class HomePageState extends StatesRebuilder {
       isLoading = true;
     }
 
+    //loading page
     GameClient.instance.loadGamesOnPage(pageNumber).then((value) {
       isLoading = false;
       List<Game> listOfGamePerPage = value;
@@ -39,21 +38,25 @@ class HomePageState extends StatesRebuilder {
       rebuildStates();
     }).catchError((error) {
       isLoading = false;
-      print(error);
+      print("the errror is $error");
     });
     pageNumber++;
     rebuildStates();
     isFristTimeCheck = false;
   }
 
-  loadGameCardPage(int gameId) {
+  //loading suggested games
+  loadGameDetailsPageAPI(Game game) {
+    print("calling gameID to get description and suggested games");
     isGamePageLoad = false;
-    GameClient.instance.loadGameCardPage(gameId).then((value) {
+    GameClient.instance.GameID(game).then((value) {
       isGamePageLoad = true;
-      gameCardPage = value;
-      print("check tha gamecard page ${gameCardPage.gameDescription}");
+      game.description = value[0];
+      game.relatedGames = value[1];
+      print("sucessfully displayed description and suggested games on UI");
       rebuildStates();
     });
+
     rebuildStates();
   }
 }
