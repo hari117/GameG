@@ -185,9 +185,9 @@ class GameDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                relaseData(),
                 TextWidget("Metrics", 10, 10, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
                 MetricPoint(game),
+                relaseData(),
               ],
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/game.details.page.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
+import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 
 class GameCard extends StatelessWidget {
@@ -16,7 +17,6 @@ class GameCard extends StatelessWidget {
     //  print("game id is ${game.gameId}");
     return Center(
       child: Container(
-        height: 360,
         margin: EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width - 50,
         child: Column(
@@ -49,28 +49,33 @@ class GameCard extends StatelessWidget {
                 );
               },
               child: Container(
-                height: 100,
+                height: 150,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(32, 32, 32, 1),
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
                 ),
                 width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
-                      child: InkWell(
-                        onTap: () {
-                          print("calling gameDetailsPage");
-                        },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(),
+                          MetricPoint(game),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 25),
                         child: Text(
                           "${game.name} ",
                           style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
