@@ -39,35 +39,39 @@ class GameCard extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: 100,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(32, 32, 32, 1),
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
-              ),
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
-                    child: InkWell(
-                      onTap: () {
-                        print("calling gameDetailsPage");
-                        Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                            builder: (context) => GameDetailsPage(game),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "${game.name} ",
-                        style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (context) => GameDetailsPage(game),
+                  ),
+                );
+              },
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(32, 32, 32, 1),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+                ),
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+                      child: InkWell(
+                        onTap: () {
+                          print("calling gameDetailsPage");
+                        },
+                        child: Text(
+                          "${game.name} ",
+                          style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

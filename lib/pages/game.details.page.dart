@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
+import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/pages/homepagewidgets/text.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -186,7 +187,7 @@ class GameDetailsPage extends StatelessWidget {
               children: [
                 relaseData(),
                 TextWidget("Metrics", 10, 10, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
-                metricsScore(),
+                MetricPoint(game),
               ],
             ),
           ),
