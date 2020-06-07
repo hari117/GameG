@@ -7,18 +7,38 @@ import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart'
 import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 
-class GameCard extends StatelessWidget {
-  HomePageState homeState = HomePageState.homePageState;
+class GameCard extends StatefulWidget {
   Game game;
 
   GameCard(this.game);
+
+  @override
+  _GameCardState createState() => _GameCardState();
+}
+
+class _GameCardState extends State<GameCard> {
+  HomePageState homeState = HomePageState.homePageState;
+  ScrollController scrollController;
+
+  int index = 0;
+
+  initalState() {
+    super.initState();
+    scrollController = ScrollController();
+  }
+
+  @override
+  initstate() {
+    super.initState();
+  }
 
   Widget build(BuildContext context) {
     //  print("game id is ${game.gameId}");
     return Center(
       child: Container(
         margin: EdgeInsets.all(10),
-        width: MediaQuery.of(context).size.width - 50,
+        width: MediaQuery.of(context).size.width - 70,
+        height: 250,
         child: Column(
           children: [
             ClipRRect(
@@ -27,29 +47,37 @@ class GameCard extends StatelessWidget {
                 topRight: Radius.circular(15),
               ),
               child: Container(
-                decoration: BoxDecoration(),
-                width: double.infinity,
-                height: 230,
-                child: CachedNetworkImage(
-                  imageUrl: game.imageUrl,
-                  fit: BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(child: BlackProgressIndicatorWidget()),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
-              ),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(32, 32, 32, 1),
+                  ),
+                  height: 150,
+                  child: Stack(
+                    children: [
+                      PageView.builder(
+                          controller: scrollController,
+                          onPageChanged: (value) {
+                            index = value;
+                            setState(() {});
+                          },
+                          itemCount: widget.game.screenShots.length,
+                          itemBuilder: (_, pos) {
+                            return gameCardImagePageview(pos);
+                          }),
+                      genImageIndicator(widget.game.screenShots.length, index),
+                    ],
+                  )),
             ),
             InkWell(
               onTap: () {
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
-                    builder: (context) => GameDetailsPage(game),
+                    builder: (context) => GameDetailsPage(widget.game),
                   ),
                 );
               },
               child: Container(
-                height: 150,
+                height: 100,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(32, 32, 32, 1),
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
@@ -60,19 +88,19 @@ class GameCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(),
-                          MetricPoint(game),
-                        ],
-                      ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 25),
-                        child: Text(
-                          "${game.name} ",
-                          style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(),
+                            MetricPoint(widget.game),
+                          ],
                         ),
+                      ),
+                      Text(
+                        "${widget.game.name} ",
+                        style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -80,6 +108,61 @@ class GameCard extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  gameCardImagePageview(int index) {
+    return CachedNetworkImage(
+      imageUrl: widget.game.screenShots[index],
+      fit: BoxFit.cover,
+      progressIndicatorBuilder: (context, url, downloadProgress) => Center(child: BlackProgressIndicatorWidget()),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+  }
+
+  gameCardImagePageviewIndicator(int num, double w) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Container(
+        color: Color.fromRGBO(32, 32, 32, 1),
+        child: SizedBox(
+          width: w,
+        ),
+      ),
+    );
+  }
+
+  genImageIndicator(int numOfContainers, int activeIndex) {
+    if (numOfContainers <= 1) {
+      return SizedBox();
+    } else if (numOfContainers > 6) {
+      numOfContainers = 6;
+    }
+    List<Widget> indicators = [];
+    for (int ii = 0; ii < numOfContainers; ii++) {
+      indicators.addgi);
+    }
+
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        children: indicators,
+      ),
+    );
+  }
+
+  gen(int activeIndex, int containerNumber) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 5,
+          decoration: BoxDecoration(
+            color: activeIndex == containerNumber ? Colors.grey : Colors.black54,
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
       ),
     );

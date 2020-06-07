@@ -10,14 +10,14 @@ class MetricPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 40,
-      height: 40,
+      width: 35,
+      height: 35,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         border: Border.all(color: Colors.green),
       ),
       child: Center(
-        child: TextWidget("${game.metaScore}", 10, 10, 0, 0, FontWeight.w400, 17, Colors.white, 1),
+        child: TextWidget("${game.metaScore}", 10, 10, 0, 0, FontWeight.w400, 14, Colors.white, 1),
       ),
     );
   }
