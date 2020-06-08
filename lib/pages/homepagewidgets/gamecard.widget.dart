@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rawg/models/generated/page.json.model.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/game.details.page.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
+import 'package:rawg/helperfiles/svg.imges.dart';
 
 class GameCard extends StatefulWidget {
   Game game;
@@ -33,6 +36,7 @@ class _GameCardState extends State<GameCard> {
   }
 
   Widget build(BuildContext context) {
+    //print("printing tha parentPlatform names ${widget.game.parentPlatform}");
     //  print("game id is ${game.gameId}");
     return Center(
       child: Container(
@@ -93,7 +97,7 @@ class _GameCardState extends State<GameCard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(),
+                            platformIconsDisplay(),
                             MetricPoint(widget.game),
                           ],
                         ),
@@ -142,7 +146,7 @@ class _GameCardState extends State<GameCard> {
     }
     List<Widget> indicators = [];
     for (int ii = 0; ii < numOfContainers; ii++) {
-      indicators.addgi);
+      indicators.add(indicatorContainer(activeIndex, ii));
     }
 
     return Align(
@@ -153,7 +157,7 @@ class _GameCardState extends State<GameCard> {
     );
   }
 
-  gen(int activeIndex, int containerNumber) {
+  indicatorContainer(int activeIndex, int containerNumber) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -166,5 +170,28 @@ class _GameCardState extends State<GameCard> {
         ),
       ),
     );
+  }
+
+  platformIconsDisplay() {
+    List<Widget> svg = List();
+    for (int i = 0; i < widget.game.parentPlatform.length; i++) {
+      svg.add(svgImages(widget.game.parentPlatform[i]));
+      print("added one platform icon");
+    }
+    return Row(
+      children: svg,
+    );
+  }
+
+  Widget svgImages(PlatformName platformName) {
+    if (SvgImagesMap.platformIcons.containsKey(platformName)) {
+      return Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: SvgPicture.asset(SvgImagesMap.platformIcons[platformName]),
+      );
+    } else {
+      return SizedBox();
+    }
+    //if (platformName)
   }
 }

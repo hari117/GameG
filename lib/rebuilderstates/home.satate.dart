@@ -53,6 +53,7 @@ class HomePageState extends StatesRebuilder {
       isGamePageLoad = true;
       game.description = value[0];
       game.relatedGames = value[1];
+
       print("sucessfully displayed description and suggested games on UI");
       rebuildStates();
     });

@@ -16,6 +16,7 @@ class Game {
 
   List<String> genres = List();
   List<String> platform = List();
+  List<PlatformName> parentPlatform = List();
   List<String> screenShots = List();
 
   List<Stores> stores = List();
@@ -48,12 +49,16 @@ class Game {
         game.ratings.add(r);
       }
 
+      //adding parentplatform details to gameObject
+      for (ParentPlatform parentPlatform in result.parentPlatforms) {
+        PlatformName name = parentPlatform.platform.name;
+        //  print("printing tha parentPlatform names ${name.toString()}");
+        game.parentPlatform.add(name);
+      }
+
       //adding platform detains to gameObject
       for (PlatformElement platformElement in result.platforms) {
         String plat = platformElement.platform.name;
-        //   game.releaseData = platformElement.releasedAt;
-        // print(game.releaseData);
-        //    game.releaseData = DateFormat.yMd(platformElement.releasedAt);
         game.platform.add(plat);
       }
 

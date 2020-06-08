@@ -173,8 +173,8 @@ class Result {
     this.suggestionsCount,
     this.userGame,
     this.reviewsCount,
-    this.saturatedColor,
-    this.dominantColor,
+//    this.saturatedColor,
+//    this.dominantColor,
     this.platforms,
     this.parentPlatforms,
     this.genres,
@@ -202,8 +202,8 @@ class Result {
   int suggestionsCount;
   dynamic userGame;
   int reviewsCount;
-  Color saturatedColor;
-  Color dominantColor;
+//  Color saturatedColor;
+//  Color dominantColor;
   List<PlatformElement> platforms;
   List<ParentPlatform> parentPlatforms;
   List<Genre> genres;
@@ -236,7 +236,9 @@ class Result {
         platforms: json["platforms"] == null
             ? null
             : List<PlatformElement>.from(json["platforms"].map((x) => PlatformElement.fromJson(x))),
-        //  parentPlatforms: json["parent_platforms"] == null ? null : List<ParentPlatform>.from(json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
+        parentPlatforms: json["parent_platforms"] == null
+            ? null
+            : List<ParentPlatform>.from(json["parent_platforms"].map((x) => ParentPlatform.fromJson(x))),
         genres: json["genres"] == null ? null : List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
         stores: json["stores"] == null ? null : List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
         // clip: json["clip"] == null ? null : Clip.fromJson(json["clip"]),
@@ -267,8 +269,8 @@ class Result {
         "suggestions_count": suggestionsCount == null ? null : suggestionsCount,
         "user_game": userGame,
         "reviews_count": reviewsCount == null ? null : reviewsCount,
-        "saturated_color": saturatedColor == null ? null : colorValues.reverse[saturatedColor],
-        "dominant_color": dominantColor == null ? null : colorValues.reverse[dominantColor],
+//        "saturated_color": saturatedColor == null ? null : colorValues.reverse[saturatedColor],
+//        "dominant_color": dominantColor == null ? null : colorValues.reverse[dominantColor],
         "platforms": platforms == null ? null : List<dynamic>.from(platforms.map((x) => x.toJson())),
         "parent_platforms": parentPlatforms == null ? null : List<dynamic>.from(parentPlatforms.map((x) => x.toJson())),
         "genres": genres == null ? null : List<dynamic>.from(genres.map((x) => x.toJson())),
@@ -368,9 +370,9 @@ class Clips {
       };
 }
 
-enum Color { THE_0_F0_F0_F }
+//enum Color { THE_0_F0_F0_F }
 
-final colorValues = EnumValues({"0f0f0f": Color.THE_0_F0_F0_F});
+//final colorValues = EnumValues({"0f0f0f": Color.THE_0_F0_F0_F});
 
 class Genre {
   Genre({
@@ -440,7 +442,7 @@ class ParentPlatformPlatform {
   });
 
   int id;
-  Name name;
+  PlatformName name;
   Slug slug;
 
   factory ParentPlatformPlatform.fromJson(Map<String, dynamic> json) => ParentPlatformPlatform(
@@ -456,17 +458,17 @@ class ParentPlatformPlatform {
       };
 }
 
-enum Name { PC, PLAY_STATION, XBOX, APPLE_MACINTOSH, LINUX, NINTENDO, ANDROID, I_OS }
+enum PlatformName { PC, PLAY_STATION, XBOX, APPLE_MACINTOSH, LINUX, NINTENDO, ANDROID, I_OS }
 
 final nameValues = EnumValues({
-  "Android": Name.ANDROID,
-  "Apple Macintosh": Name.APPLE_MACINTOSH,
-  "iOS": Name.I_OS,
-  "Linux": Name.LINUX,
-  "Nintendo": Name.NINTENDO,
-  "PC": Name.PC,
-  "PlayStation": Name.PLAY_STATION,
-  "Xbox": Name.XBOX
+  "Android": PlatformName.ANDROID,
+  "Apple Macintosh": PlatformName.APPLE_MACINTOSH,
+  "iOS": PlatformName.I_OS,
+  "Linux": PlatformName.LINUX,
+  "Nintendo": PlatformName.NINTENDO,
+  "PC": PlatformName.PC,
+  "PlayStation": PlatformName.PLAY_STATION,
+  "Xbox": PlatformName.XBOX
 });
 
 enum Slug { PC, PLAYSTATION, XBOX, MAC, LINUX, NINTENDO, ANDROID, IOS }
