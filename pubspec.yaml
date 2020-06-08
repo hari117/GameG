@@ -43,12 +43,20 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - svg/andriod.svg
-     - svg/apple.svg
-     - svg/linux.svg
-     - svg/nitendo.svg
-     - svg/ps4.svg
-     - svg/windows.svg
-     - svg/xbox.svg
+     - Assets/platformicons/andriod.svg
+     - Assets/platformicons/apple.svg
+     - Assets/platformicons/linux.svg
+     - Assets/platformicons/nitendo.svg
+     - Assets/platformicons/ps4.svg
+     - Assets/platformicons/windows.svg
+     - Assets/platformicons/xbox.svg
+     - Assets/storeicons/xbox360store.svg
+     - Assets/storeicons/steam.svg
+     - Assets/storeicons/gog.svg
+     - Assets/storeicons/ps.svg
+     - Assets/storeicons/nitendo.svg
+     - Assets/storeicons/epicgames.svg
+     - Assets/storeicons/appstore.svg
+     - Assets/storeicons/googleplaystore.svg
 
 

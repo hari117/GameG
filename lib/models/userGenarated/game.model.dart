@@ -71,7 +71,7 @@ class Game {
       //adding Gamestores links to the gameObject
       for (Store store in result.stores) {
         Stores s = Stores();
-        s.websiteName = store.store.slug;
+        s.websiteName = store.store.name;
         s.url = store.urlEn;
         game.stores.add(s);
       }

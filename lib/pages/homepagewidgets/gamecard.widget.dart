@@ -176,7 +176,6 @@ class _GameCardState extends State<GameCard> {
     List<Widget> svg = List();
     for (int i = 0; i < widget.game.parentPlatform.length; i++) {
       svg.add(svgImages(widget.game.parentPlatform[i]));
-      print("added one platform icon");
     }
     return Row(
       children: svg,

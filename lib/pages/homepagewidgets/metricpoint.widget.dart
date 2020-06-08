@@ -14,10 +14,11 @@ class MetricPoint extends StatelessWidget {
       height: 35,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: Colors.green),
+        border: game.metaScore < 80 ? Border.all(color: Colors.yellow) : Border.all(color: Colors.green),
       ),
       child: Center(
-        child: TextWidget("${game.metaScore}", 10, 10, 0, 0, FontWeight.w400, 14, Colors.white, 1),
+        child: TextWidget("${game.metaScore}", 10, 10, 0, 0, FontWeight.w400, 14,
+            game.metaScore < 80 ? Colors.yellow : Colors.green, 1),
       ),
     );
   }

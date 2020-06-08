@@ -138,7 +138,7 @@ class GameCardPageDetails {
         rating: json["rating"].toDouble(),
         ratingTop: json["rating_top"],
         ratings: List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
-        reactions: Map.from(json["reactions"]).map((k, v) => MapEntry<String, int>(k, v)),
+        //    reactions: Map.from(json["reactions"]).map((k, v) => MapEntry<String, int>(k, v)),
         added: json["added"],
         addedByStatus: AddedByStatus.fromJson(json["added_by_status"]),
         playtime: json["playtime"],

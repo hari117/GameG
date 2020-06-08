@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:rawg/helperfiles/svg.imges.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
@@ -218,15 +219,15 @@ class GameDetailsPage extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: game.stores.length,
           itemBuilder: (_, pos) {
-            return urlLancherButton(pos);
+            return storeButton(pos);
           }),
     );
   }
 
-  urlLancherButton(int index) {
+  storeButton(int index) {
     return Container(
       padding: EdgeInsets.all(10),
-      width: 240,
+      width: 270,
       child: RaisedButton(
         splashColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -237,12 +238,32 @@ class GameDetailsPage extends StatelessWidget {
           _launchURL(game.stores[index].url);
           // print("url lanched");
         },
-        child: Text(
-          game.stores[index].websiteName,
-          style: GoogleFonts.roboto(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
+        child: Row(
+          children: [
+            Text(
+              game.stores[index].websiteName,
+              style:
+                  GoogleFonts.roboto(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
+            ),
+            storeIconPlacer(game.stores[index].websiteName),
+          ],
         ),
       ),
     );
+  }
+
+  storeIconPlacer(String storeName) {
+    print("the icon name is ********$storeName*********");
+    if (SvgImagesMap.shopIcons.containsKey(storeName))
+      return Padding(
+        padding: EdgeInsets.all(10),
+        child: SvgPicture.asset(
+          SvgImagesMap.shopIcons['$storeName'],
+          width: 30,
+        ),
+      );
+    else
+      return SizedBox();
   }
 
   _launchURL(String urlpage) async {
