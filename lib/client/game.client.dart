@@ -8,6 +8,7 @@ class GameClient {
 
   final String LIST_OF_GAMES_URL = "https://api.rawg.io/api/games?page=";
   final String GAME_CARD_PAGE_URL = "https://api.rawg.io/api/games/";
+
   final Dio dio = Dio();
 
   Future<List<Game>> loadGamesOnPage(int pageNumber) {
@@ -38,7 +39,7 @@ class GameClient {
 
   Future suggestRelatedGames(int gameId) async {
     //  print("check the endpoint pagenumber is $pageNumber");
-    String url = "https://api.rawg.io/api/games/$gameId/suggested";
+    String url = "https://api.rawg.io/api/games/$gameId/suggested?page_size=40 ";
     //   print("going to call $url");
     Response futurePage = await dio.get(url);
     //  print("futureSuggested page games $futurePage");

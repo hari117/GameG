@@ -225,9 +225,8 @@ class GameDetailsPage extends StatelessWidget {
   }
 
   storeButton(int index) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      width: 270,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: RaisedButton(
         splashColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -238,15 +237,18 @@ class GameDetailsPage extends StatelessWidget {
           _launchURL(game.stores[index].url);
           // print("url lanched");
         },
-        child: Row(
-          children: [
-            Text(
-              game.stores[index].websiteName,
-              style:
-                  GoogleFonts.roboto(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
-            ),
-            storeIconPlacer(game.stores[index].websiteName),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+          child: Row(
+            children: [
+              Text(
+                game.stores[index].websiteName,
+                style:
+                    GoogleFonts.roboto(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
+              ),
+              storeIconPlacer(game.stores[index].websiteName),
+            ],
+          ),
         ),
       ),
     );
@@ -256,7 +258,7 @@ class GameDetailsPage extends StatelessWidget {
     print("the icon name is ********$storeName*********");
     if (SvgImagesMap.shopIcons.containsKey(storeName))
       return Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
         child: SvgPicture.asset(
           SvgImagesMap.shopIcons['$storeName'],
           width: 30,
@@ -331,11 +333,14 @@ class GameDetailsPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Container(
-                  color: Colors.white,
+                  //      color: Colors.white,
                   child: Text(
                     "${homeState.contentIndicator}",
                     style: GoogleFonts.roboto(
-                        color: Colors.black, fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: 1),
+                        color: Color.fromRGBO(63, 56, 38, 1),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1),
                   ),
                 ),
               ),
