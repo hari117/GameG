@@ -13,7 +13,7 @@ class HomePageState extends StatesRebuilder {
   String contentIndicator = "showless..";
   bool showHigh = false;
   double height = 100;
-
+  int relatedGamesPageCount = 0;
   changeContainer(double h, String name) {
     height = h;
 
@@ -49,7 +49,11 @@ class HomePageState extends StatesRebuilder {
   loadGameDetailsPage(Game game) {
     print("calling gameID to get description and suggested games");
     isGamePageLoad = false;
-    GameClient.instance.GameID(game).then((value) {
+    GameClient.instance
+        .GameID(
+      game,
+    )
+        .then((value) {
       isGamePageLoad = true;
       game.description = value[0];
       game.relatedGames = value[1];

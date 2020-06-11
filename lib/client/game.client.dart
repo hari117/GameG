@@ -2,10 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:rawg/models/generated/gamecardpage.json.model.dart';
 import 'package:rawg/models/generated/page.json.model.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
+import 'package:rawg/rebuilderstates/home.satate.dart';
 
 class GameClient {
   static final GameClient instance = GameClient();
-
+  HomePageState trackPageNumber = HomePageState.homePageState;
   final String LIST_OF_GAMES_URL = "https://api.rawg.io/api/games?page=";
   final String GAME_CARD_PAGE_URL = "https://api.rawg.io/api/games/";
 
@@ -29,7 +30,9 @@ class GameClient {
     return gamesListFuture;
   }
 
-  Future GameID(Game game) async {
+  Future GameID(
+    Game game,
+  ) async {
     String description = await loadGameDescription(game.gameId);
     //  print("sucessfully completed description funtion");
     List<Game> suggested = await suggestRelatedGames(game.gameId);
@@ -38,11 +41,14 @@ class GameClient {
   }
 
   Future suggestRelatedGames(int gameId) async {
-    //  print("check the endpoint pagenumber is $pageNumber");
-    String url = "https://api.rawg.io/api/games/$gameId/suggested?page_size=40 ";
-    //   print("going to call $url");
+    trackPageNumber.relatedGamesPageCount++;
+    print("the relatedgames page counted is ${trackPageNumber.relatedGamesPageCount}");
+
+    String url =
+        "https://api.rawg.io/api/games/$gameId/suggested?page=${trackPageNumber.relatedGamesPageCount}&page_size=40 ";
+
     Response futurePage = await dio.get(url);
-    //  print("futureSuggested page games $futurePage");
+
     var games = futurePage.data;
     //  print("futureSuggested parsed data $games");
     ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(games);
