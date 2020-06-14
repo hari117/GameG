@@ -175,12 +175,12 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
         height: 250,
         child: PageView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: widget.game.screenShots.length,
+            itemCount: widget.game.screenShotUrls.length,
             itemBuilder: (_, pos) {
               return Padding(
                 padding: const EdgeInsets.only(left: 0.0),
                 child: CachedNetworkImage(
-                  imageUrl: widget.game.screenShots[pos],
+                  imageUrl: widget.game.screenShotUrls[pos],
                   fit: BoxFit.cover,
                 ),
               );

@@ -21,23 +21,10 @@ class GameCard extends StatefulWidget {
 
 class _GameCardState extends State<GameCard> {
   HomePageState homeState = HomePageState.homePageState;
-  ScrollController scrollController;
 
-  int index = 0;
-
-  initalState() {
-    super.initState();
-    scrollController = ScrollController();
-  }
-
-  @override
-  initstate() {
-    super.initState();
-  }
+  int imageSliderIndex = 0;
 
   Widget build(BuildContext context) {
-    //print("printing tha parentPlatform names ${widget.game.parentPlatform}");
-    //  print("game id is ${game.gameId}");
     return Center(
       child: Container(
         margin: EdgeInsets.all(10),
@@ -58,16 +45,15 @@ class _GameCardState extends State<GameCard> {
                   child: Stack(
                     children: [
                       PageView.builder(
-                          controller: scrollController,
                           onPageChanged: (value) {
-                            index = value;
+                            imageSliderIndex = value;
                             setState(() {});
                           },
-                          itemCount: widget.game.screenShots.length,
+                          itemCount: widget.game.screenShotUrls.length > 6 ? 6 : widget.game.screenShotUrls.length,
                           itemBuilder: (_, pos) {
                             return gameCardImagePageview(pos);
                           }),
-                      genImageIndicator(widget.game.screenShots.length, index),
+                      genImageIndicator(widget.game.screenShotUrls.length, imageSliderIndex),
                     ],
                   )),
             ),
@@ -119,7 +105,7 @@ class _GameCardState extends State<GameCard> {
 
   gameCardImagePageview(int index) {
     return CachedNetworkImage(
-      imageUrl: widget.game.screenShots[index],
+      imageUrl: widget.game.screenShotUrls[index],
       fit: BoxFit.cover,
       progressIndicatorBuilder: (context, url, downloadProgress) => Center(child: BlackProgressIndicatorWidget()),
       errorWidget: (context, url, error) => Icon(Icons.error),

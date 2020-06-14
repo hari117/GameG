@@ -1,97 +1,67 @@
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
+import 'package:rawg/helperfiles/logger.helper.dart';
 import 'package:rawg/models/generated/gamecardpage.json.model.dart';
 import 'package:rawg/models/generated/page.json.model.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
-import 'package:rawg/rebuilderstates/home.satate.dart';
 
 class GameClient {
   static final GameClient instance = GameClient();
-  HomePageState trackPageNumber = HomePageState.homePageState;
-  final String LIST_OF_GAMES_URL = "https://api.rawg.io/api/games?page=";
-  final String GAME_CARD_PAGE_URL = "https://api.rawg.io/api/games/";
+  static final Logger _log = getLogger("GameClient");
+
+  final String GAME_RESOURCE_URL = "https://api.rawg.io/api/games";
 
   final Dio dio = Dio();
 
-  Future<List<Game>> loadGamesOnPage(int pageNumber) {
-    //  print("check the endpoint pagenumber is $pageNumber");
-    String url = "$LIST_OF_GAMES_URL$pageNumber";
-    //   print("going to call $url");
-    Future<Response> futurePage = dio.get(url);
-    //   print("futurePage $futurePage");
-    Future<List<Game>> gamesListFuture = futurePage.then((response) {
-      //    print("response received for url: $url");
-      var responseData = response.data;
-      ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(responseData);
-      //   print("Parsed $listOfGamesPage");
-      List<Game> gameList = Game.getGames(listOfGamesPage);
+  Future<List<Game>> loadGamesOnPage(int pageNumber, String genre) async {
+    Map<String, dynamic> queryParameters = {};
+    if (genre != null) {
+      queryParameters.putIfAbsent("genres", () => genre);
+    }
+    queryParameters.putIfAbsent("page", () => pageNumber);
+    queryParameters.putIfAbsent("page_size", () => 40);
 
-      return gameList;
-    });
-    return gamesListFuture;
-  }
-
-  Future GameID(
-    Game game,
-  ) async {
-    String description = await loadGameDescription(game.gameId);
-    //  print("sucessfully completed description funtion");
-    List<Game> suggested = await suggestRelatedGames(game.gameId);
-    //  print("sucessfully completed suggested funtion");
-    return Future.value([description, suggested]);
-  }
-
-  Future suggestRelatedGames(int gameId) async {
-    trackPageNumber.relatedGamesPageCount++;
-    print("the relatedgames page counted is ${trackPageNumber.relatedGamesPageCount}");
-
-    String url =
-        "https://api.rawg.io/api/games/$gameId/suggested?page=${trackPageNumber.relatedGamesPageCount}&page_size=40 ";
-
-    Response futurePage = await dio.get(url);
-
-    var games = futurePage.data;
-    //  print("futureSuggested parsed data $games");
-    ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(games);
-    List<Game> gameList = Game.getGames(listOfGamesPage);
+    _log.i("loading list of games for page number ${pageNumber} with params $queryParameters}");
+    Response response = await dio.get(GAME_RESOURCE_URL, queryParameters: queryParameters);
+    _log.d("got response from rest url: $GAME_RESOURCE_URL");
+    _log.d("response data: ${response.data}");
+    ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(response.data);
+    List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
+    _log.i("received ${gameList.length} games from rest url");
     return gameList;
   }
 
-  Future<String> loadGameDescription(int gameId) async {
-    //  print("entered load game description");
-    String url = "$GAME_CARD_PAGE_URL$gameId";
+  Future getDescriptionAndSuggestedGames(Game game, int suggestionPageNum) async {
+    _log.i("loading game description for game: ${game.gameId}");
+    String description = await loadGameDescription(game);
+
+    _log.i("loading game suggestion for game: ${game.gameId} at pageNum: ${suggestionPageNum}");
+    List<Game> suggested = await suggestRelatedGames(game.gameId, suggestionPageNum);
+    return Future.value([description, suggested]);
+  }
+
+  Future suggestRelatedGames(int gameId, int pageNum) async {
+    Map<String, dynamic> queryParameters = {
+      "page": pageNum,
+      "page_size": 40,
+    };
+
+    String url = "$GAME_RESOURCE_URL/$gameId/suggested";
+    Response response = await dio.get(url, queryParameters: queryParameters);
+    var games = response.data;
+    ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(games);
+    List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
+    _log.i("receved game suggestion for game: ${gameId} at pageNum: ${pageNum}. no of suggestion: ${gameList.length}");
+    return gameList;
+  }
+
+  Future<String> loadGameDescription(Game game) async {
+    if (game.description != null || game.description != "") return game.description;
+
+    String url = "$GAME_RESOURCE_URL/${game.gameId}";
     Response futurePage = await dio.get(url);
     GameCardPageDetails gameCardPageDetails = GameCardPageDetails.fromJson(futurePage.data);
     var descriptionRaw = gameCardPageDetails.descriptionRaw;
     return descriptionRaw;
   }
-
-//  Future<GamePage> loadGameCardPage(int gameId) {
-//    String url = "$GAME_CARD_PAGE_URL$gameId";
-//    Future<Response> futurePage = dio.get(url);
-//    Future<GamePage> futureGameCardPage = futurePage.then((value) {
-//      print("checking the value $value");
-//      var info = value.data;
-//      GameCardPageDetails gameCardPageDetails =
-//          GameCardPageDetails.fromJson(info);
-//      GamePage gamePage = GamePage(gameCardPageDetails);
-//      return gamePage;
-//    });
-//
-//    return futureGameCardPage;
-//  }
-
-//  Future<List<Game>> loadGamesOnPageAsync(int pageNumber) async {
-//    String url = "$LIST_OF_GAMES_URL$pageNumber";
-//    Response response = await dio.get(url);
-//    var responseData = response.data;
-//    ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(responseData);
-//    List<Game> gamesList = [];
-//    for (Result result in listOfGamesPage.results) {
-//      Game game = Game();
-//      game.name = result.name;
-//      game.imageUrl = result.backgroundImage;
-//      gamesList.add(game);
-//    }
-//    return gamesList;
-//  }
 }

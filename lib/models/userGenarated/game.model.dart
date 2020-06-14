@@ -1,7 +1,5 @@
 import 'package:rawg/models/generated/page.json.model.dart';
 
-import 'package:intl/intl.dart';
-
 class Game {
   int gameId;
   int metaScore;
@@ -9,22 +7,20 @@ class Game {
   String name;
   String imageUrl;
   String description = "";
-  String minSystemRequirement;
-  String maxSystemRequirement;
 
   DateTime releaseData;
 
   List<String> genres = List();
   List<String> platform = List();
   List<PlatformName> parentPlatform = List();
-  List<String> screenShots = List();
+  List<String> screenShotUrls = List();
 
   List<Stores> stores = List();
   List<RatingsToGame> ratings = List();
 
   List<Game> relatedGames = List();
 
-  static List<Game> getGames(ListOfGamesPage listOfGamesPage) {
+  static List<Game> getGamesFrom(ListOfGamesPage listOfGamesPage) {
     List<Game> newGameList = [];
 
     for (Result result in listOfGamesPage.results) {
@@ -35,7 +31,6 @@ class Game {
       game.metaScore = result.metacritic == null ? 0 : result.metacritic;
 
       game.releaseData = result.released;
-      //   print("tha game released date is ${game.releaseData}******");
       //adding genres to tha gameObject
       for (Genre genre in result.genres) {
         game.genres.add(genre.slug);
@@ -65,7 +60,7 @@ class Game {
       // adding imges to gameObject
       for (ShortScreenshot screenshot in result.shortScreenshots) {
         String img = screenshot.image;
-        game.screenShots.add(img);
+        game.screenShotUrls.add(img);
       }
 
       //adding Gamestores links to the gameObject
@@ -77,10 +72,8 @@ class Game {
       }
 
       //adding ratings to the gameObject
-
       newGameList.add(game);
     }
-
     return newGameList;
   }
 }
