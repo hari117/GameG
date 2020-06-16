@@ -28,17 +28,17 @@ class HomePageState extends StatesRebuilder {
   }
 
   loadNextPage() async {
-    print("calling $pageNumber.0 page");
+  //  print("calling $pageNumber.0 page");
     isLoading = true;
     rebuildStates();
-    print("isloading $isLoading");
+ //   print("isloading $isLoading");
     try {
       var value = await GameClient.instance.loadGamesOnPage(pageNumber, genres);
       listOfGames.addAll(value);
       pageNumber++;
     } catch (e, st) {
-      _log.e("Unable to load games page: ${pageNumber}");
-      print(st);
+ //     _log.e("Unable to load games page: ${pageNumber}");
+//      print(st);
     } finally {
       isLoading = false;
       rebuildStates();
@@ -59,14 +59,14 @@ class HomePageState extends StatesRebuilder {
 
   //loading suggested games
   loadGameDetailsPage(Game game) {
-    print("calling gameID to get description and suggested games");
+ //   print("calling gameID to get description and suggested games");
     isGamePageLoad = false;
     GameClient.instance.getDescriptionAndSuggestedGames(game, relatedGamesPageCount).then((value) {
       isGamePageLoad = true;
       game.description = value[0];
       game.relatedGames = value[1];
       relatedGamesPageCount++;
-      print("sucessfully displayed description and suggested games on UI");
+  //   print("sucessfully displayed description and suggested games on UI");
       rebuildStates();
     });
 

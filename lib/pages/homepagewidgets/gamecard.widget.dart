@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rawg/helperfiles/imagerequesthandeler.dart';
 import 'package:rawg/models/generated/page.json.model.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/game.details.page.dart';
@@ -9,7 +10,7 @@ import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart'
 import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:rawg/helperfiles/svg.imges.dart';
-
+import 'imagehandle.widget.dart';
 class GameCard extends StatefulWidget {
   Game game;
 
@@ -104,12 +105,7 @@ class _GameCardState extends State<GameCard> {
   }
 
   gameCardImagePageview(int index) {
-    return CachedNetworkImage(
-      imageUrl: widget.game.screenShotUrls[index],
-      fit: BoxFit.cover,
-      progressIndicatorBuilder: (context, url, downloadProgress) => Center(child: BlackProgressIndicatorWidget()),
-      errorWidget: (context, url, error) => Icon(Icons.error),
-    );
+    return FutureNetworkImage(widget.game.screenShotUrls[index]);
   }
 
   gameCardImagePageviewIndicator(int num, double w) {

@@ -21,21 +21,21 @@ class GameClient {
     queryParameters.putIfAbsent("page", () => pageNumber);
     queryParameters.putIfAbsent("page_size", () => 40);
 
-    _log.i("loading list of games for page number ${pageNumber} with params $queryParameters}");
+//    _log.i("loading list of games for page number ${pageNumber} with params $queryParameters}");
     Response response = await dio.get(GAME_RESOURCE_URL, queryParameters: queryParameters);
-    _log.d("got response from rest url: $GAME_RESOURCE_URL");
-    _log.d("response data: ${response.data}");
+    //_log.d("got response from rest url: $GAME_RESOURCE_URL");
+//    _log.d("response data: ${response.data}");
     ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(response.data);
     List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
-    _log.i("received ${gameList.length} games from rest url");
+//    _log.i("received ${gameList.length} games from rest url");
     return gameList;
   }
 
   Future getDescriptionAndSuggestedGames(Game game, int suggestionPageNum) async {
-    _log.i("loading game description for game: ${game.gameId}");
+//    _log.i("loading game description for game: ${game.gameId}");
     String description = await loadGameDescription(game);
 
-    _log.i("loading game suggestion for game: ${game.gameId} at pageNum: ${suggestionPageNum}");
+//    _log.i("loading game suggestion for game: ${game.gameId} at pageNum: ${suggestionPageNum}");
     List<Game> suggested = await suggestRelatedGames(game.gameId, suggestionPageNum);
     return Future.value([description, suggested]);
   }
@@ -51,7 +51,7 @@ class GameClient {
     var games = response.data;
     ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(games);
     List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
-    _log.i("receved game suggestion for game: ${gameId} at pageNum: ${pageNum}. no of suggestion: ${gameList.length}");
+//    _log.i("receved game suggestion for game: ${gameId} at pageNum: ${pageNum}. no of suggestion: ${gameList.length}");
     return gameList;
   }
 

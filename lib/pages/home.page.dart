@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   checkPageScrollHadReachedEnd() {
     scrollController.addListener(() {
       if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
-        print("page end reached");
+//        print("page end reached");
         homeState.loadNextPage();
       }
     });

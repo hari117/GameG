@@ -35,14 +35,14 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
       if (suggestedGamesScrollControler.position.pixels == suggestedGamesScrollControler.position.maxScrollExtent) {
         //   homeState.
         homeState.loadGameDetailsPage(widget.game);
-        print("the relatedgames page counted is ${homeState.relatedGamesPageCount}");
+//        print("the relatedgames page counted is ${homeState.relatedGamesPageCount}");
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("clicking ${widget.game.name}  ${widget.game.gameId}");
+    //print("clicking ${widget.game.name}  ${widget.game.gameId}");
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromRGBO(0, 0, 0, 1),
@@ -282,7 +282,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
   }
 
   storeIconPlacer(String storeName) {
-    print("the icon name is ********$storeName*********");
+//    print("the icon name is ********$storeName*********");
     if (SvgImagesMap.shopIcons.containsKey(storeName))
       return Padding(
         padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
@@ -345,17 +345,17 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                     "ShowMore...",
                   );
 
-                  print(homeState.height);
+//                  print(homeState.height);
                 } else {
                   homeState.changeContainer(
                     null,
                     "ShowLess...",
                   );
 
-                  print(homeState.height);
+//                  print(homeState.height);
                 }
                 homeState.showHigh = !homeState.showHigh;
-                print(homeState.showHigh);
+//                print(homeState.showHigh);
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 5),
