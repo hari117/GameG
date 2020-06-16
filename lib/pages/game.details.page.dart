@@ -7,6 +7,7 @@ import 'package:rawg/helperfiles/svg.imges.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
+import 'package:rawg/pages/homepagewidgets/imagehandle.widget.dart';
 import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/pages/homepagewidgets/text.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
@@ -179,16 +180,17 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
             itemBuilder: (_, pos) {
               return Padding(
                 padding: const EdgeInsets.only(left: 0.0),
-                child: CachedNetworkImage(
-                  imageUrl: widget.game.screenShotUrls[pos],
-                  fit: BoxFit.cover,
-                ),
+                child: imageBuilder(pos),
               );
             }),
       ),
     );
   }
+ imageBuilder(int index)
+ {
+   return FutureNetworkImage(widget.game.screenShotUrls[index]);
 
+ }
   detailsSection() {
     return Row(
       children: [

@@ -19,7 +19,7 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
   @override
   void initState() {
     super.initState();
-    print("calling getcachedversionofFile funtion");
+//    print("calling getcachedversionofFile funtion");
     getCachedVersionOfFile(widget.url).then((value) {
       this.imageLocation = value;
       if (!mounted) return;
