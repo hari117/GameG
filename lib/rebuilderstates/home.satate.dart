@@ -8,17 +8,32 @@ class HomePageState extends StatesRebuilder {
   static HomePageState homePageState = HomePageState();
   static final Logger _log = getLogger("HomePageState");
 
+  int genresId = 0;
+  int pageNumber = 1;
+  int relatedGamesPageCount = 1;
+
+  double height = 100;
   String genres;
   String platform;
+  String contentIndicator = "showless..";
 
-  int pageNumber = 1;
+  bool showHigh = false;
   bool isLoading = false;
   bool isGamePageLoad = false;
+
   List<Game> listOfGames = [];
-  String contentIndicator = "showless..";
-  bool showHigh = false;
-  double height = 100;
-  int relatedGamesPageCount = 1;
+
+  Map<String, int> genresIdGetter = {
+    "Action": 4,
+    "Strategy": 10,
+    "Rpg": 5,
+    "Shooter": 2,
+    "Adventure": 3,
+    "Puzzle": 7,
+    //"Arcade":11,
+    "Racing": 1,
+    "Sports": 15,
+  };
 
   changeContainer(double h, String name) {
     height = h;
@@ -28,16 +43,17 @@ class HomePageState extends StatesRebuilder {
   }
 
   loadNextPage() async {
-  //  print("calling $pageNumber.0 page");
+    //  print("calling $pageNumber.0 page");
     isLoading = true;
     rebuildStates();
- //   print("isloading $isLoading");
+    //   print("isloading $isLoading");
+
     try {
-      var value = await GameClient.instance.loadGamesOnPage(pageNumber, genres);
+      var value = await GameClient.instance.loadGamesOnPage(pageNumber, genresId);
       listOfGames.addAll(value);
       pageNumber++;
     } catch (e, st) {
- //     _log.e("Unable to load games page: ${pageNumber}");
+      //     _log.e("Unable to load games page: ${pageNumber}");
 //      print(st);
     } finally {
       isLoading = false;
@@ -52,21 +68,22 @@ class HomePageState extends StatesRebuilder {
     rebuildStates();
   }
 
-  genresSeter(String name) {
-    genres = name;
+  genresSeter(String genresName) {
+    genresId = genresIdGetter[genresName];
+    genres = genresName;
     rebuildStates();
   }
 
   //loading suggested games
   loadGameDetailsPage(Game game) {
- //   print("calling gameID to get description and suggested games");
+    //   print("calling gameID to get description and suggested games");
     isGamePageLoad = false;
     GameClient.instance.getDescriptionAndSuggestedGames(game, relatedGamesPageCount).then((value) {
       isGamePageLoad = true;
       game.description = value[0];
       game.relatedGames = value[1];
       relatedGamesPageCount++;
-  //   print("sucessfully displayed description and suggested games on UI");
+      //   print("sucessfully displayed description and suggested games on UI");
       rebuildStates();
     });
 

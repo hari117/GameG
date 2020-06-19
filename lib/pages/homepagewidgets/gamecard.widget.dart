@@ -1,16 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rawg/helperfiles/imagerequesthandeler.dart';
 import 'package:rawg/models/generated/page.json.model.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
+import 'package:rawg/modules/future_network_image/future.network.image.widget.dart';
 import 'package:rawg/pages/game.details.page.dart';
-import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:rawg/helperfiles/svg.imges.dart';
-import 'imagehandle.widget.dart';
+import 'package:states_rebuilder/states_rebuilder.dart';
+
+import 'package:flutter_widgets/flutter_widgets.dart';
+
 class GameCard extends StatefulWidget {
   Game game;
 
@@ -25,87 +26,102 @@ class _GameCardState extends State<GameCard> {
 
   int imageSliderIndex = 0;
 
+//  Widget oldBuild(BuildContext context){
+//    return Container(
+//      height: 50,
+//      child: FutureNetworkImage(widget.game.screenShotUrls[0]),
+//    );
+//  }
+
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        margin: EdgeInsets.all(10),
-        width: MediaQuery.of(context).size.width - 70,
-        height: 250,
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              ),
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(32, 32, 32, 1),
-                  ),
-                  height: 150,
-                  child: Stack(
-                    children: [
-                      PageView.builder(
-                          onPageChanged: (value) {
-                            imageSliderIndex = value;
-                            setState(() {});
-                          },
-                          itemCount: widget.game.screenShotUrls.length > 6 ? 6 : widget.game.screenShotUrls.length,
-                          itemBuilder: (_, pos) {
-                            return gameCardImagePageview(pos);
-                          }),
-                      genImageIndicator(widget.game.screenShotUrls.length, imageSliderIndex),
-                    ],
-                  )),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (context) => GameDetailsPage(widget.game),
-                  ),
-                );
-              },
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(32, 32, 32, 1),
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
-                ),
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return StateBuilder(
+        observe: () => homeState,
+        builder: (context, _) {
+          return Center(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width - 70,
+              height: 250,
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(32, 32, 32, 1),
+                        ),
+                        height: 150,
+                        child: Stack(
                           children: [
-                            platformIconsDisplay(),
-                            MetricPoint(widget.game),
+                            PageView.builder(
+                                onPageChanged: (value) {
+                                  imageSliderIndex = value;
+                                  setState(() {});
+                                },
+                                itemCount: widget.game.screenShotUrls.length > 6
+                                    ? 6
+                                    : widget.game.screenShotUrls.length,
+                                itemBuilder: (_, pos) {
+                                  return gameCardImagePageview(pos);
+                                }),
+                            genImageIndicator(widget.game.screenShotUrls.length, imageSliderIndex),
+                          ],
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (context) => GameDetailsPage(widget.game),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(32, 32, 32, 1),
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+                      ),
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  platformIconsDisplay(),
+                                  MetricPoint(widget.game),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              "${widget.game.name} ",
+                              style: GoogleFonts.roboto(
+                                  color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
                       ),
-                      Text(
-                        "${widget.game.name} ",
-                        style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 
   gameCardImagePageview(int index) {
-    return FutureNetworkImage(widget.game.screenShotUrls[index]);
+    return FutureNetworkImage(widget.game.name, widget.game.screenShotUrls[index]);
   }
 
   gameCardImagePageviewIndicator(int num, double w) {

@@ -10,6 +10,7 @@ void main() {
 class RAWG extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage());
+    return MaterialApp(//showPerformanceOverlay:true,
+         home: HomePage());
   }
 }

@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   headLinesBody() {
-    var headListText = homeState.genres == null ? "New and trending" : "${homeState.genres} Games";
+    var headListText = homeState.genres == null ? "New and trending" : "${homeState.genres.toUpperCase()} Games";
     return Container(
       width: double.infinity,
 

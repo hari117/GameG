@@ -26,11 +26,15 @@ class _MenuOptionsState extends State<MenuOptions> {
 //                    height: double.infinity,
                     child: Column(
                   children: [
-                    genresSection("action", context),
-                    genresSection("shooter", context),
-                    genresSection("strategy", context),
-                    genresSection("racing", context),
-                    genresSection("sports", context),
+                    genresSection("Action", context),
+                    genresSection("Strategy", context),
+                    genresSection("Rpg", context),
+                    genresSection("Shooter", context),
+                    genresSection("Adventure", context),
+                    genresSection("Puzzle", context),
+                //    genresSection("Arcade", context),
+                 //   genresSection("Rpg", context),
+                    genresSection("Sports", context),
                   ],
                 )),
               ],
@@ -43,6 +47,7 @@ class _MenuOptionsState extends State<MenuOptions> {
   }
 
   genresSection(String name, BuildContext context) {
+
     return InkWell(
       onTap: () {
         menuState.resetState();
@@ -50,9 +55,21 @@ class _MenuOptionsState extends State<MenuOptions> {
         menuState.loadNextPage();
         Navigator.pop(context);
       },
-      child: Text(
-        name,
-        style: TextStyle(color: Colors.white, fontSize: 40),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(
+          children: <Widget>[
+            Image(
+              width: 30,
+              height: 30,
+              image: AssetImage("Assets/genresicons/$name.png",),
+            ),
+            SizedBox(width: 10,),
+            Text(name, style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ],
+
+        ),
       ),
     );
   }

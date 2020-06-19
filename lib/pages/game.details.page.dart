@@ -1,13 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:rawg/helperfiles/svg.imges.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
+import 'package:rawg/modules/future_network_image/future.network.image.widget.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
-import 'package:rawg/pages/homepagewidgets/imagehandle.widget.dart';
 import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/pages/homepagewidgets/text.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
@@ -33,7 +32,8 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
     super.initState();
     suggestedGamesScrollControler = ScrollController();
     suggestedGamesScrollControler.addListener(() {
-      if (suggestedGamesScrollControler.position.pixels == suggestedGamesScrollControler.position.maxScrollExtent) {
+      if (suggestedGamesScrollControler.position.pixels ==
+          suggestedGamesScrollControler.position.maxScrollExtent) {
         //   homeState.
         homeState.loadGameDetailsPage(widget.game);
 //        print("the relatedgames page counted is ${homeState.relatedGamesPageCount}");
@@ -84,7 +84,8 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                                 Row(
                                   children: [
                                     ratingsColorContainer(Color.fromRGBO(85, 124, 224, 1)),
-                                    //    ratingsText("Recommended", 1)
+                                    if (widget.game.ratings[0].title == "recommended")
+                                      ratingsText("Recommended", 1)
                                   ],
                                 ),
                                 Row(
@@ -118,14 +119,16 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                           ],
                         ),
                       ),
-                      TextWidget("About", 20, 20, 0, 0, FontWeight.w700, 30, Color.fromRGBO(63, 56, 38, 1), 1),
+                      TextWidget(
+                          "About", 20, 20, 0, 0, FontWeight.w700, 30, Color.fromRGBO(63, 56, 38, 1), 1),
                       if (homeState.isGamePageLoad)
                         description(
                           widget.game.description,
                         ),
                       if (!homeState.isGamePageLoad) prograssIndicator(),
                       detailsSection(),
-                      TextWidget("Where to Buy", 10, 10, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
+                      TextWidget("Where to Buy", 10, 10, 0, 0, FontWeight.w500, 25,
+                          Color.fromRGBO(63, 56, 38, 1), 1),
                       storeBuilder(),
                       centerNameInCenter("Games Like  ${widget.game.name}"),
                       if (homeState.isGamePageLoad)
@@ -186,11 +189,11 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
       ),
     );
   }
- imageBuilder(int index)
- {
-   return FutureNetworkImage(widget.game.screenShotUrls[index]);
 
- }
+  imageBuilder(int index) {
+    return FutureNetworkImage(widget.game.name, widget.game.screenShotUrls[index]);
+  }
+
   detailsSection() {
     return Row(
       children: [
@@ -233,8 +236,8 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextWidget("Release Date", 10, 0, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
-          TextWidget(
-              "${DateFormat.yMd().format(widget.game.releaseData)}", 10, 0, 0, 0, FontWeight.w400, 17, Colors.white, 1),
+          TextWidget("${DateFormat.yMd().format(widget.game.releaseData)}", 10, 0, 0, 0, FontWeight.w400, 17,
+              Colors.white, 1),
         ],
       );
     }
@@ -272,8 +275,8 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
             children: [
               Text(
                 widget.game.stores[index].websiteName,
-                style:
-                    GoogleFonts.roboto(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
+                style: GoogleFonts.roboto(
+                    color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
               ),
               storeIconPlacer(widget.game.stores[index].websiteName),
             ],
@@ -321,6 +324,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
   }
 
   description(String content) {
+    //   print(content);
     return StateBuilder(
       observe: () => homeState,
       builder: (context, _) {
@@ -334,7 +338,8 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                   Container(
                     height: homeState.height,
                     child: Text(content,
-                        style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400)),
+                        style: GoogleFonts.roboto(
+                            color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400)),
                   ),
                 ],
               ),
@@ -367,7 +372,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                     "${homeState.contentIndicator}",
                     style: GoogleFonts.roboto(
                         color: Color.fromRGBO(63, 56, 38, 1),
-                        fontSize: 25,
+                        fontSize: 18,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 1),
                   ),
@@ -405,7 +410,8 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
       padding: const EdgeInsets.only(left: 7.0),
       child: Text(
         "$name  ${widget.game.ratings[3]} ",
-        style: GoogleFonts.roboto(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500, letterSpacing: 1),
+        style: GoogleFonts.roboto(
+            color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500, letterSpacing: 1),
       ),
     );
   }
@@ -432,7 +438,8 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Text(
             name,
-            style: GoogleFonts.roboto(color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold, letterSpacing: 2),
+            style: GoogleFonts.roboto(
+                color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold, letterSpacing: 2),
             textAlign: TextAlign.center,
           ),
         ),

@@ -10,16 +10,18 @@ class GameClient {
   static final Logger _log = getLogger("GameClient");
 
   final String GAME_RESOURCE_URL = "https://api.rawg.io/api/games";
+  final int GAMES_PER_PAGE = 40;
 
   final Dio dio = Dio();
 
-  Future<List<Game>> loadGamesOnPage(int pageNumber, String genre) async {
+  Future<List<Game>> loadGamesOnPage(int pageNumber, int genre) async {
     Map<String, dynamic> queryParameters = {};
-    if (genre != null) {
+    print(genre);
+    if (genre != 0) {
       queryParameters.putIfAbsent("genres", () => genre);
     }
     queryParameters.putIfAbsent("page", () => pageNumber);
-    queryParameters.putIfAbsent("page_size", () => 40);
+    queryParameters.putIfAbsent("page_size", () => GAMES_PER_PAGE);
 
 //    _log.i("loading list of games for page number ${pageNumber} with params $queryParameters}");
     Response response = await dio.get(GAME_RESOURCE_URL, queryParameters: queryParameters);
@@ -56,7 +58,7 @@ class GameClient {
   }
 
   Future<String> loadGameDescription(Game game) async {
-    if (game.description != null || game.description != "") return game.description;
+ //   if (game.description != null || game.description != "") return game.description;
 
     String url = "$GAME_RESOURCE_URL/${game.gameId}";
     Response futurePage = await dio.get(url);

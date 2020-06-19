@@ -24,6 +24,9 @@ dependencies:
   logger: ^0.9.1
   semaphore: ^0.1.4
   mime_type: ^0.3.1
+  flutter_widgets: ^0.1.12
+  uuid: ^2.1.0
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
@@ -60,5 +63,13 @@ flutter:
      - Assets/storeicons/epicgames.svg
      - Assets/storeicons/appstore.svg
      - Assets/storeicons/googleplaystore.svg
-
+     -
+     - Assets/genresicons/Action.png
+     - Assets/genresicons/Adventure.png
+     - Assets/genresicons/Puzzle.png
+     - Assets/genresicons/Racing.png
+     - Assets/genresicons/Rpg.png
+     - Assets/genresicons/Shooter.png
+     - Assets/genresicons/Sports.png
+     - Assets/genresicons/Strategy.png
 
