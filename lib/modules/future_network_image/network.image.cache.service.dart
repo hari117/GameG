@@ -36,35 +36,31 @@ void getCachedVersionOfFile(NetworkImageRequest networkImageRequest) async {
   try {
     stopwatch.start();
     NetworkImageRequest networkImageRequest = requestQueue.pop();
-    print(
-        "RequestID: ${tempRequestId} executing url from queue: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
+    print("RequestID: ${tempRequestId} executing url from queue: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
     var response = await _client.get(Uri.parse(networkImageRequest.url));
-    print(
-        "RequestID: ${tempRequestId} executed url from queue: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
+    print("RequestID: ${tempRequestId} executed url from queue: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
+
 
     String extention = detectExtentionFromMime(response.headers["content-type"]);
     String fileName = p.join(cacheDirPath, baseFileNameWithoutExtension);
     fileName = "$fileName.$extention";
     var bytes = response.bodyBytes;
     File file = File(fileName);
-    print(
-        "RequestID: ${tempRequestId} writing to file : ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
+    print("RequestID: ${tempRequestId} writing to file : ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
     await file.createSync(recursive: true);
     await file.writeAsBytes(bytes);
-    print(
-        "RequestID: ${tempRequestId} writen to file and returning url from queue: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
+    print("RequestID: ${tempRequestId} writen to file and returning url from queue: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
 
     networkImageRequest.callback(file.path);
-  } catch (error, st) {
+  } catch (error, st)
+  {
     // TODO return error image from assets
 
   } finally {
     stopwatch.stop();
-    print(
-        "RequestID: ${tempRequestId} releasing lock: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
+    print("RequestID: ${tempRequestId} releasing lock: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
     await $sm.release();
-    print(
-        "RequestID: ${tempRequestId} released lock: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
+    print("RequestID: ${tempRequestId} released lock: ${networkImageRequest.url} name: ${networkImageRequest.name} isVisible: ${networkImageRequest.isVisible}");
   }
 }
 
