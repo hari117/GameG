@@ -32,12 +32,11 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
   }
 
   void onImageLocation(String fileLocation){
-    print(
-        "Got cached version of image: ${widget.name} isMounted: $mounted isVisible: ${_networkImageRequest.isVisible}");
+  //  print("Got cached version of image: ${widget.name} isMounted: $mounted isVisible: ${_networkImageRequest.isVisible}");
     this.imageLocation = fileLocation;
 
     if (mounted == true) {
-      print("calling set state for image: ${widget.name}");
+     // print("calling set state for image: ${widget.name}");
       setState(() {});
     }
   }
