@@ -48,7 +48,8 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     Widget child = _buildWidget(context);
     return VisibilityDetector(
       key: Key(widget.url),
@@ -69,11 +70,7 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
     if (imageLocation == null || imageLocation == "") {
       return Center(child: BlackProgressIndicatorWidget());
     } else {
-//      print("sucessfully retrived image");
-      return Image.file(
-        File(imageLocation),
-        fit: BoxFit.cover,
-      );
+return Image.file(File(imageLocation), fit: BoxFit.cover,);
     }
   }
 }
