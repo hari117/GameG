@@ -6,6 +6,7 @@ import 'package:rawg/helperfiles/svg.imges.dart';
 import 'package:rawg/models/userGenarated/game.model.dart';
 import 'package:rawg/modules/future_network_image/future.network.image.widget.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
+import 'package:rawg/pages/homepagewidgets/game.rating.widget.dart';
 import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/pages/homepagewidgets/text.widget.dart';
@@ -75,50 +76,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                       SizedBox(
                         height: 25,
                       ),
-                      Container(
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    ratingsColorContainer(Color.fromRGBO(85, 124, 224, 1)),
-                                    if (widget.game.ratings[0].title == "recommended")
-                                      ratingsText("Recommended", 1)
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    ratingsColorContainer(Colors.green),
-                                    //  ratingsText("Exceptional", 0)
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    ratingsColorContainer(Colors.yellow),
-                                    //   ratingsText("Meh", 2),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    ratingsColorContainer(Colors.red),
-                                    //   ratingsText("Skip", 3),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                      GameRatings(widget.game),
                       TextWidget(
                           "About", 20, 20, 0, 0, FontWeight.w700, 30, Color.fromRGBO(63, 56, 38, 1), 1),
                       if (homeState.isGamePageLoad)
@@ -394,27 +352,9 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
     );
   }
 
-  ratingsColorContainer(Color color) {
-    return Container(
-      width: 20,
-      height: 20,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(50),
-      ),
-    );
-  }
 
-  ratingsText(String name, Index) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 7.0),
-      child: Text(
-        "$name  ${widget.game.ratings[3]} ",
-        style: GoogleFonts.roboto(
-            color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500, letterSpacing: 1),
-      ),
-    );
-  }
+
+
 
   metricsScore() {
     return Container(

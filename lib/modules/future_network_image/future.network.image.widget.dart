@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
-import 'package:rawg/modules/future_network_image/network.image.cache.service.dart';
+import 'package:rawg/helperfiles/logger.helper.dart';
 import 'package:rawg/modules/future_network_image/network.image.request.model.dart';
+import 'file:///C:/Users/Hari/StudioProjects/Rawg.IO/lib/modules/future_network_image/my.image.store.dart';
 import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 
 class FutureNetworkImage extends StatefulWidget {
@@ -17,6 +18,8 @@ class FutureNetworkImage extends StatefulWidget {
 }
 
 class _FutureNetworkImageState extends State<FutureNetworkImage> {
+  final log = getLogger("_FutureNetworkImageState");
+
   String imageLocation;
   NetworkImageRequest _networkImageRequest = NetworkImageRequest();
 
@@ -28,16 +31,22 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
     _networkImageRequest.name = widget.name;
     _networkImageRequest.callback = onImageLocation;
 
-    getCachedVersionOfFile(_networkImageRequest);
+    $myImageStore.getLocalImagePathForUrl(_networkImageRequest);
   }
 
-  void onImageLocation(String fileLocation){
-  //  print("Got cached version of image: ${widget.name} isMounted: $mounted isVisible: ${_networkImageRequest.isVisible}");
+  void onImageLocation(String fileLocation) {
     this.imageLocation = fileLocation;
-
+    log.i("${widget.name}: cache file: $fileLocation");
     if (mounted == true) {
-     // print("calling set state for image: ${widget.name}");
+      log.i(
+          "${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest
+              .isVisible} going to call set state");
+      // print("calling set state for image: ${widget.name}");
       setState(() {});
+    } else {
+      log.i(
+          "${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest
+              .isVisible} not calling set state");
     }
   }
 
@@ -48,13 +57,12 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
   }
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     Widget child = _buildWidget(context);
     return VisibilityDetector(
       key: Key(widget.url),
       onVisibilityChanged: (info) {
-        print("Visibility for: ${widget.name} = ${info.visibleFraction}");
+//        print("Visibility for: ${widget.name} = ${info.visibleFraction}");
         if (info.visibleFraction > 0.0) {
           _networkImageRequest.isVisible = true;
         } else {
@@ -70,7 +78,10 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
     if (imageLocation == null || imageLocation == "") {
       return Center(child: BlackProgressIndicatorWidget());
     } else {
-return Image.file(File(imageLocation), fit: BoxFit.cover,);
+      return Image.file(
+        File(imageLocation),
+        fit: BoxFit.cover,
+      );
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
@@ -19,25 +20,28 @@ class _MenuOptionsState extends State<MenuOptions> {
         child: StateBuilder(
           observe: () => menuState,
           builder: (con, _) {
-            return Column(
-              children: [
-                Container(
-//                    width: double.infinity,
-//                    height: double.infinity,
-                    child: Column(
-                  children: [
-                    genresSection("Action", context),
-                    genresSection("Strategy", context),
-                    genresSection("Rpg", context),
-                    genresSection("Shooter", context),
-                    genresSection("Adventure", context),
-                    genresSection("Puzzle", context),
-                //    genresSection("Arcade", context),
-                 //   genresSection("Rpg", context),
-                    genresSection("Sports", context),
-                  ],
-                )),
-              ],
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 90),
+              child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+              genresSection("Action", context),
+                  sizeBox(),
+              genresSection("Strategy", context),
+                  sizeBox(),
+              genresSection("Rpg", context),
+                  sizeBox(),
+              genresSection("Shooter", context),
+                  sizeBox(),
+              genresSection("Adventure", context),
+                  sizeBox(),
+              genresSection("Puzzle", context),
+                  sizeBox(),
+              //    genresSection("Arcade", context),
+               //   genresSection("Rpg", context),
+              genresSection("Sports", context),
+                ],
+              ),
             );
           },
         ),
@@ -65,7 +69,7 @@ class _MenuOptionsState extends State<MenuOptions> {
               image: AssetImage("Assets/genresicons/$name.png",),
             ),
             SizedBox(width: 10,),
-            Text(name, style: TextStyle(color: Colors.white, fontSize: 20),
+            Text(name, style: GoogleFonts.roboto(color: Colors.white, fontSize: 30,letterSpacing: 2),
             ),
           ],
 
@@ -74,9 +78,13 @@ class _MenuOptionsState extends State<MenuOptions> {
     );
   }
 
+  sizeBox()
+  {
+    return SizedBox(height: 10,);
+  }
   floatingButton() {
     return Padding(
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 180,vertical: 120),
       child: InkWell(
         onTap: () {
           Navigator.pop(context);

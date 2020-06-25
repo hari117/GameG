@@ -587,7 +587,7 @@ class Rating {
   });
 
   int id;
-  Title title;
+  GameRatingDistributionTitle title;
   int count;
   double percent;
 
@@ -606,10 +606,10 @@ class Rating {
       };
 }
 
-enum Title { EXCEPTIONAL, RECOMMENDED, MEH, SKIP }
+enum GameRatingDistributionTitle { EXCEPTIONAL, RECOMMENDED, MEH, SKIP }
 
 final titleValues = EnumValues(
-    {"exceptional": Title.EXCEPTIONAL, "meh": Title.MEH, "recommended": Title.RECOMMENDED, "skip": Title.SKIP});
+    {"exceptional": GameRatingDistributionTitle.EXCEPTIONAL, "meh": GameRatingDistributionTitle.MEH, "recommended": GameRatingDistributionTitle.RECOMMENDED, "skip": GameRatingDistributionTitle.SKIP});
 
 class ShortScreenshot {
   ShortScreenshot({

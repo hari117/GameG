@@ -16,7 +16,7 @@ class Game {
   List<String> screenShotUrls = List();
 
   List<Stores> stores = List();
-  List<RatingsToGame> ratings = List();
+  List<GameRatingDistribution> ratingDistribution = List();
 
   List<Game> relatedGames = List();
 
@@ -38,10 +38,10 @@ class Game {
 
       //adding ratings to gameObject
       for (Rating rating in result.ratings) {
-        RatingsToGame r = RatingsToGame();
+        GameRatingDistribution r = GameRatingDistribution();
         r.title = rating.title;
-        r.Count = rating.count;
-        game.ratings.add(r);
+        r.count = rating.count;
+        game.ratingDistribution.add(r);
       }
 
       //adding parentplatform details to gameObject
@@ -83,7 +83,7 @@ class Stores {
   String url;
 }
 
-class RatingsToGame {
-  Title title;
-  int Count;
+class GameRatingDistribution {
+  GameRatingDistributionTitle title;
+  int count;
 }
