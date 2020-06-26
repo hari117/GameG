@@ -31,8 +31,7 @@ class MyImageCache {
   //  log.i("resized image extension $sourceExtension");
     String destinatinPath = await $fileHelper.createFileForCache(uniqName, sourceExtension);
   //  log.i("resized image destinationPath $destinatinPath");
-    // TODO after testing rename instead copy
-    await File(sourceImagePath).copy(destinatinPath);
+    await File(sourceImagePath).rename(destinatinPath);
     return destinatinPath;
   }
 }

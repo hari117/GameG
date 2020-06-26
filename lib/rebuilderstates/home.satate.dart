@@ -15,7 +15,7 @@ class HomePageState extends StatesRebuilder {
   double height = 100;
   String genres;
   String platform;
-  String contentIndicator = "showless..";
+  String contentIndicator = "Showless..";
 
   bool showHigh = false;
   bool isLoading = false;

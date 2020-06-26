@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,8 +10,6 @@ import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:rawg/helperfiles/svg.imges.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-
-import 'package:flutter_widgets/flutter_widgets.dart';
 
 class GameCard extends StatefulWidget {
   Game game;
@@ -26,13 +25,6 @@ class _GameCardState extends State<GameCard> {
 
   int imageSliderIndex = 0;
 
-//  Widget oldBuild(BuildContext context){
-//    return Container(
-//      height: 50,
-//      child: FutureNetworkImage(widget.game.screenShotUrls[0]),
-//    );
-//  }
-
   Widget build(BuildContext context) {
     return StateBuilder(
         observe: () => homeState,
@@ -40,8 +32,8 @@ class _GameCardState extends State<GameCard> {
           return Center(
             child: Container(
               margin: EdgeInsets.all(10),
-              width: MediaQuery.of(context).size.width - 70,
-              height: 250,
+//              width: MediaQuery.of(context).size.width - 70,
+//              height: 250,
               child: Column(
                 children: [
                   ClipRRect(
@@ -81,35 +73,29 @@ class _GameCardState extends State<GameCard> {
                       );
                     },
                     child: Container(
-                      height: 100,
+                      padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(32, 32, 32, 1),
                         borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+                            bottomLeft: Radius.circular(9), bottomRight: Radius.circular(15)),
                       ),
                       width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  platformIconsDisplay(),
-                                  MetricPoint(widget.game),
-                                ],
-                              ),
-                            ),
-                            Text(
-                              "${widget.game.name} ",
-                              style: GoogleFonts.roboto(
-                                  color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              suppportedPlatformWidget(),
+                              MetricPoint(widget.game),
+                            ],
+                          ),
+                          Text(
+                            "${widget.game.name} ",
+                            style: GoogleFonts.roboto(
+                                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -124,17 +110,17 @@ class _GameCardState extends State<GameCard> {
     return FutureNetworkImage(widget.game.name, widget.game.screenShotUrls[index]);
   }
 
-  gameCardImagePageviewIndicator(int num, double w) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: Container(
-        color: Color.fromRGBO(32, 32, 32, 1),
-        child: SizedBox(
-          width: w,
-        ),
-      ),
-    );
-  }
+//  gameCardImagePageviewIndicator(int num, double w) {
+//    return Padding(
+//      padding: const EdgeInsets.symmetric(horizontal: 5),
+//      child: Container(
+//        color: Color.fromRGBO(32, 32, 32, 1),
+//        child: SizedBox(
+//          width: w,
+//        ),
+//      ),
+//    );
+//  }
 
   genImageIndicator(int numOfContainers, int activeIndex) {
     if (numOfContainers <= 1) {
@@ -170,20 +156,20 @@ class _GameCardState extends State<GameCard> {
     );
   }
 
-  platformIconsDisplay() {
+  suppportedPlatformWidget() {
     List<Widget> svg = List();
     for (int i = 0; i < widget.game.parentPlatform.length; i++) {
-      svg.add(svgImages(widget.game.parentPlatform[i]));
+      svg.add(platformIconWidgetFor(widget.game.parentPlatform[i]));
     }
     return Row(
       children: svg,
     );
   }
 
-  Widget svgImages(PlatformName platformName) {
+  Widget platformIconWidgetFor(PlatformName platformName) {
     if (SvgImagesMap.platformIcons.containsKey(platformName)) {
       return Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.only(right: 5.0),
         child: SvgPicture.asset(SvgImagesMap.platformIcons[platformName]),
       );
     } else {

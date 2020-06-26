@@ -6,6 +6,7 @@ import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:rawg/pages/menu.page.dart';
 import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+import 'package:rawg/helperfiles/string.extentions.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -54,8 +55,8 @@ class _HomePageState extends State<HomePage> {
             homeState.loadNextPage();
           },
           child: Text(
-            "RAWG ",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: 4),
+            "GAME-G ",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: 2),
           ),
         ),
       ),
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   headLinesBody() {
-    var headListText = homeState.genres == null ? "New and trending" : "${homeState.genres.toUpperCase()} Games";
+    var headListText = homeState.genres == null ? "New and trending" : "${homeState.genres.capitalize()} Games";
     return Container(
       width: double.infinity,
 

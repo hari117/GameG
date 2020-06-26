@@ -25,12 +25,19 @@ class GameRatings extends StatelessWidget {
       list.add(gameRatingDistributionFor(distribution));
     }
 
-    return ListView.builder(
-      shrinkWrap:true,
-      itemCount: list.length,
-      itemBuilder: (BuildContext context, int pos) {
-        return list[pos];
-      },
+    return Container(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 70),
+          child: ListView.builder(
+            shrinkWrap:true,
+            itemCount: list.length,
+            itemBuilder: (BuildContext context, int pos) {
+              return list[pos];
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -45,6 +52,7 @@ class GameRatings extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ratingsColorCircle(colorMap[distribution.title]),
           SizedBox(

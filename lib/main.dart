@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:rawg/pages/home.page.dart';
 
@@ -10,7 +11,6 @@ void main() {
 class RAWG extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(//showPerformanceOverlay:true,
-         home: HomePage());
+    return MaterialApp(home: HomePage());
   }
 }

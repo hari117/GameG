@@ -100,11 +100,11 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                                   //  physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: widget.game.relatedGames.length + 1,
+                                  itemCount: widget.game.relatedGames.length ,
                                   itemBuilder: (_, pos) {
-                                    if (pos == widget.game.relatedGames.length) {
-                                      return Center(child: BlackProgressIndicatorWidget());
-                                    }
+//                                    if (pos == widget.game.relatedGames.length) {
+//                                      return Center(child: BlackProgressIndicatorWidget());
+//                                    }
                                     return GameCard(widget.game.relatedGames[pos]);
                                   },
                                 ),
@@ -329,7 +329,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                   child: Text(
                     "${homeState.contentIndicator}",
                     style: GoogleFonts.roboto(
-                        color: Color.fromRGBO(63, 56, 38, 1),
+                        color: Colors.red,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 1),

@@ -2,6 +2,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:rawg/helperfiles/logger.helper.dart';
 import 'package:rawg/modules/future_network_image/my.image.cache.dart';
 import 'package:rawg/modules/future_network_image/my.image.downloader.dart';
+import 'package:rawg/modules/future_network_image/my.image.file.helper.dart';
 import 'package:rawg/modules/future_network_image/my.image.resizer.dart';
 import 'package:rawg/modules/future_network_image/network.image.request.model.dart';
 import 'package:rawg/modules/future_network_image/network.image.request.queue.model.dart';
@@ -11,7 +12,7 @@ import 'package:semaphore/semaphore.dart';
 class MyImageStore {
   final log = getLogger("MyImageStore");
   final int RESIZE_MIN_WIDTH = 600;
-  static int _maxCount = 7;
+  static int _maxCount = 4;
   final $sm = LocalSemaphore(_maxCount);
 
   getLocalImagePathForUrl(NetworkImageRequest networkImageRequest) async {
@@ -57,7 +58,7 @@ class MyImageStore {
       String cachedImagePath = await $myImageCache.moveImageToCache(resizedImagePath, uniqName);
       log.i("${selectedNetworkImageRequest.name}: cached image path: $cachedImagePath");
 
-//      $fileHelper.deleteFile(downloadedImagePath);
+      $fileHelper.deleteFile(downloadedImagePath);
 
       log.i("${selectedNetworkImageRequest.name}: Going to call callback $selectedNetworkImageRequest");
       selectedNetworkImageRequest.callback(cachedImagePath);
