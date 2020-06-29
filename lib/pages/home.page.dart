@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gameg/models/userGenarated/game.model.dart';
+import 'package:gameg/pages/homepagewidgets/black.progress.indicator.widget.dart';
+import 'package:gameg/pages/homepagewidgets/gamecard.widget.dart';
+import 'package:gameg/pages/menu.page.dart';
+import 'package:gameg/rebuilderstates/home.satate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rawg/models/userGenarated/game.model.dart';
-import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
-import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
-import 'package:rawg/pages/menu.page.dart';
-import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:rawg/helperfiles/string.extentions.dart';
+import "package:gameg/helperfiles/string.extentions.dart";
 
 class HomePage extends StatefulWidget {
   @override

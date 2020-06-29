@@ -1,7 +1,8 @@
+import 'package:gameg/client/game.client.dart';
+import 'package:gameg/helperfiles/logger.helper.dart';
+import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:logger/logger.dart';
-import 'package:rawg/client/game.client.dart';
-import 'package:rawg/helperfiles/logger.helper.dart';
-import 'package:rawg/models/userGenarated/game.model.dart';
+
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class HomePageState extends StatesRebuilder {

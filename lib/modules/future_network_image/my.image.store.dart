@@ -1,12 +1,13 @@
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:rawg/helperfiles/logger.helper.dart';
-import 'package:rawg/modules/future_network_image/my.image.cache.dart';
-import 'package:rawg/modules/future_network_image/my.image.downloader.dart';
-import 'package:rawg/modules/future_network_image/my.image.file.helper.dart';
-import 'package:rawg/modules/future_network_image/my.image.resizer.dart';
-import 'package:rawg/modules/future_network_image/network.image.request.model.dart';
-import 'package:rawg/modules/future_network_image/network.image.request.queue.model.dart';
-import 'package:rawg/modules/future_network_image/uniq.name.generator.dart';
+import 'package:gameg/helperfiles/logger.helper.dart';
+import 'package:gameg/modules/future_network_image/my.image.cache.dart';
+import 'package:gameg/modules/future_network_image/my.image.downloader.dart';
+import 'package:gameg/modules/future_network_image/my.image.file.helper.dart';
+import 'package:gameg/modules/future_network_image/my.image.resizer.dart';
+import 'package:gameg/modules/future_network_image/network.image.request.model.dart';
+import 'package:gameg/modules/future_network_image/network.image.request.queue.model.dart';
+import 'package:gameg/modules/future_network_image/uniq.name.generator.dart';
+
 import 'package:semaphore/semaphore.dart';
 
 class MyImageStore {

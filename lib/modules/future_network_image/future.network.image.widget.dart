@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
-import 'package:rawg/helperfiles/logger.helper.dart';
-import 'package:rawg/modules/future_network_image/network.image.request.model.dart';
-import 'file:///C:/Users/Hari/StudioProjects/Rawg.IO/lib/modules/future_network_image/my.image.store.dart';
-import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
+import 'package:gameg/helperfiles/logger.helper.dart';
+import 'package:gameg/modules/future_network_image/my.image.store.dart';
+import 'package:gameg/modules/future_network_image/network.image.request.model.dart';
+import 'package:gameg/pages/homepagewidgets/black.progress.indicator.widget.dart';
+
 
 class FutureNetworkImage extends StatefulWidget {
   String name;
@@ -62,7 +62,7 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
     return VisibilityDetector(
       key: Key(widget.url),
       onVisibilityChanged: (info) {
-//        print("Visibility for: ${widget.name} = ${info.visibleFraction}");
+        print("Visibility for: ${widget.name} = ${info.visibleFraction}");
         if (info.visibleFraction > 0.0) {
           _networkImageRequest.isVisible = true;
         } else {

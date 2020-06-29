@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gameg/pages/home.page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
-import 'package:rawg/pages/home.page.dart';
 
 void main() {
   Logger.level = Level.info;

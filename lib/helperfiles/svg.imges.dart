@@ -1,5 +1,4 @@
-import 'package:rawg/models/generated/page.json.model.dart';
-
+import 'package:gameg/models/generated/page.json.model.dart';
 class SvgImagesMap {
   static Map<PlatformName, String> platformIcons = {
     PlatformName.ANDROID: "Assets/platformicons/andriod.svg",

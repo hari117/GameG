@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gameg/rebuilderstates/home.satate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rawg/rebuilderstates/home.satate.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class MenuOptions extends StatefulWidget {

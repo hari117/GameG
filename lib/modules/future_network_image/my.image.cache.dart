@@ -1,9 +1,9 @@
 import 'dart:io';
-
-import 'file:///C:/Users/Hari/StudioProjects/Rawg.IO/lib/modules/future_network_image/my.image.file.helper.dart';
+import 'package:gameg/helperfiles/logger.helper.dart';
+import 'package:gameg/helperfiles/string.util.dart';
+import 'package:gameg/modules/future_network_image/my.image.file.helper.dart';
 import 'package:path/path.dart' as p;
-import 'package:rawg/helperfiles/logger.helper.dart';
-import 'package:rawg/helperfiles/string.util.dart';
+
 
 class MyImageCache {
   final log=getLogger("MyImageCache");

@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:gameg/helperfiles/logger.helper.dart';
+import 'package:gameg/models/generated/gamecardpage.json.model.dart';
+import 'package:gameg/models/generated/page.json.model.dart';
+import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:logger/logger.dart';
-import 'package:rawg/helperfiles/logger.helper.dart';
-import 'package:rawg/models/generated/gamecardpage.json.model.dart';
-import 'package:rawg/models/generated/page.json.model.dart';
-import 'package:rawg/models/userGenarated/game.model.dart';
+
 
 class GameClient {
   static final GameClient instance = GameClient();

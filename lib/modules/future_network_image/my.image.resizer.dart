@@ -1,6 +1,7 @@
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:gameg/modules/future_network_image/my.image.file.helper.dart';
 import 'package:path/path.dart' as p;
-import 'package:rawg/modules/future_network_image/my.image.file.helper.dart';
+
 
 class MyImageResizer {
   /**

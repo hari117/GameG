@@ -1,4 +1,6 @@
-import 'package:rawg/models/generated/page.json.model.dart';
+
+
+import 'package:gameg/models/generated/page.json.model.dart';
 
 class Game {
   int gameId;

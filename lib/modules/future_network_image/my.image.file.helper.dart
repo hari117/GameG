@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:gameg/helperfiles/logger.helper.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as p;
-import 'package:rawg/helperfiles/logger.helper.dart';
+
 import 'package:uuid/uuid.dart';
 
 class MyImageFileHelper {
   final log = getLogger("FileHelper");
-  String APP_CACHE_DIR = "/data/data/vip.hari.rawg/cache";
+  String APP_CACHE_DIR = "/data/data/vip.hari.gameg/cache";
 
   String CACHE_IMAGES_DIR = "CACHED_IMAGES_DIR";
   String RESIZED_IMAGES_DIR = "RESIZED_IMAGES_DIR";

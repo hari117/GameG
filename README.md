@@ -1,4 +1,4 @@
-# rawg
+# gameg
 
 A new Flutter application.
 

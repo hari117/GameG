@@ -3,11 +3,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:dio/dio.dart';
+import 'package:gameg/helperfiles/logger.helper.dart';
+import 'package:gameg/modules/future_network_image/my.image.file.helper.dart';
 import 'package:path/path.dart' as p;
 
-import 'file:///C:/Users/Hari/StudioProjects/Rawg.IO/lib/modules/future_network_image/my.image.file.helper.dart';
-import 'package:rawg/helperfiles/logger.helper.dart';
+
 
 class MyImageDownloader {
   Dio dio = Dio();

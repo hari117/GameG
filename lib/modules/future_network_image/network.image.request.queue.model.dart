@@ -1,4 +1,6 @@
-import 'package:rawg/modules/future_network_image/network.image.request.model.dart';
+
+
+import 'package:gameg/modules/future_network_image/network.image.request.model.dart';
 
 class NetworkImageRequestQueue {
   List<NetworkImageRequest> list = [];

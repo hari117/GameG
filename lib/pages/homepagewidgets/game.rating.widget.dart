@@ -1,9 +1,11 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:gameg/models/generated/page.json.model.dart';
+import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rawg/models/generated/page.json.model.dart';
-import 'package:rawg/models/userGenarated/game.model.dart';
+
+
 import 'package:enum_to_string/enum_to_string.dart';
 
 class GameRatings extends StatelessWidget {

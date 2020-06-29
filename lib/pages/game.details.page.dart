@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gameg/helperfiles/svg.imges.dart';
+import 'package:gameg/models/userGenarated/game.model.dart';
+import 'package:gameg/modules/future_network_image/future.network.image.widget.dart';
+import 'package:gameg/pages/homepagewidgets/black.progress.indicator.widget.dart';
+import 'package:gameg/pages/homepagewidgets/game.rating.widget.dart';
+import 'package:gameg/pages/homepagewidgets/gamecard.widget.dart';
+import 'package:gameg/pages/homepagewidgets/metricpoint.widget.dart';
+import 'package:gameg/pages/homepagewidgets/text.widget.dart';
+import 'package:gameg/rebuilderstates/home.satate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:rawg/helperfiles/svg.imges.dart';
-import 'package:rawg/models/userGenarated/game.model.dart';
-import 'package:rawg/modules/future_network_image/future.network.image.widget.dart';
-import 'package:rawg/pages/homepagewidgets/black.progress.indicator.widget.dart';
-import 'package:rawg/pages/homepagewidgets/game.rating.widget.dart';
-import 'package:rawg/pages/homepagewidgets/gamecard.widget.dart';
-import 'package:rawg/pages/homepagewidgets/metricpoint.widget.dart';
-import 'package:rawg/pages/homepagewidgets/text.widget.dart';
-import 'package:rawg/rebuilderstates/home.satate.dart';
+
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:url_launcher/url_launcher.dart';
 

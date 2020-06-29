@@ -1,4 +1,4 @@
-package vip.hari.rawg
+package vip.hari.gameg
 
 import io.flutter.embedding.android.FlutterActivity
 

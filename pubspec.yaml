@@ -1,12 +1,7 @@
-name: rawg
+name: gameg
 description: A new Flutter application.
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-
-version: 1.0.0+1
+version: 1.0.0
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -17,7 +12,6 @@ dependencies:
   dio: ^3.0.9
   states_rebuilder: ^2.1.0
   google_fonts: ^1.1.0
-  cached_network_image: ^2.2.0+1
   url_launcher: ^5.4.10
   intl: ^0.16.1
   flutter_svg: ^0.17.4
@@ -29,27 +23,14 @@ dependencies:
   flutter_image_compress: ^0.6.8
   flutter_cache_manager: ^1.4.1
   enum_to_string: ^1.0.9
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
      - Assets/platformicons/andriod.svg
      - Assets/platformicons/apple.svg
@@ -66,7 +47,6 @@ flutter:
      - Assets/storeicons/epicgames.svg
      - Assets/storeicons/appstore.svg
      - Assets/storeicons/googleplaystore.svg
-     -
      - Assets/genresicons/Action.png
      - Assets/genresicons/Adventure.png
      - Assets/genresicons/Puzzle.png
@@ -75,4 +55,3 @@ flutter:
      - Assets/genresicons/Shooter.png
      - Assets/genresicons/Sports.png
      - Assets/genresicons/Strategy.png
-

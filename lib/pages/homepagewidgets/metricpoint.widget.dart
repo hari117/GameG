@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rawg/models/userGenarated/game.model.dart';
-import 'package:rawg/pages/homepagewidgets/text.widget.dart';
+import 'package:gameg/models/userGenarated/game.model.dart';
+import 'package:gameg/pages/homepagewidgets/text.widget.dart';
+
 
 class MetricPoint extends StatelessWidget {
   Game game;
