@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gameg/pages/home.page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
-import 'package:flutter_launcher_icons/android.dart';
-import 'package:flutter_launcher_icons/constants.dart';
-import 'package:flutter_launcher_icons/custom_exceptions.dart';
-import 'package:flutter_launcher_icons/ios.dart';
-import 'package:flutter_launcher_icons/main.dart';
-import 'package:flutter_launcher_icons/utils.dart';
-import 'package:flutter_launcher_icons/xml_templates.dart';
+
+
 void main() {
   Logger.level = Level.info;
   runApp(RAWG());
@@ -17,6 +12,8 @@ void main() {
 class RAWG extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage());
+    return MaterialApp(home: HomePage(),
+
+ );
   }
 }
