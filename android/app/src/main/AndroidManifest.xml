@@ -11,7 +11,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="gameg"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/gameg_launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
