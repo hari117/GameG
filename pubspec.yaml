@@ -1,7 +1,7 @@
 name: gameg
 description: A new Flutter application.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0
+version: 1.0.1+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -54,6 +54,8 @@ flutter:
      - Assets/platformicons/ps4.svg
      - Assets/platformicons/windows.svg
      - Assets/platformicons/xbox.svg
+
+
      - Assets/storeicons/xbox360store.svg
      - Assets/storeicons/steam.svg
      - Assets/storeicons/gog.svg
@@ -62,6 +64,7 @@ flutter:
      - Assets/storeicons/epicgames.svg
      - Assets/storeicons/appstore.svg
      - Assets/storeicons/googleplaystore.svg
+
      - Assets/genresicons/Action.png
      - Assets/genresicons/Adventure.png
      - Assets/genresicons/Puzzle.png
