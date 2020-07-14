@@ -12,17 +12,27 @@ class FigmaColors {
 
   Color onSurfaceColor_01 = Color.fromRGBO(229, 229, 229, 1);
   Color onSurfaceColor_02 = Color.fromRGBO(228, 236, 250, 1);
-  Color onSurfaceColor_03 = Color.fromRGBO(153,163,186,1);
+  Color onSurfaceColor_03 = Color.fromRGBO(153, 163, 186, 1);
 
 //Text Size
 
-//  TextStyle textStyle=TextStyle(fontSize: 43);
-//  TextStyle H1 = GoogleFonts.roboto(fontSize: 48.83);
-//  TextStyle H2 = GoogleFonts.roboto(fontSize: 39.06);
-//  TextStyle H3 = GoogleFonts.roboto(fontSize: 31.25);
-//  TextStyle H4 = GoogleFonts.roboto(fontSize: 25);
-//  TextStyle H5 = GoogleFonts.roboto(fontSize: 20);
-//  TextStyle bodyText_01 = GoogleFonts.roboto(fontSize: 16,height: 124.7);
-//  TextStyle bodyText_02 = GoogleFonts.roboto(fontSize: 12.8,height: 130,letterSpacing: 5);
-//  TextStyle LT1 = GoogleFonts.roboto(fontSize: 12.8,height: 175,letterSpacing: 5);
+  double H1 = 48.83;
+  double H2 = 39.06;
+  double H3 = 31.25;
+  double H4 = 25;
+  double H5 = 20;
+  double bodyText_01 = 16;
+  double bodyText_02 = 12.8;
+  double LT1 = 12.8;
+
+//text height
+
+  double bodyTextHeight_01 = 124.7;
+  double bodyTextHeight_02 = 130;
+  double LT1Height = 175;
+
+  // text letterspacing
+
+  double bodyTextLetterspacing_01 = 5;
+  double LT1Letterspacing = 5;
 }

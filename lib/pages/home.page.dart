@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: figmaColors.surfaceColor,
       appBar: appBar(),
-      body: buildingListOfGames(),
+      body: newBuildListGames(),
     );
   }
 
@@ -66,31 +66,79 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  buildingListOfGames() {
-    return StateBuilder(
-        observe: () => homeState,
-        builder: (context, _) {
-          if (homeState.isLoading && homeState.listOfGames.length == 0) {
-            return Center(child: BlackProgressIndicatorWidget());
-          } else {
-            return ListView.builder(
-              controller: scrollController,
-              itemCount: homeState.listOfGames.length + 1,
-              itemBuilder: (_, pos) {
-                // show loading when reached end of list
-                if (pos == homeState.listOfGames.length) {
+  newBuildListGames()
+  {
+    return Column(
+      children: <Widget>[
+        Container(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 15,
+              ),
+              TextField(
+
+              ),
+              SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child:StateBuilder(
+              observe: () => homeState,
+              builder: (context, _) {
+                if (homeState.isLoading && homeState.listOfGames.length == 0) {
                   return Center(child: BlackProgressIndicatorWidget());
-                }
+                } else {
+                  return ListView.builder(
+                    controller: scrollController,
+                    itemCount: homeState.listOfGames.length + 1,
+                    itemBuilder: (_, pos) {
+                      // show loading when reached end of list
+                      if (pos == homeState.listOfGames.length) {
+                        return Center(child: BlackProgressIndicatorWidget());
+                      }
 //                if (pos == 0) {
 //                  return headLinesBody();
 //                }
-                Game game = homeState.listOfGames[pos];
-                return GameCard(game);
-              },
-            );
-          }
-        });
+                      Game game = homeState.listOfGames[pos];
+                      return GameCard(game);
+                    },
+                  );
+                }
+              }) ,
+        )
+      ],
+    );
   }
+
+//  buildingListOfGames() {
+//    return StateBuilder(
+//        observe: () => homeState,
+//        builder: (context, _) {
+//          if (homeState.isLoading && homeState.listOfGames.length == 0) {
+//            return Center(child: BlackProgressIndicatorWidget());
+//          } else {
+//            return ListView.builder(
+//              controller: scrollController,
+//              itemCount: homeState.listOfGames.length + 1,
+//              itemBuilder: (_, pos) {
+//                // show loading when reached end of list
+//                if (pos == homeState.listOfGames.length) {
+//                  return Center(child: BlackProgressIndicatorWidget());
+//                }
+////                if (pos == 0) {
+////                  return headLinesBody();
+////                }
+//                Game game = homeState.listOfGames[pos];
+//                return GameCard(game);
+//              },
+//            );
+//          }
+//        });
+//  }
 
 //  headLinesBody() {
 //    var headListText = homeState.genres == null ? "New and trending" : "${homeState.genres.capitalize()} Games";

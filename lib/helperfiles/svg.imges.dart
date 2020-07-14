@@ -1,14 +1,14 @@
 import 'package:gameg/models/generated/page.json.model.dart';
 class SvgImagesMap {
   static Map<PlatformName, String> platformIcons = {
-    PlatformName.ANDROID: "Assets/platformicons/andriod.svg",
+    PlatformName.ANDROID: "Assets/platformicons/Andriod_Icon.svg",
     //  PlatformName.I_OS: "svg/apple.svg",
-    PlatformName.LINUX: "Assets/platformicons/linux.svg",
-    PlatformName.NINTENDO: "Assets/platformicons/nitendo.svg",
-    PlatformName.PLAY_STATION: "Assets/platformicons/ps4.svg",
-    PlatformName.PC: "Assets/platformicons/windows.svg",
-    PlatformName.XBOX: "Assets/platformicons/xbox.svg",
-    PlatformName.APPLE_MACINTOSH: "Assets/platformicons/apple.svg"
+    PlatformName.LINUX: "Assets/platformicons/Linux_Icon.svg",
+    PlatformName.NINTENDO: "Assets/platformicons/Nitendo_Icon.svg",
+    PlatformName.PLAY_STATION: "Assets/platformicons/PS4_Icon.svg",
+    PlatformName.PC: "Assets/platformicons/Windows_Icon.svg",
+    PlatformName.XBOX: "Assets/platformicons/Xbox_Icon.svg",
+    PlatformName.APPLE_MACINTOSH: "Assets/platformicons/Apple_Icon.svg"
   };
 
   static Map<String, String> shopIcons = {

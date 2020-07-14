@@ -77,7 +77,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                       SizedBox(
                         height: 25,
                       ),
-                      GameRatings(widget.game),
+
                       TextWidget(
                           "About", 20, 20, 0, 0, FontWeight.w700, 30, Color.fromRGBO(63, 56, 38, 1), 1),
                       if (homeState.isGamePageLoad)

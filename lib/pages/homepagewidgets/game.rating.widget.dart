@@ -1,87 +1,78 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gameg/helperfiles/figma.colors.dart';
 import 'package:gameg/models/generated/page.json.model.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 import 'package:enum_to_string/enum_to_string.dart';
 
 class GameRatings extends StatelessWidget {
+  FigmaColors figmaColors = FigmaColors();
   Game game;
-  Map<GameRatingDistributionTitle, Color> colorMap = Map();
 
-  GameRatings(this.game) {
-    colorMap.putIfAbsent(GameRatingDistributionTitle.EXCEPTIONAL, () => Colors.green);
-    colorMap.putIfAbsent(GameRatingDistributionTitle.MEH, () => Colors.red);
-    colorMap.putIfAbsent(GameRatingDistributionTitle.RECOMMENDED, () => Colors.orange);
-    colorMap.putIfAbsent(GameRatingDistributionTitle.SKIP, () => Colors.blue);
-  }
+  GameRatings(this.game);
+
+  List svgImages = [
+    "Assets/interfaceicons/Fav_Icon.svg",
+    "Assets/interfaceicons/Like_Icon.svg",
+    "Assets/interfaceicons/Dislike_Icon.svg"
+  ];
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> list = List();
 
-    for (GameRatingDistribution distribution in game.ratingDistribution) {
-      list.add(gameRatingDistributionFor(distribution));
+    List<Widget> newRating = List();
+    for (int i = 0; i < svgImages.length; i++) {
+      newRating.add(newGameRating(svgImages[i], game.ratingDistribution[i].count));
+
     }
 
-    return Container(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 70),
-          child: ListView.builder(
-            shrinkWrap:true,
-            itemCount: list.length,
-            itemBuilder: (BuildContext context, int pos) {
-              return list[pos];
-            },
-          ),
+    return Row(
+      children: newRating,
+    );
+  // return buildExceptional(game);
+
+  }
+
+  Widget buildExceptional(Game game){
+print("********rating***** ${game.ratingDistribution[0].count}");
+    return Row(
+      children: <Widget>[
+        SvgPicture.asset("${svgImages[0]}"),
+        Text("${game.ratingDistribution[0].count}",
+          style: GoogleFonts.roboto(
+              color: figmaColors.onSurfaceColor_03, fontSize: 16, height: 127),
+        )
+      ],
+    );
+  }
+
+  Widget buildLikes(){
+
+  }
+
+  Widget buildDislikes(){
+
+  }
+
+  newGameRating(String svgimage, int count) {
+    print("entered new gamerating method and the count value is $count");
+//    print("the svg image path is $svgimage");
+    return Row(
+      children: <Widget>[
+
+        SvgPicture.asset("$svgimage"),
+        SizedBox(
+          width: 10,
         ),
-      ),
-    );
-  }
+        Text("$count",style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03),),
 
-  /**
-   * return a widget for single box
-   * which contains color circle, title count
-   */
-  gameRatingDistributionFor(GameRatingDistribution distribution) {
-    // lockup color from map;
-    // if color not found assume a default color
+        SizedBox(
+          width: 20,
+        ),
 
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ratingsColorCircle(colorMap[distribution.title]),
-          SizedBox(
-            width: 8,
-          ),
-          ratingsText(
-              "${EnumToString.parse(distribution.title)}", distribution.count, colorMap[distribution.title])
-        ],
-      ),
-    );
-  }
-
-  ratingsText(String name, int index, Color color) {
-    return Text(
-      "$name : $index ",
-      style: GoogleFonts.roboto(color: color, fontSize: 15, fontWeight: FontWeight.w500, letterSpacing: 1),
-    );
-  }
-
-  ratingsColorCircle(Color color) {
-    return Container(
-      width: 18,
-      height: 18,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(50),
-      ),
+      ],
     );
   }
 }

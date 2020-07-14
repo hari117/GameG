@@ -47,14 +47,22 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
-     - Assets/platformicons/andriod.svg
-     - Assets/platformicons/apple.svg
-     - Assets/platformicons/linux.svg
-     - Assets/platformicons/nitendo.svg
-     - Assets/platformicons/ps4.svg
-     - Assets/platformicons/windows.svg
-     - Assets/platformicons/xbox.svg
+     - Assets/platformicons/Andriod_Icon.svg
+     - Assets/platformicons/Apple_Icon.svg
+     - Assets/platformicons/Linux_Icon.svg
+     - Assets/platformicons/Nitendo_Icon.svg
+     - Assets/platformicons/PS4_Icon.svg
+     - Assets/platformicons/Windows_Icon.svg
+     - Assets/platformicons/Xbox_Icon.svg
 
+     - Assets/interfaceicons/Back_Icon.svg
+     - Assets/interfaceicons/Dislike_Icon.svg
+     - Assets/interfaceicons/Fav_Icon.svg
+     - Assets/interfaceicons/Filter_Icon.svg
+     - Assets/interfaceicons/Like_Icon.svg
+     - Assets/interfaceicons/Like_Icon.svg
+     - Assets/interfaceicons/Search_Icon.svg
+     - Assets/interfaceicons/Tick_Icon.svg
 
      - Assets/storeicons/xbox360store.svg
      - Assets/storeicons/steam.svg
