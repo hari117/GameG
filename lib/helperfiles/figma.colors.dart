@@ -27,7 +27,7 @@ class FigmaColors {
 
 //text height
 
-  double bodyTextHeight_01 = 124.7;
+  double bodyTextHeight_01 = 1.7;
   double bodyTextHeight_02 = 130;
   double LT1Height = 175;
 

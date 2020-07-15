@@ -15,23 +15,33 @@ class GameClient {
 
   final Dio dio = Dio();
 
-  Future<List<Game>> loadGamesOnPage(int pageNumber, int genre) async {
+  Future<List<Game>> loadGamesOnPage(int pageNumber, int genre,String searchText) async {
+  //  _log.i("the search text is  :$searchText");
     Map<String, dynamic> queryParameters = {};
     print(genre);
+    if (searchText != "") {
+      queryParameters.putIfAbsent("search", () => searchText);
+    }
     if (genre != 0) {
       queryParameters.putIfAbsent("genres", () => genre);
     }
     queryParameters.putIfAbsent("page", () => pageNumber);
     queryParameters.putIfAbsent("page_size", () => GAMES_PER_PAGE);
 
-//    _log.i("loading list of games for page number ${pageNumber} with params $queryParameters}");
-    Response response = await dio.get(GAME_RESOURCE_URL, queryParameters: queryParameters);
-    //_log.d("got response from rest url: $GAME_RESOURCE_URL");
-//    _log.d("response data: ${response.data}");
-    ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(response.data);
-    List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
-//    _log.i("received ${gameList.length} games from rest url");
-    return gameList;
+    try {
+      _log.i(
+          "loading list of games for page number ${pageNumber} with params $queryParameters}");
+      Response response = await dio.get(GAME_RESOURCE_URL, queryParameters: queryParameters);
+      _log.d("got response from rest url: $GAME_RESOURCE_URL");
+      _log.d("response data: ${response.data}");
+      ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(response.data);
+      List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
+      _log.i("received ${gameList.length} games from rest url");
+      return gameList;
+    }catch(error)
+    {
+      return Future.error(error);
+    }
   }
 
   Future getDescriptionAndSuggestedGames(Game game, int suggestionPageNum) async {

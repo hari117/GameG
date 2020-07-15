@@ -17,10 +17,12 @@ class HomePageState extends StatesRebuilder {
   String genres;
   String platform;
   String contentIndicator = "Showless..";
+  String searchText="";
 
   bool showHigh = false;
   bool isLoading = false;
   bool isGamePageLoad = false;
+  bool isError=false;
 
   List<Game> listOfGames = [];
 
@@ -36,6 +38,8 @@ class HomePageState extends StatesRebuilder {
     "Sports": 15,
   };
 
+
+
   changeContainer(double h, String name) {
     height = h;
 
@@ -47,25 +51,29 @@ class HomePageState extends StatesRebuilder {
     //  print("calling $pageNumber.0 page");
     isLoading = true;
     rebuildStates();
-    //   print("isloading $isLoading");
 
+    print("the searchText is $searchText");
     try {
-      var value = await GameClient.instance.loadGamesOnPage(pageNumber, genresId);
+      var value = await GameClient.instance.loadGamesOnPage(pageNumber, genresId,searchText);
       listOfGames.addAll(value);
       pageNumber++;
-    } catch (e, st) {
-      //     _log.e("Unable to load games page: ${pageNumber}");
-//      print(st);
+    } catch (error) {
+      _log.e("Unable to load games page: ${pageNumber}");
+      isError=true;
+      isLoading=false;
+
     } finally {
       isLoading = false;
       rebuildStates();
     }
   }
 
+
   resetState() {
     listOfGames = [];
     pageNumber = 1;
     genres = null;
+    searchText="";
     rebuildStates();
   }
 
@@ -73,6 +81,7 @@ class HomePageState extends StatesRebuilder {
     genresId = genresIdGetter[genresName];
     genres = genresName;
     rebuildStates();
+
   }
 
   //loading suggested games

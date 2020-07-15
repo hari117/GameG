@@ -1,14 +1,18 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gameg/helperfiles/figma.colors.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
+import 'package:gameg/pages/homepagewidgets/appbr.widget.dart';
 import 'package:gameg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:gameg/pages/homepagewidgets/gamecard.widget.dart';
+import 'package:gameg/pages/homepagewidgets/searchbox.widget.dart';
 import 'package:gameg/pages/menu.page.dart';
 import 'package:gameg/rebuilderstates/home.satate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import "package:gameg/helperfiles/string.extentions.dart";
-
+import 'package:gameg/pages/homepagewidgets/appbr.widget.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -18,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   FigmaColors figmaColors = FigmaColors();
   ScrollController scrollController = ScrollController();
   HomePageState homeState = HomePageState.homePageState;
+  String searchGame = "";
 
   @override
   void initState() {
@@ -41,8 +46,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: figmaColors.surfaceColor,
-      appBar: appBar(),
-      body: newBuildListGames(),
+      appBar: GameGAppBar(),
+      body:buildListGames(),
     );
   }
 
@@ -57,41 +62,34 @@ class _HomePageState extends State<HomePage> {
           homeState.loadNextPage();
         },
         child: Text(
-        "GAMEG",
-        style: GoogleFonts.roboto(
-            fontSize: 20, color: figmaColors.onSurfaceColor_01),
+          "GAMEG",
+          style: GoogleFonts.roboto(fontSize: 20, color: figmaColors.onSurfaceColor_01),
+        ),
       ),
-      ),
-    //  centerTitle: false,
+      //  centerTitle: false,
     );
   }
 
-  newBuildListGames()
-  {
+  buildListGames() {
     return Column(
       children: <Widget>[
-        Container(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 15,
-              ),
-              TextField(
-
-              ),
-              SizedBox(
-                height: 15,
-              ),
-            ],
-          ),
-        ),
+        SearchBox(),
         Expanded(
-          child:StateBuilder(
+          child: StateBuilder(
               observe: () => homeState,
               builder: (context, _) {
-                if (homeState.isLoading && homeState.listOfGames.length == 0) {
+                if (homeState.isError == true && homeState.isLoading == false) {
+                  return Center(
+                    child: Container(
+                      child: Text(
+                        "error on loading",
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                    ),
+                  );
+                } else if (homeState.isLoading && homeState.listOfGames.length == 0) {
                   return Center(child: BlackProgressIndicatorWidget());
-                } else {
+                } else if (homeState.isLoading == false && homeState.isError == false) {
                   return ListView.builder(
                     controller: scrollController,
                     itemCount: homeState.listOfGames.length + 1,
@@ -100,72 +98,14 @@ class _HomePageState extends State<HomePage> {
                       if (pos == homeState.listOfGames.length) {
                         return Center(child: BlackProgressIndicatorWidget());
                       }
-//                if (pos == 0) {
-//                  return headLinesBody();
-//                }
                       Game game = homeState.listOfGames[pos];
                       return GameCard(game);
                     },
                   );
                 }
-              }) ,
+              }),
         )
       ],
-    );
-  }
-
-//  buildingListOfGames() {
-//    return StateBuilder(
-//        observe: () => homeState,
-//        builder: (context, _) {
-//          if (homeState.isLoading && homeState.listOfGames.length == 0) {
-//            return Center(child: BlackProgressIndicatorWidget());
-//          } else {
-//            return ListView.builder(
-//              controller: scrollController,
-//              itemCount: homeState.listOfGames.length + 1,
-//              itemBuilder: (_, pos) {
-//                // show loading when reached end of list
-//                if (pos == homeState.listOfGames.length) {
-//                  return Center(child: BlackProgressIndicatorWidget());
-//                }
-////                if (pos == 0) {
-////                  return headLinesBody();
-////                }
-//                Game game = homeState.listOfGames[pos];
-//                return GameCard(game);
-//              },
-//            );
-//          }
-//        });
-//  }
-
-//  headLinesBody() {
-//    var headListText = homeState.genres == null ? "New and trending" : "${homeState.genres.capitalize()} Games";
-//    return Container(
-//      width: double.infinity,
-//
-//      color: Color.fromRGBO(0, 0, 0, 1),
-//      //  color: Colors.blue,
-//      child: Column(
-//        children: [
-//          heightgap(),
-//          headLinesText(headListText, 30, FontWeight.bold),
-//          heightgap(),
-////          headLinesText("Based on player counts and release data", 20, FontWeight.w400),
-////          heightgap()
-//        ],
-//      ),
-//    );
-//  }
-
-  headLinesText(String headLine, double size, FontWeight fontWeight) {
-    return Text(headLine, style: GoogleFonts.ubuntu(color: Colors.white, fontWeight: fontWeight, fontSize: size));
-  }
-
-  heightgap() {
-    return SizedBox(
-      height: 15,
     );
   }
 }

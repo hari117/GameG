@@ -36,7 +36,7 @@ class GameRatings extends StatelessWidget {
   }
 
   Widget buildExceptional(Game game){
-print("********rating***** ${game.ratingDistribution[0].count}");
+
     return Row(
       children: <Widget>[
         SvgPicture.asset("${svgImages[0]}"),
@@ -57,8 +57,7 @@ print("********rating***** ${game.ratingDistribution[0].count}");
   }
 
   newGameRating(String svgimage, int count) {
-    print("entered new gamerating method and the count value is $count");
-//    print("the svg image path is $svgimage");
+
     return Row(
       children: <Widget>[
 
