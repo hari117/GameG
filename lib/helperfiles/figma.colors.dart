@@ -14,6 +14,9 @@ class FigmaColors {
   Color onSurfaceColor_02 = Color.fromRGBO(228, 236, 250, 1);
   Color onSurfaceColor_03 = Color.fromRGBO(153, 163, 186, 1);
 
+Color primaryColor=Color.fromRGBO(33,150,243,1);
+
+
 //Text Size
 
   double H1 = 48.83;

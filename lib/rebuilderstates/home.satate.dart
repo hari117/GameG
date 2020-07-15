@@ -50,6 +50,7 @@ class HomePageState extends StatesRebuilder {
   loadNextPage() async {
     //  print("calling $pageNumber.0 page");
     isLoading = true;
+    isError=false;
     rebuildStates();
 
     print("the searchText is $searchText");
@@ -57,15 +58,21 @@ class HomePageState extends StatesRebuilder {
       var value = await GameClient.instance.loadGamesOnPage(pageNumber, genresId,searchText);
       listOfGames.addAll(value);
       pageNumber++;
+      isLoading=false;
+      isError=false;
+      rebuildStates();
     } catch (error) {
       _log.e("Unable to load games page: ${pageNumber}");
-      isError=true;
-      isLoading=false;
 
-    } finally {
-      isLoading = false;
-      rebuildStates();
+      isLoading=false;
+      isError=true;
+
     }
+//    finally {
+//      isLoading = false;
+//      isError=false;
+//      rebuildStates();
+//    }
   }
 
 

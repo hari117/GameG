@@ -5,6 +5,7 @@ import 'package:gameg/helperfiles/figma.colors.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:gameg/pages/homepagewidgets/appbr.widget.dart';
 import 'package:gameg/pages/homepagewidgets/black.progress.indicator.widget.dart';
+import 'package:gameg/pages/homepagewidgets/error.page.widget.dart';
 import 'package:gameg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:gameg/pages/homepagewidgets/searchbox.widget.dart';
 import 'package:gameg/pages/menu.page.dart';
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   FigmaColors figmaColors = FigmaColors();
   ScrollController scrollController = ScrollController();
   HomePageState homeState = HomePageState.homePageState;
+
   String searchGame = "";
 
   @override
@@ -79,15 +81,9 @@ class _HomePageState extends State<HomePage> {
               observe: () => homeState,
               builder: (context, _) {
                 if (homeState.isError == true && homeState.isLoading == false) {
-                  return Center(
-                    child: Container(
-                      child: Text(
-                        "error on loading",
-                        style: TextStyle(color: Colors.amber),
-                      ),
-                    ),
-                  );
-                } else if (homeState.isLoading && homeState.listOfGames.length == 0) {
+                  return ErrorPage();
+                //} else if (homeState.isLoading && homeState.listOfGames.length == 0 && homeState.isError==false ) {
+                } else if (homeState.isLoading &&  homeState.isError==false ) {
                   return Center(child: BlackProgressIndicatorWidget());
                 } else if (homeState.isLoading == false && homeState.isError == false) {
                   return ListView.builder(
