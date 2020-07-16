@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gameg/helperfiles/figma.colors.dart';
 import 'package:gameg/helperfiles/svg.imges.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:gameg/modules/future_network_image/future.network.image.widget.dart';
@@ -25,6 +26,7 @@ class GameDetailsPage extends StatefulWidget {
 }
 
 class _GameDetailsPageState extends State<GameDetailsPage> {
+  FigmaColors figmaColors = FigmaColors();
   HomePageState homeState = HomePageState.homePageState;
   ScrollController suggestedGamesScrollControler;
 
@@ -34,10 +36,9 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
     super.initState();
     suggestedGamesScrollControler = ScrollController();
     suggestedGamesScrollControler.addListener(() {
-      if (suggestedGamesScrollControler.position.pixels ==
-          suggestedGamesScrollControler.position.maxScrollExtent) {
+      if (suggestedGamesScrollControler.position.pixels == suggestedGamesScrollControler.position.maxScrollExtent) {
         //   homeState.
-        homeState.loadGameDetailsPage(widget.game);
+        homeState.loadDescription(widget.game);
 //        print("the relatedgames page counted is ${homeState.relatedGamesPageCount}");
       }
     });
@@ -48,81 +49,115 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
     //print("clicking ${widget.game.name}  ${widget.game.gameId}");
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(0, 0, 0, 1),
-        body: StateBuilder(
-          initState: (_, model) {
-            //     print("calling loadGameDetailsPageAPI");
-            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              homeState.loadGameDetailsPage(widget.game);
-            });
-          },
-          observe: () => homeState,
-          builder: (context, _) {
-            return Container(
-              width: double.infinity,
-              height: double.infinity,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      centerNameInCenter(
-                        widget.game.name,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      imagesListView(),
-                      SizedBox(
-                        height: 25,
-                      ),
+        backgroundColor: figmaColors.elevation_01,
+        appBar: AppBar(
+          backgroundColor: figmaColors.elevation_01,
+          leading: SizedBox(
+            width: 18,
+            height: 18,
 
-                      TextWidget(
-                          "About", 20, 20, 0, 0, FontWeight.w700, 30, Color.fromRGBO(63, 56, 38, 1), 1),
-                      if (homeState.isGamePageLoad)
-                        description(
-                          widget.game.description,
-                        ),
-                      if (!homeState.isGamePageLoad) prograssIndicator(),
-                      detailsSection(),
-                      TextWidget("Where to Buy", 10, 10, 0, 0, FontWeight.w500, 25,
-                          Color.fromRGBO(63, 56, 38, 1), 1),
-                      storeBuilder(),
-                      centerNameInCenter("Games Like  ${widget.game.name}"),
-                      if (homeState.isGamePageLoad)
-                        StateBuilder(
-                          observe: () => homeState,
-                          builder: (context, _) {
-                            return Column(
-                              children: [
-                                ListView.builder(
-                                  controller: suggestedGamesScrollControler,
-                                  //  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: widget.game.relatedGames.length ,
-                                  itemBuilder: (_, pos) {
-//                                    if (pos == widget.game.relatedGames.length) {
-//                                      return Center(child: BlackProgressIndicatorWidget());
-//                                    }
-                                    return GameCard(widget.game.relatedGames[pos]);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      if (!homeState.isGamePageLoad) prograssIndicator(),
-                    ],
-                  ),
-                ),
+            child: FittedBox(fit: BoxFit.cover,
+            child: InkWell(
+              onTap: (){
+                Navigator.push;
+              },
+              child: SvgPicture.asset(
+                "Assets/interfaceicons/Back_Icon.svg",
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
-    );
+
+      body: StateBuilder(
+        initState: (_, model) {
+          //     print("calling loadGameDetailsPageAPI");
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            homeState.loadDescription(widget.game);
+          });
+        },
+        observe: () => homeState,
+        builder: (context, _) {
+          return Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    centerNameInCenter(
+                      widget.game.name,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    imagesListView(),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    TextWidget(
+                        "About",
+                        20,
+                        20,
+                        0,
+                        0,
+                        FontWeight.w700,
+                        30,
+                        Color.fromRGBO(63, 56, 38, 1),
+                        1),
+                    if (homeState.isDescriptionLoad)
+                      description(
+                        widget.game.description,
+                      ),
+                    if (!homeState.isDescriptionLoad)
+                      prograssIndicator(),
+                    detailsSection(),
+                    TextWidget(
+                        "Where to Buy",
+                        10,
+                        10,
+                        0,
+                        0,
+                        FontWeight.w500,
+                        25,
+                        Color.fromRGBO(63, 56, 38, 1),
+                        1),
+                    storeBuilder(),
+                    //           centerNameInCenter("Games Like  ${widget.game.name}"),
+//                      if (homeState.isGamePageLoad)
+//                        StateBuilder(
+//                          observe: () => homeState,
+//                          builder: (context, _) {
+//                            return Column(
+//                              children: [
+//                                ListView.builder(
+//                                  controller: suggestedGamesScrollControler,
+//                                  //  physics: NeverScrollableScrollPhysics(),
+//                                  shrinkWrap: true,
+//                                  scrollDirection: Axis.vertical,
+//                                  itemCount: widget.game.relatedGames.length,
+//                                  itemBuilder: (_, pos) {
+////                                    if (pos == widget.game.relatedGames.length) {
+////                                      return Center(child: BlackProgressIndicatorWidget());
+////                                    }
+//                                    return GameCard(widget.game.relatedGames[pos]);
+//                                  },
+//                                ),
+//                              ],
+//                            );
+//                          },
+//                        ),
+//                      if (!homeState.isGamePageLoad) prograssIndicator(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    ),);
   }
 
   imagesListView() {
@@ -162,9 +197,27 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextWidget("Platform", 10, 0, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
+                TextWidget(
+                    "Platform",
+                    10,
+                    0,
+                    0,
+                    0,
+                    FontWeight.w500,
+                    25,
+                    Color.fromRGBO(63, 56, 38, 1),
+                    1),
                 showPlatforms(widget.game.platform),
-                TextWidget("Genres", 10, 0, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
+                TextWidget(
+                    "Genres",
+                    10,
+                    0,
+                    0,
+                    0,
+                    FontWeight.w500,
+                    25,
+                    Color.fromRGBO(63, 56, 38, 1),
+                    1),
                 showPlatforms(widget.game.genres),
               ],
             ),
@@ -176,7 +229,16 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextWidget("Metrics", 10, 10, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
+                TextWidget(
+                    "Metrics",
+                    10,
+                    10,
+                    0,
+                    0,
+                    FontWeight.w500,
+                    25,
+                    Color.fromRGBO(63, 56, 38, 1),
+                    1),
                 MetricPoint(widget.game),
                 relaseData(),
               ],
@@ -194,9 +256,26 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextWidget("Release Date", 10, 0, 0, 0, FontWeight.w500, 25, Color.fromRGBO(63, 56, 38, 1), 1),
-          TextWidget("${DateFormat.yMd().format(widget.game.releaseData)}", 10, 0, 0, 0, FontWeight.w400, 17,
-              Colors.white, 1),
+          TextWidget(
+              "Release Date",
+              10,
+              0,
+              0,
+              0,
+              FontWeight.w500,
+              25,
+              Color.fromRGBO(63, 56, 38, 1),
+              1),
+          TextWidget(
+              "${DateFormat.yMd().format(widget.game.releaseData)}",
+              10,
+              0,
+              0,
+              0,
+              FontWeight.w400,
+              17,
+              Colors.white,
+              1),
         ],
       );
     }
@@ -234,8 +313,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
             children: [
               Text(
                 widget.game.stores[index].websiteName,
-                style: GoogleFonts.roboto(
-                    color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
+                style: GoogleFonts.roboto(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: 1),
               ),
               storeIconPlacer(widget.game.stores[index].websiteName),
             ],
@@ -271,7 +349,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
     //  print("${game.stores[0].websiteName}");
     String fullList = "";
     for (int i = 0; i < plat.length; i++) {
-      fullList = fullList + plat[i] + ",";
+      fullList = fullList + plat[i] + "     ";
     }
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
@@ -296,9 +374,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                 children: [
                   Container(
                     height: homeState.height,
-                    child: Text(content,
-                        style: GoogleFonts.roboto(
-                            color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400)),
+                    child: Text(content, style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400)),
                   ),
                 ],
               ),
@@ -329,11 +405,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
                   //      color: Colors.white,
                   child: Text(
                     "${homeState.contentIndicator}",
-                    style: GoogleFonts.roboto(
-                        color: Colors.red,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1),
+                    style: GoogleFonts.roboto(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w700, letterSpacing: 1),
                   ),
                 ),
               ),
@@ -353,10 +425,6 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
     );
   }
 
-
-
-
-
   metricsScore() {
     return Container(
       width: 40,
@@ -366,7 +434,16 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
         border: Border.all(color: Colors.green),
       ),
       child: Center(
-        child: TextWidget("${widget.game.metaScore}", 10, 10, 0, 0, FontWeight.w400, 17, Colors.white, 1),
+        child: TextWidget(
+            "${widget.game.metaScore}",
+            10,
+            10,
+            0,
+            0,
+            FontWeight.w400,
+            17,
+            Colors.white,
+            1),
       ),
     );
   }
@@ -379,8 +456,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Text(
             name,
-            style: GoogleFonts.roboto(
-                color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold, letterSpacing: 2),
+            style: GoogleFonts.roboto(color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold, letterSpacing: 2),
             textAlign: TextAlign.center,
           ),
         ),

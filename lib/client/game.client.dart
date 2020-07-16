@@ -5,7 +5,6 @@ import 'package:gameg/models/generated/page.json.model.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:logger/logger.dart';
 
-
 class GameClient {
   static final GameClient instance = GameClient();
   static final Logger _log = getLogger("GameClient");
@@ -15,8 +14,8 @@ class GameClient {
 
   final Dio dio = Dio();
 
-  Future<List<Game>> loadGamesOnPage(int pageNumber, int genre,String searchText) async {
-  //  _log.i("the search text is  :$searchText");
+  Future<List<Game>> loadGamesOnPage(int pageNumber, int genre, String searchText) async {
+    _log.i("the search text is  :$searchText");
     Map<String, dynamic> queryParameters = {};
     print(genre);
     if (searchText != "") {
@@ -29,8 +28,7 @@ class GameClient {
     queryParameters.putIfAbsent("page_size", () => GAMES_PER_PAGE);
 
     try {
-      _log.i(
-          "loading list of games for page number ${pageNumber} with params $queryParameters}");
+      _log.i("loading list of games for page number ${pageNumber} with params $queryParameters}");
       Response response = await dio.get(GAME_RESOURCE_URL, queryParameters: queryParameters);
       _log.d("got response from rest url: $GAME_RESOURCE_URL");
       _log.d("response data: ${response.data}");
@@ -38,43 +36,52 @@ class GameClient {
       List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
       _log.i("received ${gameList.length} games from rest url");
       return gameList;
-    }catch(error)
-    {
+    } catch (error) {
       return Future.error(error);
     }
   }
 
-  Future getDescriptionAndSuggestedGames(Game game, int suggestionPageNum) async {
-//    _log.i("loading game description for game: ${game.gameId}");
-    String description = await loadGameDescription(game);
+//  Future getDescriptionAndSuggestedGames(Game game, int suggestionPageNum) async {
+////    _log.i("loading game description for game: ${game.gameId}");
+//    String description = await loadGameDescription(game);
+//
+////    _log.i("loading game suggestion for game: ${game.gameId} at pageNum: ${suggestionPageNum}");
+// //   List<Game> suggested = await suggestRelatedGames(game.gameId, suggestionPageNum);
+//   // return Future.value([description, suggested]);
+//    return Future.value([description]);
+//  }
 
-//    _log.i("loading game suggestion for game: ${game.gameId} at pageNum: ${suggestionPageNum}");
-    List<Game> suggested = await suggestRelatedGames(game.gameId, suggestionPageNum);
-    return Future.value([description, suggested]);
-  }
+//  Future suggestRelatedGames(int gameId, int pageNum) async {
+//    Map<String, dynamic> queryParameters = {
+//      "page": pageNum,
+//      "page_size": 40,
+//    };
+//
+//    String url = "$GAME_RESOURCE_URL/$gameId/suggested";
+//    Response response = await dio.get(url, queryParameters: queryParameters);
+//    var games = response.data;
+//    ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(games);
+//    List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
+////    _log.i("receved game suggestion for game: ${gameId} at pageNum: ${pageNum}. no of suggestion: ${gameList.length}");
+//    return gameList;
+//  }
 
-  Future suggestRelatedGames(int gameId, int pageNum) async {
-    Map<String, dynamic> queryParameters = {
-      "page": pageNum,
-      "page_size": 40,
-    };
+  Future loadGameDescription(Game game) async {
+    _log.i("calling loadGameDescription ");
 
-    String url = "$GAME_RESOURCE_URL/$gameId/suggested";
-    Response response = await dio.get(url, queryParameters: queryParameters);
-    var games = response.data;
-    ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(games);
-    List<Game> gameList = Game.getGamesFrom(listOfGamesPage);
-//    _log.i("receved game suggestion for game: ${gameId} at pageNum: ${pageNum}. no of suggestion: ${gameList.length}");
-    return gameList;
-  }
+//    if (game.description != null || game.description != "")
+//      return game.description;
 
-  Future<String> loadGameDescription(Game game) async {
- //   if (game.description != null || game.description != "") return game.description;
+    if (game.description == null || game.description == "")
+      _log.i("game description is empty , going to call api ");
 
     String url = "$GAME_RESOURCE_URL/${game.gameId}";
     Response futurePage = await dio.get(url);
+
     GameCardPageDetails gameCardPageDetails = GameCardPageDetails.fromJson(futurePage.data);
     var descriptionRaw = gameCardPageDetails.descriptionRaw;
-    return descriptionRaw;
+    var website=gameCardPageDetails.website;
+    return Future.value([descriptionRaw, website]);
+ //   return descriptionRaw;
   }
 }

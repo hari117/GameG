@@ -6,7 +6,6 @@ import 'package:gameg/modules/future_network_image/my.image.store.dart';
 import 'package:gameg/modules/future_network_image/network.image.request.model.dart';
 import 'package:gameg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 
-
 class FutureNetworkImage extends StatefulWidget {
   String name;
   String url;
@@ -36,17 +35,13 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
 
   void onImageLocation(String fileLocation) {
     this.imageLocation = fileLocation;
-    log.i("${widget.name}: cache file: $fileLocation");
+//    log.i("${widget.name}: cache file: $fileLocation");
     if (mounted == true) {
-      log.i(
-          "${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest
-              .isVisible} going to call set state");
+ //     log.i("${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest.isVisible} going to call set state");
       // print("calling set state for image: ${widget.name}");
       setState(() {});
     } else {
-      log.i(
-          "${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest
-              .isVisible} not calling set state");
+   //   log.i("${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest.isVisible} not calling set state");
     }
   }
 
@@ -58,6 +53,7 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
 
   @override
   Widget build(BuildContext context) {
+ //   log.i("called FutureNetworkImage class to retrive image ${widget.url}");
     Widget child = _buildWidget(context);
     return VisibilityDetector(
       key: Key(widget.url),

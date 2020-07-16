@@ -17,25 +17,25 @@ class MyImageStore {
   final $sm = LocalSemaphore(_maxCount);
 
   getLocalImagePathForUrl(NetworkImageRequest networkImageRequest) async {
-
-
-    //  log.i("Request received for image: ${_networkImageRequest.url}");
+ //  log.i("Request received for image: ${networkImageRequest.url}");
     String url = networkImageRequest.url;
     final uniqName = await $uniqNameGenerator.uniqNameFor(url);
-    //  log.i("Uniq name: ${networkImageRequest.name} for url: ${_networkImageRequest.url}");
+ //   log.i("Uniq name: ${networkImageRequest.name} for url: ${networkImageRequest.url}");
 
-    //  log.i("${networkImageRequest.name}: looking into cache for cached download");
+ //   log.i("${networkImageRequest.name}: looking into cache for cached download");
 
     bool isImageExists = await $myImageCache.hasImage(uniqName);
     if (isImageExists) {
-      // log.i("${networkImageRequest.name}: image file found in cache");
+  //   log.i("${networkImageRequest.name}: image file found in cache");
       String cachedImagePath = await $myImageCache.getImagePathFor(uniqName);
       networkImageRequest.callback(cachedImagePath);
       return;
     }
 
+
+
     $networkRequestQueue.push(networkImageRequest);
-//    log.i("url added to list");
+  //  log.i("url added to list");
     downloadInBackground();
   }
 
@@ -46,22 +46,21 @@ class MyImageStore {
       final uniqName = await $uniqNameGenerator.uniqNameFor(selectedNetworkImageRequest.url);
 
       //    log.i("url poped from list");
-      log.i(
-          "${selectedNetworkImageRequest.name}: image file not found in cache. going to download $selectedNetworkImageRequest");
+     // log.i("${selectedNetworkImageRequest.name}: image file not found in cache. going to download $selectedNetworkImageRequest");
       String downloadedImagePath = await $myImageDownloader.downloadImage(selectedNetworkImageRequest.url);
-      // log.i("${networkImageRequest.name}: downloaded image path: $downloadedImagePath");
+     //  log.i("${selectedNetworkImageRequest.name}: downloaded image path: $downloadedImagePath");
 
-      // log.i("${networkImageRequest.name}: going to resize downloaded image");
+    //   log.i("${selectedNetworkImageRequest.name}: going to resize downloaded image");
       String resizedImagePath = await $myImageResizer.resizeImage(downloadedImagePath, RESIZE_MIN_WIDTH);
-      log.i("${selectedNetworkImageRequest.name}: resized image path: $resizedImagePath");
+    //  log.i("${selectedNetworkImageRequest.name}: resized image path: $resizedImagePath");
 
-      //   log.i("${networkImageRequest.name}: going to cache resized image");
+      //   log.i("${selectedNetworkImageRequest.name}: going to cache resized image");
       String cachedImagePath = await $myImageCache.moveImageToCache(resizedImagePath, uniqName);
-      log.i("${selectedNetworkImageRequest.name}: cached image path: $cachedImagePath");
+    //  log.i("${selectedNetworkImageRequest.name}: cached image path: $cachedImagePath");
 
       $fileHelper.deleteFile(downloadedImagePath);
 
-      log.i("${selectedNetworkImageRequest.name}: Going to call callback $selectedNetworkImageRequest");
+    //  log.i("${selectedNetworkImageRequest.name}: Going to call callback $selectedNetworkImageRequest");
       selectedNetworkImageRequest.callback(cachedImagePath);
     } catch (e) {} finally {
       $sm.release();
