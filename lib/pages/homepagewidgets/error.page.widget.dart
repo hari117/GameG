@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ErrorPage extends StatelessWidget {
   HomePageState homeState = HomePageState.homePageState;
-  FigmaColors figmaColors = FigmaColors();
+  fignaTheams figmaColors = fignaTheams();
 
   @override
   Widget build(BuildContext context) {

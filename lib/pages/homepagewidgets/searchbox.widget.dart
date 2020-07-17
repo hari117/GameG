@@ -11,7 +11,7 @@ class SearchBox extends StatefulWidget {
 
 class _SearchBoxState extends State<SearchBox> {
   HomePageState homeState = HomePageState.homePageState;
-  FigmaColors figmaColors = FigmaColors();
+  fignaTheams figmaColors = fignaTheams();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _SearchBoxState extends State<SearchBox> {
               observe: () => homeState,
               builder: (context, _) {
                 return TextField(
-                  autofocus:false,
+                //  autofocus:false,
                   style: TextStyle(color: figmaColors.onSurfaceColor_01),
                   decoration: InputDecoration(
                     //search icon

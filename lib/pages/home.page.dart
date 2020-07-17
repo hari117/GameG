@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // static final Logger _log = getLogger("_HomePageState");
-  FigmaColors figmaColors = FigmaColors();
+  fignaTheams figmaColors = fignaTheams();
   ScrollController scrollController = ScrollController();
   HomePageState homeState = HomePageState.homePageState;
 
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                 if (homeState.isError == true && homeState.isLoading == false) {
                   return ErrorPage();
                   //} else if (homeState.isLoading && homeState.listOfGames.length == 0 && homeState.isError==false ) {
-                } else if (homeState.isLoading && homeState.listOfGames.length==0) {
+                } else if (homeState.isLoading && homeState.listOfGames.length==0  ) {
                   return Center(child: BlackProgressIndicatorWidget());
                 } else if (homeState.isLoading == false && homeState.isError == false) {
                   return ListView.builder(

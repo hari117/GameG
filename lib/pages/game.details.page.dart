@@ -26,7 +26,7 @@ class GameDetailsPage extends StatefulWidget {
 }
 
 class _GameDetailsPageState extends State<GameDetailsPage> {
-  FigmaColors figmaColors = FigmaColors();
+  fignaTheams figmaColors = fignaTheams();
   HomePageState homeState = HomePageState.homePageState;
   ScrollController suggestedGamesScrollControler;
 

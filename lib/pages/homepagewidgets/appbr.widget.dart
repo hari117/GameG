@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class GameGAppBar extends StatelessWidget  with PreferredSizeWidget{
   HomePageState homeState = HomePageState.homePageState;
-  FigmaColors figmaColors = FigmaColors();
+  fignaTheams figmaColors = fignaTheams();
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 

@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
 class GameRatings extends StatelessWidget {
-  FigmaColors figmaColors = FigmaColors();
+  fignaTheams fg = fignaTheams();
   Game game;
 
   GameRatings(this.game);
@@ -40,14 +40,18 @@ class GameRatings extends StatelessWidget {
     return Row(
       children: <Widget>[
         SvgPicture.asset("${svgImages[0]}"),
-        Text(
-          "${game.ratingDistribution[0].count}",
-          style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03, fontSize: 16, height: 127),
-        )
+        bodyText_01("{game.ratingDistribution[0].count}")
+
       ],
     );
   }
 
+  bodyText_01(String name) {
+    return Text(
+      name,
+      style: GoogleFonts.roboto(color: fg.onSurfaceColor_03, fontSize: fg.bodyText_01,),
+    );
+  }
   Widget buildLikes() {}
 
   Widget buildDislikes() {}
@@ -61,7 +65,7 @@ class GameRatings extends StatelessWidget {
         ),
         Text(
           "$count",
-          style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03),
+          style: GoogleFonts.roboto(color: fg.onSurfaceColor_03),
         ),
         SizedBox(
           width: 20,

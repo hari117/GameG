@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FigmaColors {
+class fignaTheams {
 // elevations of backgroud
   Color surfaceColor = Color.fromRGBO(25, 29, 32, 1);
   Color elevation_01 = Color.fromRGBO(32, 36, 39, 1);
@@ -13,12 +13,11 @@ class FigmaColors {
   Color onSurfaceColor_01 = Color.fromRGBO(229, 229, 229, 1);
   Color onSurfaceColor_02 = Color.fromRGBO(228, 236, 250, 1);
   Color onSurfaceColor_03 = Color.fromRGBO(153, 163, 186, 1);
+  Color onSurfaceColor_04 = Color.fromRGBO(153, 163, 186, 1);
 
 Color primaryColor=Color.fromRGBO(33,150,243,1);
 
-
 //Text Size
-
   double H1 = 48.83;
   double H2 = 39.06;
   double H3 = 31.25;
@@ -38,4 +37,35 @@ Color primaryColor=Color.fromRGBO(33,150,243,1);
 
   double bodyTextLetterspacing_01 = 5;
   double LT1Letterspacing = 5;
+
+
+
+  // height size(gap)
+
+  height30() {
+    return SizedBox(height: 30);
+  }
+  height25() {
+    return SizedBox(height: 25);
+  }
+
+  height20()
+  {
+    return SizedBox(
+      height: 20,
+    );
+  }
+  height15()
+  {
+    return SizedBox(
+      height: 15,
+    );
+  }
+  height10()
+  {
+    return SizedBox(
+      height: 10,
+    );
+  }
+
 }

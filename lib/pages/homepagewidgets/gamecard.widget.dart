@@ -28,7 +28,7 @@ class GameCard extends StatefulWidget {
 
 class _GameCardState extends State<GameCard> {
   HomePageState homeState = HomePageState.homePageState;
-  FigmaColors figmaColors = FigmaColors();
+  fignaTheams figmaColors = fignaTheams();
 
   Widget build(BuildContext context) {
     print(widget.game.gameId);

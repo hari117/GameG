@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gameg/helperfiles/figma.colors.dart';
-import 'package:gameg/helperfiles/svg.imges.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:gameg/modules/future_network_image/future.network.image.widget.dart';
 import 'package:gameg/pages/homepagewidgets/game.rating.widget.dart';
+import 'package:gameg/pages/homepagewidgets/game.store.button.dart';
 import 'package:gameg/pages/homepagewidgets/platfrom.icons.widget.dart';
 import 'package:gameg/pages/readmore.page.dart';
 import 'package:gameg/rebuilderstates/home.satate.dart';
@@ -15,7 +14,7 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewGameDetailsPage extends StatelessWidget {
-  FigmaColors figmaColors = FigmaColors();
+  fignaTheams fg = fignaTheams();
   HomePageState homeState = HomePageState.homePageState;
   Game game;
 
@@ -23,374 +22,209 @@ class NewGameDetailsPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: figmaColors.elevation_01,
+      backgroundColor: fg.elevation_01,
       //appBar: appbar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 30, left: 15),
-              child: Container(
-                height: 40,
+            appbar(context),
+            gameDetailsTopSection(),
+            deviderWidget(),
+            ratingsGroup(),
+            deviderWidget(),
+            aboutSection(context),
+            deviderWidget(),
+            platfromSection(),
+            secondpart(),
+          ],
+        ),
+      ),
+    );
+  }
 
-                //         color: Colors.red,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: figmaColors.onSurfaceColor_03,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30, bottom: 30, left: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "${game.name}",
-                    style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  PlatformIconsWidget(game),
-                ],
-              ),
-            ),
-            StateBuilder(
-              observe: () => homeState,
-              builder: (context, _) {
-                return Container(
-                  width: double.infinity,
-                  height: 200,
-                  child: gameCardImagePageview(homeState.imageBanner),
-                );
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 30),
-              child: Text(
-                "Screenshots",
-                style: GoogleFonts.roboto(fontSize: figmaColors.bodyText_02, color: figmaColors.onSurfaceColor_01, height: 1, letterSpacing: 1),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0, left: 30),
-              child: SizedBox(
+  appbar(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30, left: 15),
+      child: Container(
+        height: 40,
+        child: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: fg.onSurfaceColor_03,
+          ),
+        ),
+      ),
+    );
+  }
+
+  gameDetailsTopSection() {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 20, bottom: 20, left: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              headingText(game.name),
+              fg.height15(),
+              PlatformIconsWidget(game),
+            ],
+          ),
+        ),
+        StateBuilder(
+          observe: () => homeState,
+          builder: (context, _) {
+            return Container(
+              width: double.infinity,
+              height: 200,
+              child: gameCardImagePageview(homeState.imageBanner),
+            );
+          },
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 30.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              fg.height20(),
+              bodyText_02("Screenshots"),
+              fg.height15(),
+              SizedBox(
                 height: 65,
                 child: ListView(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  children: imagesList(),
+                  children: screenhotsList(),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            deviderWidget(),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0),
-              child: GameRatings(game),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            deviderWidget(),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Text(
-                "About",
-                style: GoogleFonts.roboto(
-                  fontSize: figmaColors.H5,
-                  color: figmaColors.onSurfaceColor_02,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            description(),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                      builder: (context) => ReadMoreDescription(game),
-                    ),
-                  );
-                },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
-                color: figmaColors.elevation_03,
-                child: Text(
-                  "Read More",
-                  style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.bodyText_02),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Text(
-                "Website",
-                style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Website(),
-            SizedBox(
-              height: 20,
-            ),
-            deviderWidget(),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Text(
-                "Platforms",
-                style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 30),
-              child: showPlatformsAndGenres(game.platform),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Text(
-                "Genres",
-                style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 30),
-              child: showPlatformsAndGenres(game.genres),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 30,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Release Date",
-                            style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          relaseData(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Age Rating",
-                            style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text("NA",
-                              style: GoogleFonts.roboto(
-                                  color: figmaColors.onSurfaceColor_03, fontSize: figmaColors.bodyText_02, letterSpacing: 1, height: 1.4)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+              fg.height20(),
 
-            Container(
-              width: double.infinity,
-              color: figmaColors.surfaceColor,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Developers",
-                      style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      "NA",
-                      style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03, fontSize: figmaColors.bodyText_02, letterSpacing: 1, height: 1.4),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Publisher",
-                      style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      "NA",
-                      style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03, fontSize: figmaColors.bodyText_02, letterSpacing: 1, height: 1.4),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Where to Buy",
-                      style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    storeBuilder(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Tags",
-                      style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_02, fontSize: figmaColors.H5),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-
-                    showPlatformsAndGenres(game.listOfTags),
-                    SizedBox(
-                      height: 30,
-                    ),
-
-
-                  ],
-                ),
-              ),
-            )
-          ],
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
-
-  storeBuilder() {
-    return Container(
-      height: 80,
-      width: double.infinity,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: game.stores.length,
-          itemBuilder: (_, pos) {
-            return storeButton(pos);
-          }),
-    );
-  }
-
-  storeButton(int index) {
+  ratingsGroup() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: RaisedButton(
+      padding: const EdgeInsets.only(left: 30.0),
+      child: Column(
+        children: <Widget>[
+          fg.height20(),
+          GameRatings(game),
+          fg.height20(),
+        ],
+      ),
+    );
+  }
 
-        splashColor:figmaColors.primaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: figmaColors.elevation_01,
-        onPressed: () {
-          _launchURL(game.stores[index].url);
-          // print("url lanched");
-        },
-        child: Row(
-          children: [
-            Text(
-              game.stores[index].websiteName,
-              style: GoogleFonts.roboto(color:figmaColors.onSurfaceColor_03, fontSize: figmaColors.bodyText_02, letterSpacing: 1),
-            ),
-            storeIconPlacer(game.stores[index].websiteName),
+  aboutSection(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30, right: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          fg.height20(),
+          headingText("About"),
+          fg.height15(),
+          description(),
+          fg.height10(),
+          readMoreButton(context),
+          fg.height20(),
+          headingText("Website"),
+          fg.height15(),
+          websiteLink(),
+          fg.height20(),
+        ],
+      ),
+    );
+  }
+
+  platfromSection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          fg.height20(),
+          headingText("Platforms"),
+          fg.height15(),
+          showPlatformsAndGenres(game.platform),
+          fg.height20(),
+          headingText("Genres"),
+          fg.height15(),
+          showPlatformsAndGenres(game.genres),
+          fg.height20(),
+          releaseDataAndAgeRating(),
+          fg.height20(),
+        ],
+      ),
+    );
+  }
+
+  secondpart() {
+    return Container(
+      width: double.infinity,
+      color: fg.surfaceColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            fg.height20(),
+            headingText("Devalopers"),
+            fg.height15(),
+            bodyText_02("NA"),
+            fg.height20(),
+            headingText("Publishers"),
+            fg.height15(),
+            bodyText_02("NA"),
+
+            fg.height20(),
+            headingText("Where To Buy"),
+            fg.height15(),
+            StoreButtons(game),
+            fg.height20(),
+            headingText("Tags"),
+            fg.height15(),
+            tagsGenerator(game.listOfTags),
+            fg.height20(),
           ],
         ),
       ),
     );
   }
 
-  storeIconPlacer(String storeName) {
-//    print("the icon name is ********$storeName*********");
-    if (SvgImagesMap.shopIcons.containsKey(storeName))
-      return Padding(
-        padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-        child: SvgPicture.asset(
-          SvgImagesMap.shopIcons['$storeName'],
-          width: 30,color: figmaColors.primaryColor,
-        ),
-      );
-    else
-      return SizedBox();
+  readMoreButton(BuildContext context) {
+    return FlatButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => ReadMoreDescription(game),
+          ),
+        );
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+      color: fg.elevation_03,
+      child: Text(
+        "Read More",
+        style: GoogleFonts.roboto(color: fg.onSurfaceColor_02, fontSize: fg.bodyText_02),
+      ),
+    );
   }
-
-  _launchURL(String urlpage) async {
-    if (await canLaunch(urlpage)) {
-      await launch(urlpage);
-    } else {
-      throw 'Could not launch $urlpage';
-    }
-  }
-
-
 
   relaseData() {
     if (game.releaseData == null) {
-      return Text("NA");
+      return bodyText_02("NA");
     } else {
-      return Text("${DateFormat.yMd().format(game.releaseData)}",
-          style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03, fontSize: figmaColors.bodyText_02, letterSpacing: 1, height: 1.4));
+      return bodyText_02("${DateFormat.yMd().format(game.releaseData)}");
+//
     }
   }
 
@@ -400,22 +234,22 @@ class NewGameDetailsPage extends StatelessWidget {
     for (int i = 0; i < plat.length; i++) {
       fullList = fullList + plat[i] + "     ";
     }
-    return Text("$fullList",
-        style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03, fontSize: figmaColors.bodyText_02, letterSpacing: 1, height: 1.4));
+    return bodyText_02("$fullList");
   }
-
-  Website() {
+  tagsGenerator(List<String> plat) {
+    //  print("${game.stores[0].websiteName}");
+    String fullList = "";
+    for (int i = 0; i < plat.length; i++) {
+      fullList = fullList + plat[i] + "     ";
+    }
+    return LT1Text("$fullList");
+  }
+  websiteLink() {
     return StateBuilder(
         observe: () => homeState,
         builder: (content, _) {
           if (homeState.isDescriptionLoad)
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                game.website,
-                style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03, fontSize: figmaColors.bodyText_02, letterSpacing: 1, height: 1.4),
-              ),
-            );
+            return bodyText_02(game.website);
           if (!homeState.isDescriptionLoad)
             return Center(
               child: SizedBox(),
@@ -428,15 +262,9 @@ class NewGameDetailsPage extends StatelessWidget {
         observe: () => homeState,
         builder: (content, _) {
           if (homeState.isDescriptionLoad)
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Container(
-                height: 119,
-                child: Text(
-                  game.description,
-                  style: GoogleFonts.roboto(color: figmaColors.onSurfaceColor_03, fontSize: figmaColors.bodyText_02, letterSpacing: 1, height: 1.4),
-                ),
-              ),
+            return Container(
+              height: 100,
+              child: bodyText_01(game.description),
             );
           if (!homeState.isDescriptionLoad)
             return Container(
@@ -450,46 +278,56 @@ class NewGameDetailsPage extends StatelessWidget {
         });
   }
 
-  deviderWidget() {
-    return Opacity(
-      opacity: .1,
-      child: Divider(
-        thickness: 1,
-        color: Colors.white,
-      ),
-    );
-  }
 
-  appbar() {
-    return AppBar(
-      elevation: 0,
-      leading: IconButton(
-        onPressed: () {
-          Navigator.push;
-        },
-        icon: Icon(
-          Icons.arrow_back,
-          color: figmaColors.onSurfaceColor_03,
+
+  releaseDataAndAgeRating() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        fg.height15(),
+        Expanded(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                headingText("Release Date"),
+                fg.height15(),
+                relaseData(),
+              ],
+            ),
+          ),
         ),
-      ),
-      backgroundColor: figmaColors.elevation_01,
+        Expanded(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                headingText("Age Rating"),
+                fg.height15(),
+                bodyText_02("NA"),
+
+              ],
+            ),
+          ),
+        ),
+
+      ],
     );
   }
 
   gameCardImagePageview(int index) {
-    print("image position $index");
     return FutureNetworkImage(game.name, game.screenShotUrls[index]);
   }
 
-  imagesList() {
+  screenhotsList() {
     List<Widget> list = [];
     for (int i = 0; i < game.screenShotUrls.length; i++) {
-      list.add(downloadImage(i));
+      list.add(screenshots(i));
     }
     return list;
   }
 
-  downloadImage(int imagePosition) {
+  screenshots(int imagePosition) {
     return StateBuilder(
       observe: () => homeState,
       builder: (context, _) {
@@ -500,12 +338,51 @@ class NewGameDetailsPage extends StatelessWidget {
               homeState.imageBannerUpdate(imagePosition);
             },
             child: Container(
-              padding: EdgeInsets.all(3),
+              padding: EdgeInsets.all(2),
               child: gameCardImagePageview(imagePosition),
             ),
           ),
         );
       },
+    );
+  }
+
+  deviderWidget() {
+    return Opacity(
+      opacity: .1,
+      child: Divider(
+        thickness: 1,
+        color: Colors.white,
+      ),
+    );
+  }
+
+
+
+  headingText(String name) {
+    return Text(
+      name,
+      style: GoogleFonts.roboto(color: fg.onSurfaceColor_01, fontSize: fg.H5,height: 1.5,letterSpacing: .5),
+    );
+  }
+
+  bodyText_01(String name) {
+    return Text(
+      name,
+      style: GoogleFonts.roboto(color: fg.onSurfaceColor_03, fontSize: fg.bodyText_01,letterSpacing: 1.1,height: 1.5),
+    );
+  }
+  bodyText_02(String name) {
+    return Text(
+      name,
+      style: GoogleFonts.roboto(color: fg.onSurfaceColor_03, fontSize: fg.bodyText_02,letterSpacing: 1.3,height: 1.3),
+    );
+  }
+  LT1Text(String name) {
+    print("called lt1Text");
+    return Text(
+      name,
+      style: GoogleFonts.roboto(color: fg.onSurfaceColor_03, fontSize: fg.LT1,letterSpacing: 1.7,height: 1.5),
     );
   }
 }

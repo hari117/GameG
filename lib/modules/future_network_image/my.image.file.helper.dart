@@ -66,7 +66,7 @@ class MyImageFileHelper {
 
   Future<String> getFileFromCacheWithoutExtension(String uniqName) async {
     String path = p.join(APP_CACHE_DIR, CACHE_IMAGES_DIR);
-    print("the cache directory path $path");
+  //  print("the cache directory path $path");
     Directory root = Directory(path);
     List<FileSystemEntity> files = await dirContents(root);
     List<String> paths = files.map((f) => f.path).toList();

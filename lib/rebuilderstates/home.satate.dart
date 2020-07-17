@@ -48,6 +48,7 @@ class HomePageState extends StatesRebuilder {
   loadNextPage() async {
     //  print("calling $pageNumber.0 page");
     isLoading = true;
+    isError=false;
    // rebuildStates();
 
     print("the searchText is $searchText");
