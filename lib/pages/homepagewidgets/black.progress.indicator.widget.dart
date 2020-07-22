@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gameg/helperfiles/figma.colors.dart';
 
-class BlackProgressIndicatorWidget extends StatelessWidget {
+class BlueProgressIndicatorWidget extends StatelessWidget {
   fignaTheams figmaColors = fignaTheams();
   @override
   Widget build(BuildContext context) {
@@ -9,5 +9,13 @@ class BlackProgressIndicatorWidget extends StatelessWidget {
       backgroundColor: figmaColors.primaryColor,
       valueColor: AlwaysStoppedAnimation<Color>(figmaColors.elevation_03),
     );
+  }
+}
+
+class EmptyBlueProgressIndicatorWidget extends StatelessWidget {
+  fignaTheams figmaColors = fignaTheams();
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox();
   }
 }

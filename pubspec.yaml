@@ -64,14 +64,12 @@ flutter:
      - Assets/interfaceicons/Search_Icon.svg
      - Assets/interfaceicons/Tick_Icon.svg
 
-     - Assets/storeicons/xbox360store.svg
-     - Assets/storeicons/steam.svg
-     - Assets/storeicons/gog.svg
-     - Assets/storeicons/ps.svg
-     - Assets/storeicons/nitendo.svg
-     - Assets/storeicons/epicgames.svg
-     - Assets/storeicons/appstore.svg
-     - Assets/storeicons/googleplaystore.svg
+
+     - Assets/storeicons/AppStore_Icon.svg
+     - Assets/storeicons/EpicStore_Icon.svg
+     - Assets/storeicons/GogStore_Icon.svg
+     - Assets/storeicons/PlayStore_Icon.svg
+     - Assets/storeicons/SteamStore_Icon.svg
 
      - Assets/genresicons/Action.png
      - Assets/genresicons/Adventure.png

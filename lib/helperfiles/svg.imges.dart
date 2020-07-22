@@ -12,14 +12,14 @@ class SvgImagesMap {
   };
 
   static Map<String, String> shopIcons = {
-    'Xbox 360 Store': "Assets/storeicons/xbox360store.svg",
-    'Steam': "Assets/storeicons/steam.svg",
-    'GOG': "Assets/storeicons/gog.svg",
-    'Xbox Store': "Assets/storeicons/xbox360store.svg",
-    'PlayStation Store': "Assets/storeicons/ps.svg",
-    'Nintendo Store': "Assets/storeicons/nitendo.svg",
-    'Epic Games': "Assets/storeicons/epicgames.svg",
-    'App Store': "Assets/storeicons/appstore.svg",
-    'Google Play': "Assets/storeicons/googleplaystore.svg",
+    'PlayStation Store': "Assets/platformicons/PS4_Icon.svg",
+    'Xbox 360 Store': "Assets/platformicons/Xbox_Icon.svg",
+    'Nintendo Store': "Assets/platformicons/Nitendo_Icon.svg",
+    'Xbox Store': "Assets/platformicons/Xbox_Icon.svg",
+    'Steam': "Assets/storeicons/SteamStore_Icon.svg",
+    'GOG': "Assets/storeicons/GogStore_Icon.svg",
+    'Epic Games': "Assets/storeicons/EpicStore_Icon.svg",
+    'App Store': "Assets/storeicons/AppStore_Icon.svg",
+    'Google Play': "Assets/storeicons/PlatStore_Icon.svg",
   };
 }

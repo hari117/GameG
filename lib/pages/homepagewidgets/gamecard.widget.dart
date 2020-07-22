@@ -10,9 +10,11 @@ import 'package:gameg/modules/future_network_image/future.network.image.widget.d
 import 'package:gameg/pages/game.details.page.dart';
 import 'package:gameg/pages/homepagewidgets/game.rating.widget.dart';
 import 'package:gameg/pages/homepagewidgets/metricpoint.widget.dart';
-import 'package:gameg/pages/homepagewidgets/platfrom.icons.widget.dart';
-import 'package:gameg/pages/newGamedetailspage.dart';
+import 'file:///D:/Flutter%20Apps/RealTimeApps/gameg/lib/ui/widgets/platfrom.icons.widget.dart';
 import 'package:gameg/rebuilderstates/home.satate.dart';
+import 'package:gameg/ui/widgets/theme/text.theme.dart';
+import 'package:gameg/ui/widgets/theme/util.widgets.theme.dart';
+import 'file:///D:/Flutter%20Apps/RealTimeApps/gameg/lib/ui/page/game_detail_page/newGamedetailspage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -31,7 +33,6 @@ class _GameCardState extends State<GameCard> {
   fignaTheams figmaColors = fignaTheams();
 
   Widget build(BuildContext context) {
-    print(widget.game.gameId);
     return StateBuilder(
       observe: () => homeState,
       builder: (context, _) {
@@ -74,27 +75,20 @@ class _GameCardState extends State<GameCard> {
   gameCardTopPart() {
     return Container(
       // height: 72,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 30.0, top: 20),
+      child: PagePadding(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "${widget.game.name} ",
-              style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 15,
-            ),
+            VS3(),
+            H5(widget.game.name),
+            VS2(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 PlatformIconsWidget(widget.game),
               ],
             ),
-            SizedBox(
-              height: 15,
-            ),
+            VS2(),
           ],
         ),
       ),
@@ -106,8 +100,7 @@ class _GameCardState extends State<GameCard> {
   }
 
   gameCardBottomPart() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20.0),
+    return PagePadding(
       child: Container(
         width: double.infinity,
         height: 59,
@@ -119,5 +112,4 @@ class _GameCardState extends State<GameCard> {
   gameCardImagePageview(int index) {
     return FutureNetworkImage(widget.game.name, widget.game.screenShotUrls[index]);
   }
-
 }

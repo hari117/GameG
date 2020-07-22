@@ -10,8 +10,17 @@ class SearchBox extends StatefulWidget {
 }
 
 class _SearchBoxState extends State<SearchBox> {
+  final TextEditingController _controller = new TextEditingController();
   HomePageState homeState = HomePageState.homePageState;
   fignaTheams figmaColors = fignaTheams();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +33,7 @@ class _SearchBoxState extends State<SearchBox> {
               observe: () => homeState,
               builder: (context, _) {
                 return TextField(
+                  controller: _controller,
                 //  autofocus:false,
                   style: TextStyle(color: figmaColors.onSurfaceColor_01),
                   decoration: InputDecoration(
@@ -57,6 +67,7 @@ class _SearchBoxState extends State<SearchBox> {
 
                   onChanged: (value) {
                     homeState.searchText = value;
+                    print("textfeild value is ${homeState.searchText}");
                   },
                 );
               },

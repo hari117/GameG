@@ -1,5 +1,3 @@
-
-
 import 'package:gameg/models/generated/page.json.model.dart';
 
 class Game {
@@ -9,13 +7,13 @@ class Game {
   String name;
   String imageUrl;
   String description = "";
-  String website="";
+  String website = "";
 
   DateTime releaseData;
 
   List<String> genres = List();
   List<String> platform = List();
-  List<String> listOfTags=List();
+  List<String> listOfTags = List();
   List<PlatformName> parentPlatform = List();
   List<String> screenShotUrls = List();
 
@@ -77,25 +75,11 @@ class Game {
 
       //adding tags to the game object
 
+      for (Genre genres in result.tags) {
+        String singleTag = genres.name;
 
-      for(Genre genres in result.tags)
-        {
-
-          String singleTag=genres.name;
-
-          game.listOfTags.add(genres.name);
-
-
-        }
-
-
-
-
-
-
-
-
-
+        game.listOfTags.add(genres.name);
+      }
 
       //adding ratings to the gameObject
       newGameList.add(game);

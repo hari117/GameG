@@ -420,7 +420,7 @@ class _GameDetailsPageState extends State<GameDetailsPage> {
     return SizedBox(
       height: 300,
       child: Center(
-        child: BlackProgressIndicatorWidget(),
+        child: BlueProgressIndicatorWidget(),
       ),
     );
   }

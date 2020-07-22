@@ -15,7 +15,7 @@ class fignaTheams {
   Color onSurfaceColor_03 = Color.fromRGBO(153, 163, 186, 1);
   Color onSurfaceColor_04 = Color.fromRGBO(153, 163, 186, 1);
 
-Color primaryColor=Color.fromRGBO(33,150,243,1);
+  Color primaryColor = Color.fromRGBO(33, 150, 243, 1);
 
 //Text Size
   double H1 = 48.83;
@@ -27,45 +27,39 @@ Color primaryColor=Color.fromRGBO(33,150,243,1);
   double bodyText_02 = 12.8;
   double LT1 = 12.8;
 
-//text height
-
+  //text height
   double bodyTextHeight_01 = 1.7;
   double bodyTextHeight_02 = 130;
   double LT1Height = 175;
 
-  // text letterspacing
-
+  // text letter spacing
   double bodyTextLetterspacing_01 = 5;
   double LT1Letterspacing = 5;
 
-
-
   // height size(gap)
-
   height30() {
     return SizedBox(height: 30);
   }
+
   height25() {
     return SizedBox(height: 25);
   }
 
-  height20()
-  {
+  height20() {
     return SizedBox(
       height: 20,
     );
   }
-  height15()
-  {
+
+  height15() {
     return SizedBox(
       height: 15,
     );
   }
-  height10()
-  {
+
+  height10() {
     return SizedBox(
       height: 10,
     );
   }
-
 }

@@ -10,7 +10,7 @@ class GameClient {
   static final Logger _log = getLogger("GameClient");
 
   final String GAME_RESOURCE_URL = "https://api.rawg.io/api/games";
-  final int GAMES_PER_PAGE = 40;
+  final int GAMES_PER_PAGE = 20;
 
   final Dio dio = Dio();
 
@@ -18,10 +18,12 @@ class GameClient {
     _log.i("the search text is  :$searchText");
     Map<String, dynamic> queryParameters = {};
     print(genre);
-    if (searchText != "") {
-      queryParameters.putIfAbsent("search", () => searchText);
+    if (searchText != "" && searchText != null) {
+      _log.i("Adding search queryparameter to the api $searchText");
+        queryParameters.putIfAbsent("search", () => searchText);
+
     }
-    if (genre != 0) {
+    if (genre != 0 && searchText ==null && searchText =="") {
       queryParameters.putIfAbsent("genres", () => genre);
     }
     queryParameters.putIfAbsent("page", () => pageNumber);
@@ -72,8 +74,8 @@ class GameClient {
 //    if (game.description != null || game.description != "")
 //      return game.description;
 
-    if (game.description == null || game.description == "")
-      _log.i("game description is empty , going to call api ");
+//    if (game.description == null || game.description == "")
+//   _log.i("game description is empty , going to call api ");
 
     String url = "$GAME_RESOURCE_URL/${game.gameId}";
     Response futurePage = await dio.get(url);

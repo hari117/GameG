@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                   return ErrorPage();
                   //} else if (homeState.isLoading && homeState.listOfGames.length == 0 && homeState.isError==false ) {
                 } else if (homeState.isLoading && homeState.listOfGames.length==0  ) {
-                  return Center(child: BlackProgressIndicatorWidget());
+                  return Center(child: BlueProgressIndicatorWidget());
                 } else if (homeState.isLoading == false && homeState.isError == false) {
                   return ListView.builder(
                     controller: scrollController,
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (_, pos) {
                       // show loading when reached end of list
                       if (pos == homeState.listOfGames.length) {
-                        return Center(child: BlackProgressIndicatorWidget());
+                        return Center(child: BlueProgressIndicatorWidget());
                       }
                       Game game = homeState.listOfGames[pos];
 
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                     },
                   );
                 }
-              }),
+              },),
         )
       ],
     );

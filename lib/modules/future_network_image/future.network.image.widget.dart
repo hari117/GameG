@@ -72,7 +72,7 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
   @override
   Widget _buildWidget(BuildContext context) {
     if (imageLocation == null || imageLocation == "") {
-      return Center(child: BlackProgressIndicatorWidget());
+      return Center(child: BlueProgressIndicatorWidget());
     } else {
       return Image.file(
         File(imageLocation),
