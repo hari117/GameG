@@ -11,27 +11,30 @@ class GameClient {
 
   final String GAME_RESOURCE_URL = "https://api.rawg.io/api/games";
   final int GAMES_PER_PAGE = 20;
+  final int GAMES_PER_SEARCH = 5;
 
   final Dio dio = Dio();
 
   Future<List<Game>> loadGamesOnPage(int pageNumber, int genre, String searchText) async {
-    _log.i("the search text is  :$searchText");
     Map<String, dynamic> queryParameters = {};
     print(genre);
     if (searchText != "" && searchText != null) {
       _log.i("Adding search queryparameter to the api $searchText");
-        queryParameters.putIfAbsent("search", () => searchText);
-
+      queryParameters.putIfAbsent("search", () => searchText);
+      queryParameters.putIfAbsent("page_size", () => GAMES_PER_SEARCH);
+    } else {
+      queryParameters.putIfAbsent("page_size", () => GAMES_PER_PAGE);
     }
-    if (genre != 0 && searchText ==null && searchText =="") {
-      queryParameters.putIfAbsent("genres", () => genre);
-    }
+//    if (genre != 0 && searchText == null && searchText == "") {
+//      queryParameters.putIfAbsent("genres", () => genre);
+//    }
     queryParameters.putIfAbsent("page", () => pageNumber);
-    queryParameters.putIfAbsent("page_size", () => GAMES_PER_PAGE);
 
     try {
       _log.i("loading list of games for page number ${pageNumber} with params $queryParameters}");
+      _log.i("THe Normal Query is $GAME_RESOURCE_URL");
       Response response = await dio.get(GAME_RESOURCE_URL, queryParameters: queryParameters);
+      _log.d("Responce: $response");
       _log.d("got response from rest url: $GAME_RESOURCE_URL");
       _log.d("response data: ${response.data}");
       ListOfGamesPage listOfGamesPage = ListOfGamesPage.fromJson(response.data);
@@ -39,6 +42,7 @@ class GameClient {
       _log.i("received ${gameList.length} games from rest url");
       return gameList;
     } catch (error) {
+      print(error);
       return Future.error(error);
     }
   }
@@ -82,8 +86,11 @@ class GameClient {
 
     GameCardPageDetails gameCardPageDetails = GameCardPageDetails.fromJson(futurePage.data);
     var descriptionRaw = gameCardPageDetails.descriptionRaw;
-    var website=gameCardPageDetails.website;
+    var website = gameCardPageDetails.website;
+    if (website == null || website == "") {
+      website = "NA";
+    }
     return Future.value([descriptionRaw, website]);
- //   return descriptionRaw;
+    //   return descriptionRaw;
   }
 }

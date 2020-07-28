@@ -15,6 +15,10 @@ class fignaTheams {
   Color onSurfaceColor_03 = Color.fromRGBO(153, 163, 186, 1);
   Color onSurfaceColor_04 = Color.fromRGBO(153, 163, 186, 1);
 
+
+
+
+
   Color primaryColor = Color.fromRGBO(33, 150, 243, 1);
 
 //Text Size

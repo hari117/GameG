@@ -18,30 +18,43 @@ class FutureNetworkImage extends StatefulWidget {
 
 class _FutureNetworkImageState extends State<FutureNetworkImage> {
   final log = getLogger("_FutureNetworkImageState");
+  bool isVisible = false;
 
-  String imageLocation;
+  String diskImagePath;
   NetworkImageRequest _networkImageRequest = NetworkImageRequest();
 
   @override
   void initState() {
     super.initState();
-    _networkImageRequest.url = widget.url;
-    _networkImageRequest.isVisible = false;
-    _networkImageRequest.name = widget.name;
-    _networkImageRequest.callback = onImageLocation;
+    createNetworkImageRequest();
+  }
 
+  setVisibility(bool isVisible) {
+    this.isVisible = isVisible;
+    _networkImageRequest.isVisible = isVisible;
+  }
+
+  void createNetworkImageRequest() {
+    if (widget.url == _networkImageRequest.url) {
+      return;
+    }
+
+    _networkImageRequest.url = widget.url;
+    _networkImageRequest.name = widget.name;
+    _networkImageRequest.isVisible = isVisible;
+    _networkImageRequest.callback = onImageLocation;
     $myImageStore.getLocalImagePathForUrl(_networkImageRequest);
   }
 
   void onImageLocation(String fileLocation) {
-    this.imageLocation = fileLocation;
-//    log.i("${widget.name}: cache file: $fileLocation");
+    this.diskImagePath = fileLocation;
+    log.i("${widget.name}: cache file: $fileLocation");
     if (mounted == true) {
- //     log.i("${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest.isVisible} going to call set state");
-      // print("calling set state for image: ${widget.name}");
+      log.i("${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest.isVisible} going to call set state");
+      print("calling set state for image: ${widget.name}");
       setState(() {});
     } else {
-   //   log.i("${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest.isVisible} not calling set state");
+      log.i("${widget.name}: Got cached version of image:  isMounted: $mounted isVisible: ${_networkImageRequest.isVisible} not calling set state");
     }
   }
 
@@ -53,16 +66,18 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
 
   @override
   Widget build(BuildContext context) {
- //   log.i("called FutureNetworkImage class to retrive image ${widget.url}");
+    createNetworkImageRequest();
+    log.i("called FutureNetworkImage class to retrive image ${widget.url}");
+    log.i("called FutureNetworkImage class to network url ${_networkImageRequest.url}");
     Widget child = _buildWidget(context);
     return VisibilityDetector(
       key: Key(widget.url),
       onVisibilityChanged: (info) {
         print("Visibility for: ${widget.name} = ${info.visibleFraction}");
         if (info.visibleFraction > 0.0) {
-          _networkImageRequest.isVisible = true;
+          setVisibility(true);
         } else {
-          _networkImageRequest.isVisible = false;
+          setVisibility(false);
         }
       },
       child: child,
@@ -71,11 +86,13 @@ class _FutureNetworkImageState extends State<FutureNetworkImage> {
 
   @override
   Widget _buildWidget(BuildContext context) {
-    if (imageLocation == null || imageLocation == "") {
-      return Center(child: BlueProgressIndicatorWidget());
+    if (diskImagePath == null || diskImagePath == "") {
+      return Center(
+        child: BlueProgressIndicatorWidget(),
+      );
     } else {
       return Image.file(
-        File(imageLocation),
+        File(diskImagePath),
         fit: BoxFit.cover,
       );
     }

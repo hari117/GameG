@@ -13,20 +13,18 @@ class TagsGenerator extends StatelessWidget {
   Widget build(BuildContext context) {
     String fullList = "";
     for (int i = 0; i < game.listOfTags.length; i++) {
-      fullList = fullList + game.listOfTags[i] + "     ";
+      fullList = fullList + game.listOfTags[i] + "        ";
     }
-   return PagePadding(
-     child: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
-       children: <Widget>[
-
-         H5("Tags"),
-         VS2(),
-         LT1("$fullList"),
-         VS3(),
-       ],
-     ),
-   );
+    return PagePadding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          H5("Tags"),
+          VS2(),
+          LT1("$fullList"),
+          VS3(),
+        ],
+      ),
+    );
   }
-
 }

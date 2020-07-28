@@ -3,7 +3,7 @@ import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:gameg/ui/widgets/theme/text.theme.dart';
 import 'package:gameg/ui/widgets/theme/util.widgets.theme.dart';
 import 'package:intl/intl.dart';
-
+import 'package:gameg/helperfiles/string.extentions.dart';
 class DetailsPagePlatformSection extends StatelessWidget {
   Game game;
 
@@ -33,8 +33,10 @@ class DetailsPagePlatformSection extends StatelessWidget {
 
   showPlatformsAndGenres(List<String> plat) {
     String fullList = "";
+    String temp="";
     for (int i = 0; i < plat.length; i++) {
-      fullList = fullList + plat[i] + "     ";
+       temp=plat[i].capitalize();
+      fullList = fullList + temp + "     ";
     }
     return BT2("$fullList");
   }

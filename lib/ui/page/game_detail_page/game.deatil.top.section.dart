@@ -33,6 +33,9 @@ class GameDetailTopSection extends StatelessWidget {
       selectableImageWidgets.add(ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         child: InkWell(
+          onTap: () {
+            $imageSelectionState.setIndex(ii);
+          },
           child: Container(
             padding: EdgeInsets.all(2),
             child: FutureNetworkImage(game.name, game.screenShotUrls[ii]),
@@ -42,16 +45,18 @@ class GameDetailTopSection extends StatelessWidget {
     }
 
     return StateBuilder(
-      observe: () => homeState,
+      observe: () => $imageSelectionState,
       builder: (context, _) {
+        String url = game.screenShotUrls[$imageSelectionState.selectedImageIndex];
+        print("Selected: ${$imageSelectionState.selectedImageIndex}");
+        print(url);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: double.infinity,
               height: 200,
-              color: Colors.red,
-              child: FutureNetworkImage(game.name, game.screenShotUrls[0]),
+              child: FutureNetworkImage(game.name, url),
             ),
             VS3(),
             PagePadding(child: BT1("Screenshots")),
@@ -69,5 +74,17 @@ class GameDetailTopSection extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+var $imageSelectionState = ImageSelectionState();
+
+class ImageSelectionState extends StatesRebuilder {
+  int selectedImageIndex = 0;
+
+  setIndex(int index) {
+    selectedImageIndex = index;
+    print("index $index");
+    rebuildStates();
   }
 }

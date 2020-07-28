@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gameg/helperfiles/figma.colors.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:gameg/pages/homepagewidgets/game.rating.widget.dart';
@@ -22,6 +23,8 @@ class ReadMoreDescriptionPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            VS3(),
+            VS2(),
             appbar(context),
             bodyContainer(),
           ],
@@ -31,28 +34,23 @@ class ReadMoreDescriptionPage extends StatelessWidget {
   }
 
   appbar(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15),
-      child: IconButton(
-        onPressed: () {
+    return PagePadding(
+      child: InkWell(
+        onTap: (){
           Navigator.pop(context);
         },
-        icon: Icon(
-          Icons.arrow_back,
-          color: fg.onSurfaceColor_03,
-        ),
+        child: SvgPicture.asset("Assets/interfaceicons/Back_Icon.svg"),
       ),
     );
   }
 
   bodyContainer() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 30.0, right: 20),
+    return PagePadding(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          fg.height20(),
           VS3(),
+          VS2(),
           H5(game.name),
           VS2(),
           PlatformIconsWidget(game),

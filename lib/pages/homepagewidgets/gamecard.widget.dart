@@ -1,21 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gameg/helperfiles/figma.colors.dart';
-import 'package:gameg/helperfiles/svg.imges.dart';
-import 'package:gameg/models/generated/page.json.model.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:gameg/modules/future_network_image/future.network.image.widget.dart';
-import 'package:gameg/pages/game.details.page.dart';
 import 'package:gameg/pages/homepagewidgets/game.rating.widget.dart';
-import 'package:gameg/pages/homepagewidgets/metricpoint.widget.dart';
-import 'file:///D:/Flutter%20Apps/RealTimeApps/gameg/lib/ui/widgets/platfrom.icons.widget.dart';
 import 'package:gameg/rebuilderstates/home.satate.dart';
+import 'package:gameg/ui/page/game_detail_page/game.details.page.dart';
+import 'package:gameg/ui/widgets/platfrom.icons.widget.dart';
 import 'package:gameg/ui/widgets/theme/text.theme.dart';
 import 'package:gameg/ui/widgets/theme/util.widgets.theme.dart';
-import 'file:///D:/Flutter%20Apps/RealTimeApps/gameg/lib/ui/page/game_detail_page/newGamedetailspage.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:states_rebuilder/states_rebuilder.dart';
 

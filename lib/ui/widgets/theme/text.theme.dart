@@ -108,11 +108,15 @@ class BT1 extends StatelessWidget {
   String text;
   TextOverflow overflow;
   int maxLines;
+  double lineHeight;
 
-  BT1(this.text, {this.overflow, this.maxLines});
+  BT1(this.text, {this.overflow, this.maxLines, this.lineHeight});
 
   @override
   Widget build(BuildContext context) {
+    if (lineHeight == null) {
+      lineHeight = $appTheme.lh_1;
+    }
     return Text(
       text,
       overflow: overflow,
@@ -120,6 +124,8 @@ class BT1 extends StatelessWidget {
       style: GoogleFonts.roboto(
         color: $appTheme.onSurfaceColor_1,
         fontSize: $appTheme.bt_1,
+        height: lineHeight,
+        letterSpacing: 0.8,
       ),
     );
   }
@@ -127,16 +133,25 @@ class BT1 extends StatelessWidget {
 
 class BT2 extends StatelessWidget {
   String text;
+  TextOverflow overflow;
+  int maxLines;
+  double lineHeight;
 
-  BT2(this.text);
+  BT2(this.text, {this.overflow, this.maxLines, this.lineHeight});
 
   @override
   Widget build(BuildContext context) {
+    if (lineHeight == null) {
+      lineHeight = $appTheme.lh_2;
+    }
     return Text(
       text,
+      overflow: overflow,
+      maxLines: maxLines,
       style: GoogleFonts.roboto(
         color: $appTheme.onSurfaceColor_2,
         fontSize: $appTheme.bt_2,
+        height: lineHeight,
       ),
     );
   }
@@ -144,16 +159,22 @@ class BT2 extends StatelessWidget {
 
 class LT1 extends StatelessWidget {
   String text;
+  double lineHeight;
 
-  LT1(this.text);
+  LT1(this.text, {this.lineHeight});
 
   @override
   Widget build(BuildContext context) {
+    if (lineHeight == null) {
+      lineHeight = $appTheme.lh_3;
+    }
+
     return Text(
       text,
       style: GoogleFonts.roboto(
         color: $appTheme.onSurfaceColor_3,
         fontSize: $appTheme.lt_1,
+        height: lineHeight,
       ),
     );
   }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gameg/helperfiles/figma.colors.dart';
+import 'package:gameg/ui/widgets/theme/app.theme.dart';
 
 class BlueProgressIndicatorWidget extends StatelessWidget {
   fignaTheams figmaColors = fignaTheams();
   @override
   Widget build(BuildContext context) {
     return CircularProgressIndicator(
-      backgroundColor: figmaColors.primaryColor,
-      valueColor: AlwaysStoppedAnimation<Color>(figmaColors.elevation_03),
+      backgroundColor: $appTheme.primaryColor,
+      valueColor: AlwaysStoppedAnimation<Color>($appTheme.surfaceColor),
     );
   }
 }

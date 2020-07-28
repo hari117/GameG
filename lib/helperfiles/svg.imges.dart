@@ -20,6 +20,11 @@ class SvgImagesMap {
     'GOG': "Assets/storeicons/GogStore_Icon.svg",
     'Epic Games': "Assets/storeicons/EpicStore_Icon.svg",
     'App Store': "Assets/storeicons/AppStore_Icon.svg",
-    'Google Play': "Assets/storeicons/PlatStore_Icon.svg",
+    'Google Play': "Assets/storeicons/PlayStore_Icon.svg",
   };
+
+
+  String forStoreIcon(String name){
+
+  }
 }

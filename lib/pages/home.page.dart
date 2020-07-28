@@ -10,6 +10,8 @@ import 'package:gameg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:gameg/pages/homepagewidgets/searchbox.widget.dart';
 import 'package:gameg/pages/menu.page.dart';
 import 'package:gameg/rebuilderstates/home.satate.dart';
+import 'package:gameg/ui/widgets/theme/text.theme.dart';
+import 'package:gameg/ui/widgets/theme/util.widgets.theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import "package:gameg/helperfiles/string.extentions.dart";
@@ -65,9 +67,8 @@ class _HomePageState extends State<HomePage> {
           homeState.resetState();
           homeState.loadNextPage();
         },
-        child: Text(
-          "GAMEG",
-          style: GoogleFonts.roboto(fontSize: 20, color: figmaColors.onSurfaceColor_01),
+        child: PagePadding(
+          child: H5("GAMEG"),
         ),
       ),
       //  centerTitle: false,
@@ -77,34 +78,48 @@ class _HomePageState extends State<HomePage> {
   buildListGames() {
     return Column(
       children: <Widget>[
-        SearchBox(),
         Expanded(
           child: StateBuilder(
-              observe: () => homeState,
-              builder: (context, _) {
-                if (homeState.isError == true && homeState.isLoading == false) {
-                  return ErrorPage();
-                  //} else if (homeState.isLoading && homeState.listOfGames.length == 0 && homeState.isError==false ) {
-                } else if (homeState.isLoading && homeState.listOfGames.length==0  ) {
-                  return Center(child: BlueProgressIndicatorWidget());
-                } else if (homeState.isLoading == false && homeState.isError == false) {
-                  return ListView.builder(
-                    controller: scrollController,
-                    itemCount: homeState.listOfGames.length + 1,
-                    itemBuilder: (_, pos) {
-                      // show loading when reached end of list
-                      if (pos == homeState.listOfGames.length) {
-                        return Center(child: BlueProgressIndicatorWidget());
-                      }
-                      Game game = homeState.listOfGames[pos];
+            observe: () => homeState,
+            builder: (context, _) {
+              if (homeState.isError == true && homeState.isLoading == false) {
+                return ErrorPage();
+                //} else if (homeState.isLoading && homeState.listOfGames.length == 0 && homeState.isError==false ) {
+              } else if (homeState.isLoading && homeState.listOfGames.length == 0) {
+                return Center(child: BlueProgressIndicatorWidget());
+              } else if (homeState.isLoading == false && homeState.isError == false) {
+                return ListView.builder(
+                  controller: scrollController,
+                  itemCount: homeState.listOfGames.length + 1,
+                  itemBuilder: (_, pos) {
+                    // show loading when reached end of list
+                    if (pos == homeState.listOfGames.length) {
+                      return Center(child: BlueProgressIndicatorWidget());
+                    }
+                    Game game = homeState.listOfGames[pos];
 
-                      return GameCard(game);
-                    },
-                  );
-                }
-              },),
+                    return GameCard(game);
+                  },
+                );
+              }
+            },
+          ),
         )
       ],
+    );
+  }
+
+  filterWidget() {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => MenuOptions(),
+          ),
+        );
+      },
+      child: SvgPicture.asset("Assets/interfaceicons/Filter_Icon.svg"),
     );
   }
 }

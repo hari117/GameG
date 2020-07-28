@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gameg/client/game.client.dart';
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:gameg/pages/readmore.page.dart';
-import 'package:gameg/ui/widgets/devider.widget.dart';
 import 'package:gameg/ui/widgets/theme/app.theme.dart';
 import 'package:gameg/ui/widgets/theme/text.theme.dart';
+import 'package:gameg/ui/widgets/theme/url.button.widget.dart';
 import 'package:gameg/ui/widgets/theme/util.widgets.theme.dart';
-
+import 'package:gameg/ui/widgets/theme/url.button.widget.dart';
 class GameDetailAboutSection extends StatelessWidget {
   final Game game;
 
@@ -19,7 +19,7 @@ class GameDetailAboutSection extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return MT3(child: MB3(child: Center(child: CircularProgressIndicator())));
+            return MT3(child: MB3(child: Center(child: Container(height: 200,width: double.infinity,))));
           default:
             if (snapshot.hasError)
               return Center(child: Text('Error: ${snapshot.error}'));
@@ -42,8 +42,14 @@ class GameDetailAboutSection extends StatelessWidget {
           readMoreButton(context),
           VS3(),
           H5("Website"),
-          VS2(),
-          BT2(game.website),
+          VS1(),
+          InkWell(
+            onTap: (){
+              launchURL(game.website);
+            },
+            child: BT2(game.website),
+          ),
+        //  UrlFlatButton(url: game.website),
           VS3(),
         ],
       ),
