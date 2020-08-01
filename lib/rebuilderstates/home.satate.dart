@@ -21,7 +21,7 @@ class HomePageState extends StatesRebuilder {
   String genres;
   String platform;
   String contentIndicator = "Showless..";
-  String searchText=null;
+  String searchText="gta";
 
   bool showHigh = false;
   bool isLoading = false;
