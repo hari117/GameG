@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gameg/helperfiles/figma.colors.dart';
-import 'package:gameg/helperfiles/logger.helper.dart';
+
 import 'package:gameg/models/userGenarated/game.model.dart';
 import 'package:gameg/pages/homepagewidgets/appbr.widget.dart';
 import 'package:gameg/pages/homepagewidgets/black.progress.indicator.widget.dart';
 import 'package:gameg/pages/homepagewidgets/error.page.widget.dart';
 import 'package:gameg/pages/homepagewidgets/gamecard.widget.dart';
 import 'package:gameg/pages/homepagewidgets/searchbox.widget.dart';
-import 'package:gameg/pages/menu.page.dart';
+
 import 'package:gameg/rebuilderstates/home.satate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import "package:gameg/helperfiles/string.extentions.dart";
-import 'package:gameg/pages/homepagewidgets/appbr.widget.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
